@@ -9,7 +9,8 @@
       "WebFetch(domain:base-info.com)",
       "WebFetch(domain:www.homemate-research-baseball.com)",
       "WebFetch(domain:ja.wikipedia.org)",
-      "WebFetch(domain:nationalstadium-tours.com)"
+      "WebFetch(domain:nationalstadium-tours.com)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
