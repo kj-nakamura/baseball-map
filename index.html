@@ -47,7 +47,8 @@
       }
 
       #map {
-        height: 600px;
+        height: 80vh;
+        min-height: 700px;
         width: 100%;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -126,38 +127,28 @@
       <p><strong>リーグ:</strong> <span id="league"></span></p>
     </div>
 
-    <script>
-      let GOOGLE_MAPS_API_KEY = '';
+    <script type="module">
+      // 環境変数からAPIキーを取得
+      const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-      // .envからAPIキーを取得
-      async function loadConfig() {
-        try {
-          const response = await fetch('/api/config');
-          const config = await response.json();
-          GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
-          
-          // Google Maps APIを動的に読み込み
-          const script = document.createElement('script');
-          script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initGoogleMaps&language=ja&region=JP`;
-          script.async = true;
-          script.defer = true;
-          document.head.appendChild(script);
-        } catch (error) {
-          console.error('設定の読み込みに失敗しました:', error);
+      // Google Maps APIを動的に読み込み
+      function loadGoogleMapsAPI() {
+        if (!GOOGLE_MAPS_API_KEY) {
+          console.error('Google Maps API キーが設定されていません');
+          return;
         }
+        
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap&language=ja&region=JP`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
       }
 
-      function initGoogleMaps() {
-        if (typeof google !== "undefined" && google.maps) {
-          initMap();
-        } else {
-          console.error("Google Maps API の読み込みに失敗しました");
-        }
-      }
 
-      // ページ読み込み時に設定を取得
-      document.addEventListener('DOMContentLoaded', loadConfig);
+      // ページ読み込み時にAPIを読み込み
+      document.addEventListener('DOMContentLoaded', loadGoogleMapsAPI);
     </script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

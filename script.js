@@ -168,8 +168,11 @@ const japaneseMapStyle = [
     }
 ];
 
-// 地図を初期化
-function initMap() {
+// 環境変数からAPIキーを取得
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+// 地図を初期化（グローバルスコープに公開）
+window.initMap = function() {
     // 日本の中心座標
     const japanCenter = { lat: 36.2048, lng: 138.2529 };
     
@@ -188,16 +191,24 @@ function initMap() {
     // InfoWindow を初期化
     infoWindow = new google.maps.InfoWindow();
     
-    // 日本全体が見えるように境界を設定
+    // 日本全体が見えるように境界を設定（より狭い範囲で大きく表示）
     const japanBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(24.0, 122.7), // 南西
-        new google.maps.LatLng(45.7, 154.0)  // 北東
+        new google.maps.LatLng(30.0, 128.0), // 南西（沖縄を含む）
+        new google.maps.LatLng(46.0, 146.0)  // 北東（北海道を含む）
     );
     map.fitBounds(japanBounds);
     
+    // パディングを追加してマーカーが端に来すぎないように調整
+    map.fitBounds(japanBounds, {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50
+    });
+    
     // すべての球団マーカーを表示
     showAllTeams();
-}
+};
 
 // マーカーをクリアする
 function clearMarkers() {
@@ -269,33 +280,33 @@ function addMarker(team) {
 }
 
 // すべての球団を表示
-function showAllTeams() {
+window.showAllTeams = function() {
     clearMarkers();
     baseballTeams.forEach(team => {
         addMarker(team);
     });
     updateActiveButton(0);
-}
+};
 
 // セ・リーグのみ表示
-function showCentralLeague() {
+window.showCentralLeague = function() {
     clearMarkers();
     const centralTeams = baseballTeams.filter(team => team.league === "セントラル・リーグ");
     centralTeams.forEach(team => {
         addMarker(team);
     });
     updateActiveButton(1);
-}
+};
 
 // パ・リーグのみ表示
-function showPacificLeague() {
+window.showPacificLeague = function() {
     clearMarkers();
     const pacificTeams = baseballTeams.filter(team => team.league === "パシフィック・リーグ");
     pacificTeams.forEach(team => {
         addMarker(team);
     });
     updateActiveButton(2);
-}
+};
 
 // アクティブなボタンを更新
 function updateActiveButton(activeIndex) {
