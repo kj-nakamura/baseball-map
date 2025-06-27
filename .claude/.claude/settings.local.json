@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(printenv)",
+      "Bash(env)",
+      "Bash(printenv)",
+      "Bash(touch:*)",
+      "Bash(python3:*)",
+      "Bash(mkdir:*)",
+      "Bash(iconv:*)",
+      "Bash(python:*)",
+      "Bash(find:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(pkill:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm test)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote add:*)",
+      "Bash(npm run test:ci:*)",
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:paiza.jp)",
+      "WebFetch(domain:www.green-japan.com)",
+      "Bash(node:*)",
+      "Bash(true)",
+      "Bash(mv:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(echo:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "WebFetch(domain:zenn.dev)",
+      "Bash(git rm:*)",
+      "Bash(timeout 10s npm start)",
+      "Bash(PORT=3003 timeout 10s npm start)"
+    ],
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

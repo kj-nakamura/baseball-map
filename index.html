@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>プロ野球12球団本拠地マップ</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .header h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .league-toggle {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .league-btn {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .league-btn.active {
+        background-color: #2c3e50;
+      }
+
+      .league-btn:hover {
+        opacity: 0.8;
+      }
+
+      #map {
+        height: 600px;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .team-info {
+        background-color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .central-league {
+        color: #e74c3c;
+      }
+
+      .pacific-league {
+        color: #3498db;
+      }
+
+      .legend {
+        background-color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .legend-item {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 10px;
+      }
+
+      .legend-color {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>プロ野球12球団本拠地マップ</h1>
+      <p>日本プロ野球12球団の本拠地球場を地図上で確認できます</p>
+    </div>
+
+    <div class="league-toggle">
+      <button class="league-btn active" onclick="showAllTeams()">全球団</button>
+      <button class="league-btn" onclick="showCentralLeague()">セ・リーグ</button>
+      <button class="league-btn" onclick="showPacificLeague()">パ・リーグ</button>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="legend">
+      <h3>凡例</h3>
+      <div class="legend-item">
+        <span class="legend-color" style="background-color: #e74c3c"></span>
+        セントラル・リーグ
+      </div>
+      <div class="legend-item">
+        <span class="legend-color" style="background-color: #3498db"></span>
+        パシフィック・リーグ
+      </div>
+    </div>
+
+    <div class="team-info" id="team-info" style="display: none">
+      <h3 id="team-name"></h3>
+      <p><strong>球場名:</strong> <span id="stadium-name"></span></p>
+      <p><strong>所在地:</strong> <span id="location"></span></p>
+      <p><strong>リーグ:</strong> <span id="league"></span></p>
+    </div>
+
+    <script>
+      let GOOGLE_MAPS_API_KEY = '';
+
+      // .envからAPIキーを取得
+      async function loadConfig() {
+        try {
+          const response = await fetch('/api/config');
+          const config = await response.json();
+          GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
+          
+          // Google Maps APIを動的に読み込み
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initGoogleMaps&language=ja&region=JP`;
+          script.async = true;
+          script.defer = true;
+          document.head.appendChild(script);
+        } catch (error) {
+          console.error('設定の読み込みに失敗しました:', error);
+        }
+      }
+
+      function initGoogleMaps() {
+        if (typeof google !== "undefined" && google.maps) {
+          initMap();
+        } else {
+          console.error("Google Maps API の読み込みに失敗しました");
+        }
+      }
+
+      // ページ読み込み時に設定を取得
+      document.addEventListener('DOMContentLoaded', loadConfig);
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

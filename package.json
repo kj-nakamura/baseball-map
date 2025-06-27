@@ -1,0 +1,18 @@
+{
+  "name": "baseball-map",
+  "version": "1.0.0",
+  "description": "プロ野球12球団本拠地マップ",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "keywords": ["baseball", "map", "japan", "npb"],
+  "author": "",
+  "license": "MIT"
+}

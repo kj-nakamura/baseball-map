@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "WebFetch(domain:npb.jp)",
+      "Bash(python:*)",
+      "Bash(npm install)",
+      "Bash(npm start)"
+    ],
+    "deny": []
+  }
+}
