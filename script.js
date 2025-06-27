@@ -3,7 +3,8 @@ const leagueColors = {
     "セントラル・リーグ": "#e74c3c",      // 赤
     "パシフィック・リーグ": "#3498db",    // 青
     "イースタン・リーグ": "#f39c12",      // オレンジ
-    "ウエスタン・リーグ": "#27ae60"       // 緑
+    "ウエスタン・リーグ": "#27ae60",      // 緑
+    "地方開催球場": "#9b59b6"             // 紫
 };
 
 // プロ野球12球団のデータ
@@ -262,6 +263,280 @@ const baseballTeams = [
         color: leagueColors["イースタン・リーグ"],
         detailUrl: "https://www.seibulions.jp/",
         type: "farm"
+    },
+    // 地方開催球場（2025年1軍公式戦）
+    {
+        name: "ヨーク開成山スタジアム",
+        stadium: "ヨーク開成山スタジアム（開成山野球場）",
+        location: "福島県郡山市",
+        league: "地方開催球場",
+        lat: 37.39867,
+        lng: 140.35899,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?046",
+        type: "regional",
+        capacity: 18220,
+        games2025: 1
+    },
+    {
+        name: "こまちスタジアム",
+        stadium: "こまちスタジアム（秋田県立野球場）",
+        location: "秋田県秋田市",
+        league: "地方開催球場",
+        lat: 39.72377,
+        lng: 140.06837,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?031",
+        type: "regional",
+        capacity: 25000,
+        games2025: 1
+    },
+    {
+        name: "富山市民球場アルペンスタジアム",
+        stadium: "富山市民球場アルペンスタジアム",
+        location: "富山県富山市",
+        league: "地方開催球場",
+        lat: 36.73069,
+        lng: 137.26193,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?052",
+        type: "regional",
+        capacity: 25000,
+        games2025: 1
+    },
+    {
+        name: "ほっともっとフィールド神戸",
+        stadium: "ほっともっとフィールド神戸",
+        location: "兵庫県神戸市",
+        league: "地方開催球場",
+        lat: 34.6847,
+        lng: 135.1711,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?185",
+        type: "regional",
+        capacity: 35000,
+        games2025: 5
+    },
+    {
+        name: "沖縄セルラースタジアム那覇",
+        stadium: "沖縄セルラースタジアム那覇",
+        location: "沖縄県那覇市",
+        league: "地方開催球場",
+        lat: 26.2124,
+        lng: 127.6792,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?287",
+        type: "regional",
+        capacity: 20000,
+        games2025: 2
+    },
+    {
+        name: "きらやかスタジアム",
+        stadium: "きらやかスタジアム",
+        location: "山形県山形市",
+        league: "地方開催球場",
+        lat: 38.2414,
+        lng: 140.3633,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?025",
+        type: "regional",
+        capacity: 12272,
+        games2025: 1
+    },
+    {
+        name: "県営あづま球場",
+        stadium: "県営あづま球場",
+        location: "福島県福島市",
+        league: "地方開催球場",
+        lat: 37.7608,
+        lng: 140.4747,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?048",
+        type: "regional",
+        capacity: 30000,
+        games2025: 1
+    },
+    {
+        name: "静岡草薙球場",
+        stadium: "静岡草薙球場",
+        location: "静岡県静岡市",
+        league: "地方開催球場",
+        lat: 34.9756,
+        lng: 138.3925,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?137",
+        type: "regional",
+        capacity: 21656,
+        games2025: 1
+    },
+    {
+        name: "はるか夢球場",
+        stadium: "はるか夢球場（弘前市運動公園野球場）",
+        location: "青森県弘前市",
+        league: "地方開催球場",
+        lat: 40.5906,
+        lng: 140.4747,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?021",
+        type: "regional",
+        capacity: 15050,
+        games2025: 1
+    },
+    {
+        name: "石川県立野球場",
+        stadium: "石川県立野球場",
+        location: "石川県金沢市",
+        league: "地方開催球場",
+        lat: 36.5944,
+        lng: 136.6256,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?061",
+        type: "regional",
+        capacity: 25000,
+        games2025: 1
+    },
+    {
+        name: "長良川球場",
+        stadium: "ぎふしん長良川球場",
+        location: "岐阜県岐阜市",
+        league: "地方開催球場",
+        lat: 35.4178,
+        lng: 136.7625,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?086",
+        type: "regional",
+        capacity: 30000,
+        games2025: 1
+    },
+    {
+        name: "倉敷マスカットスタジアム",
+        stadium: "倉敷マスカットスタジアム",
+        location: "岡山県倉敷市",
+        league: "地方開催球場",
+        lat: 34.5833,
+        lng: 133.7500,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?194",
+        type: "regional",
+        capacity: 30670,
+        games2025: 1
+    },
+    {
+        name: "HARD OFF ECOスタジアム新潟",
+        stadium: "HARD OFF ECOスタジアム新潟",
+        location: "新潟県新潟市",
+        league: "地方開催球場",
+        lat: 37.9167,
+        lng: 139.0333,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?099",
+        type: "regional",
+        capacity: 25025,
+        games2025: 1
+    },
+    {
+        name: "上毛新聞敷島球場",
+        stadium: "上毛新聞敷島球場",
+        location: "群馬県前橋市",
+        league: "地方開催球場",
+        lat: 36.3667,
+        lng: 139.0500,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?065",
+        type: "regional",
+        capacity: 17000,
+        games2025: 1
+    },
+    {
+        name: "北九州市民球場",
+        stadium: "北九州市民球場",
+        location: "福岡県北九州市",
+        league: "地方開催球場",
+        lat: 33.8833,
+        lng: 130.8833,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?244",
+        type: "regional",
+        capacity: 15000,
+        games2025: 1
+    },
+    {
+        name: "ヤマリョースタジアム山形",
+        stadium: "ヤマリョースタジアム山形",
+        location: "山形県中山町",
+        league: "地方開催球場",
+        lat: 38.3667,
+        lng: 140.1833,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?026",
+        type: "regional",
+        capacity: 25000,
+        games2025: 1
+    },
+    {
+        name: "いわきグリーンスタジアム",
+        stadium: "ヨークいわきスタジアム（いわきグリーンスタジアム）",
+        location: "福島県いわき市",
+        league: "地方開催球場",
+        lat: 37.017,
+        lng: 140.860,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?047",
+        type: "regional",
+        capacity: 30000,
+        games2025: 1
+    },
+    {
+        name: "青森県営野球場",
+        stadium: "青森県営野球場",
+        location: "青森県青森市",
+        league: "地方開催球場",
+        lat: 40.8244,
+        lng: 140.7406,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?022",
+        type: "regional",
+        capacity: 25000,
+        games2025: 1
+    },
+    {
+        name: "岩手県営野球場",
+        stadium: "岩手県営野球場",
+        location: "岩手県盛岡市",
+        league: "地方開催球場",
+        lat: 39.7036,
+        lng: 141.1528,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?023",
+        type: "regional",
+        capacity: 25000,
+        games2025: 1
+    },
+    {
+        name: "県営宮城球場",
+        stadium: "県営宮城球場",
+        location: "宮城県仙台市",
+        league: "地方開催球場",
+        lat: 38.3150,
+        lng: 140.9022,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?027",
+        type: "regional",
+        capacity: 23000,
+        games2025: 1
+    },
+    {
+        name: "坊っちゃんスタジアム",
+        stadium: "坊っちゃんスタジアム（松山中央公園野球場）",
+        location: "愛媛県松山市",
+        league: "地方開催球場",
+        lat: 33.8033,
+        lng: 132.7392,
+        color: leagueColors["地方開催球場"],
+        detailUrl: "https://npb.jp/stadium/detail.html?230",
+        type: "regional",
+        capacity: 30000,
+        games2025: 1
     }
 ];
 
@@ -374,14 +649,38 @@ function addMarker(team) {
     const position = { lat: team.lat, lng: team.lng };
     
     // カスタムマーカーアイコンを作成
-    const markerIcon = {
-        path: team.type === 'farm' ? google.maps.SymbolPath.FORWARD_CLOSED_ARROW : google.maps.SymbolPath.CIRCLE,
-        scale: team.type === 'farm' ? 10 : 12,
-        fillColor: team.color,
-        fillOpacity: team.type === 'farm' ? 0.6 : 0.8,
-        strokeColor: '#ffffff',
-        strokeWeight: 3
-    };
+    let markerIcon;
+    if (team.type === 'regional') {
+        // 地方開催球場用ダイヤモンドマーカー
+        markerIcon = {
+            path: 'M 0,-10 L 7,0 L 0,10 L -7,0 Z',  // ダイヤモンド形状
+            scale: 1.2,
+            fillColor: team.color,
+            fillOpacity: 0.8,
+            strokeColor: '#ffffff',
+            strokeWeight: 2
+        };
+    } else if (team.type === 'farm') {
+        // ファーム球場用矢印マーカー
+        markerIcon = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+            scale: 10,
+            fillColor: team.color,
+            fillOpacity: 0.6,
+            strokeColor: '#ffffff',
+            strokeWeight: 3
+        };
+    } else {
+        // 1軍本拠地用円マーカー
+        markerIcon = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            fillColor: team.color,
+            fillOpacity: 0.8,
+            strokeColor: '#ffffff',
+            strokeWeight: 3
+        };
+    }
     
     const marker = new google.maps.Marker({
         position: position,
@@ -392,7 +691,21 @@ function addMarker(team) {
     });
     
     // InfoWindow のコンテンツ
-    const teamType = team.type === 'farm' ? '（ファーム）' : '';
+    let teamType = '';
+    let additionalInfo = '';
+    
+    if (team.type === 'farm') {
+        teamType = '（ファーム）';
+    } else if (team.type === 'regional') {
+        teamType = '（地方開催）';
+        if (team.capacity) {
+            additionalInfo += `<p style="margin: 3px 0; font-size: 12px;">収容人数: ${team.capacity.toLocaleString()}人</p>`;
+        }
+        if (team.games2025) {
+            additionalInfo += `<p style="margin: 3px 0; font-size: 12px;">2025年開催: ${team.games2025}試合</p>`;
+        }
+    }
+    
     const infoContent = `
         <div style="text-align: center; min-width: 200px;">
             <h4 style="margin: 5px 0; color: ${team.color};">
@@ -401,7 +714,8 @@ function addMarker(team) {
             <p style="margin: 3px 0;"><strong>${team.stadium}</strong></p>
             <p style="margin: 3px 0;">${team.location}</p>
             <p style="margin: 3px 0; font-size: 12px; color: #666;">${team.league}${teamType}</p>
-            <p style="margin: 5px 0; font-size: 11px; color: #999;">球団名をクリックで詳細ページへ</p>
+            ${additionalInfo}
+            <p style="margin: 5px 0; font-size: 11px; color: #999;">球場名をクリックで詳細ページへ</p>
         </div>
     `;
     
@@ -437,7 +751,7 @@ window.showCentralLeague = function() {
     centralTeams.forEach(team => {
         addMarker(team);
     });
-    updateActiveButton(3);
+    updateActiveButton(4);
 };
 
 // パ・リーグのみ表示
@@ -447,7 +761,7 @@ window.showPacificLeague = function() {
     pacificTeams.forEach(team => {
         addMarker(team);
     });
-    updateActiveButton(4);
+    updateActiveButton(5);
 };
 
 // イースタン・リーグのみ表示
@@ -457,7 +771,7 @@ window.showEasternLeague = function() {
     easternTeams.forEach(team => {
         addMarker(team);
     });
-    updateActiveButton(5);
+    updateActiveButton(6);
 };
 
 // ウエスタン・リーグのみ表示
@@ -467,7 +781,7 @@ window.showWesternLeague = function() {
     westernTeams.forEach(team => {
         addMarker(team);
     });
-    updateActiveButton(6);
+    updateActiveButton(7);
 };
 
 // 1軍のみ表示
@@ -488,6 +802,16 @@ window.showFarmTeams = function() {
         addMarker(team);
     });
     updateActiveButton(2);
+};
+
+// 地方開催球場のみ表示
+window.showRegionalStadiums = function() {
+    clearMarkers();
+    const regionalTeams = baseballTeams.filter(team => team.type === 'regional');
+    regionalTeams.forEach(team => {
+        addMarker(team);
+    });
+    updateActiveButton(3);
 };
 
 // アクティブなボタンを更新
