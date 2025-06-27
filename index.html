@@ -46,6 +46,29 @@
         opacity: 0.8;
       }
 
+      .league-btn.central {
+        background-color: #e74c3c;
+      }
+
+      .league-btn.pacific {
+        background-color: #3498db;
+      }
+
+      .league-btn.eastern {
+        background-color: #f39c12;
+      }
+
+      .league-btn.western {
+        background-color: #27ae60;
+      }
+
+      .league-btn.central.active,
+      .league-btn.pacific.active,
+      .league-btn.eastern.active,
+      .league-btn.western.active {
+        background-color: #2c3e50;
+      }
+
       #map {
         height: 80vh;
         min-height: 700px;
@@ -101,9 +124,16 @@
     </div>
 
     <div class="league-toggle">
-      <button class="league-btn active" onclick="showAllTeams()">全球団</button>
-      <button class="league-btn" onclick="showCentralLeague()">セ・リーグ</button>
-      <button class="league-btn" onclick="showPacificLeague()">パ・リーグ</button>
+      <button class="league-btn active" onclick="showAllTeams()">全球場</button>
+      <button class="league-btn" onclick="showMainTeams()">1軍のみ</button>
+      <button class="league-btn" onclick="showFarmTeams()">ファームのみ</button>
+    </div>
+    
+    <div class="league-toggle">
+      <button class="league-btn central" onclick="showCentralLeague()">セ・リーグ</button>
+      <button class="league-btn pacific" onclick="showPacificLeague()">パ・リーグ</button>
+      <button class="league-btn eastern" onclick="showEasternLeague()">イースタン</button>
+      <button class="league-btn western" onclick="showWesternLeague()">ウエスタン</button>
     </div>
 
     <div id="map"></div>
@@ -111,12 +141,30 @@
     <div class="legend">
       <h3>凡例</h3>
       <div class="legend-item">
-        <span class="legend-color" style="background-color: #e74c3c"></span>
-        セントラル・リーグ
+        <span class="legend-color" style="background-color: #e74c3c; border-radius: 50%;"></span>
+        セントラル・リーグ（1軍）
       </div>
       <div class="legend-item">
-        <span class="legend-color" style="background-color: #3498db"></span>
-        パシフィック・リーグ
+        <span class="legend-color" style="background-color: #3498db; border-radius: 50%;"></span>
+        パシフィック・リーグ（1軍）
+      </div>
+      <div class="legend-item">
+        <span class="legend-color" style="background-color: #f39c12; 
+              width: 0; height: 0; border-radius: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 16px solid #f39c12;
+              display: inline-block; vertical-align: middle;"></span>
+        イースタン・リーグ（ファーム）
+      </div>
+      <div class="legend-item">
+        <span class="legend-color" style="background-color: #27ae60;
+              width: 0; height: 0; border-radius: 0;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              border-bottom: 16px solid #27ae60;
+              display: inline-block; vertical-align: middle;"></span>
+        ウエスタン・リーグ（ファーム）
       </div>
     </div>
 

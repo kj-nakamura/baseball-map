@@ -5,7 +5,9 @@
       "WebFetch(domain:npb.jp)",
       "Bash(python:*)",
       "Bash(npm install)",
-      "Bash(npm start)"
+      "Bash(npm start)",
+      "WebFetch(domain:base-info.com)",
+      "WebFetch(domain:www.homemate-research-baseball.com)"
     ],
     "deny": []
   }
