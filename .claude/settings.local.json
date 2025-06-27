@@ -10,7 +10,8 @@
       "WebFetch(domain:www.homemate-research-baseball.com)",
       "WebFetch(domain:ja.wikipedia.org)",
       "WebFetch(domain:nationalstadium-tours.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(gh repo create:*)"
     ],
     "deny": []
   }
