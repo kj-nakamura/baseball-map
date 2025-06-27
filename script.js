@@ -592,16 +592,27 @@ window.initMap = function() {
     // 日本の中心座標
     const japanCenter = { lat: 36.2048, lng: 138.2529 };
     
+    // レスポンシブ対応: デバイスサイズに応じて初期ズームレベルを調整
+    const isMobile = window.innerWidth <= 480;
+    const isTablet = window.innerWidth <= 768;
+    let initialZoom = 6;
+    
+    if (isMobile) {
+        initialZoom = 5;
+    } else if (isTablet) {
+        initialZoom = 5.5;
+    }
+    
     // Google Map を初期化
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
+        zoom: initialZoom,
         center: japanCenter,
         styles: japaneseMapStyle,
         mapTypeControl: false,
         streetViewControl: false,
-        fullscreenControl: true,
+        fullscreenControl: !isMobile, // モバイルではフルスクリーンボタンを非表示
         zoomControl: true,
-        gestureHandling: 'cooperative'
+        gestureHandling: isMobile ? 'greedy' : 'cooperative' // モバイルでは単指操作を有効
     });
     
     // InfoWindow を初期化
@@ -624,6 +635,12 @@ window.initMap = function() {
     
     // すべての球団マーカーを表示
     showAllTeams();
+    
+    // ウィンドウリサイズ時に地図を再描画
+    window.addEventListener('resize', function() {
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(japanCenter);
+    });
 };
 
 // マーカーをクリアする
@@ -648,37 +665,41 @@ function showTeamInfo(team) {
 function addMarker(team) {
     const position = { lat: team.lat, lng: team.lng };
     
+    // レスポンシブ対応: デバイスサイズに応じてマーカーサイズを調整
+    const isMobileDevice = window.innerWidth <= 480;
+    const sizeMultiplier = isMobileDevice ? 0.8 : 1;
+    
     // カスタムマーカーアイコンを作成
     let markerIcon;
     if (team.type === 'regional') {
         // 地方開催球場用ダイヤモンドマーカー
         markerIcon = {
             path: 'M 0,-10 L 7,0 L 0,10 L -7,0 Z',  // ダイヤモンド形状
-            scale: 1.2,
+            scale: 1.2 * sizeMultiplier,
             fillColor: team.color,
             fillOpacity: 0.8,
             strokeColor: '#ffffff',
-            strokeWeight: 2
+            strokeWeight: isMobileDevice ? 1.5 : 2
         };
     } else if (team.type === 'farm') {
         // ファーム球場用矢印マーカー
         markerIcon = {
             path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-            scale: 10,
+            scale: 10 * sizeMultiplier,
             fillColor: team.color,
             fillOpacity: 0.6,
             strokeColor: '#ffffff',
-            strokeWeight: 3
+            strokeWeight: isMobileDevice ? 2 : 3
         };
     } else {
         // 1軍本拠地用円マーカー
         markerIcon = {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: 12,
+            scale: 12 * sizeMultiplier,
             fillColor: team.color,
             fillOpacity: 0.8,
             strokeColor: '#ffffff',
-            strokeWeight: 3
+            strokeWeight: isMobileDevice ? 2 : 3
         };
     }
     
@@ -706,16 +727,22 @@ function addMarker(team) {
         }
     }
     
+    // レスポンシブ対応: モバイルでInfoWindowのサイズを調整
+    const isMobileInfo = window.innerWidth <= 480;
+    const minWidth = isMobileInfo ? '150px' : '200px';
+    const fontSize = isMobileInfo ? '11px' : '12px';
+    const smallFontSize = isMobileInfo ? '9px' : '11px';
+    
     const infoContent = `
-        <div style="text-align: center; min-width: 200px;">
-            <h4 style="margin: 5px 0; color: ${team.color};">
+        <div style="text-align: center; min-width: ${minWidth};">
+            <h4 style="margin: 5px 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
                 <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${team.name}</a>
             </h4>
-            <p style="margin: 3px 0;"><strong>${team.stadium}</strong></p>
-            <p style="margin: 3px 0;">${team.location}</p>
-            <p style="margin: 3px 0; font-size: 12px; color: #666;">${team.league}${teamType}</p>
+            <p style="margin: 3px 0; font-size: ${fontSize};"><strong>${team.stadium}</strong></p>
+            <p style="margin: 3px 0; font-size: ${fontSize};">${team.location}</p>
+            <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${team.league}${teamType}</p>
             ${additionalInfo}
-            <p style="margin: 5px 0; font-size: 11px; color: #999;">球場名をクリックで詳細ページへ</p>
+            <p style="margin: 5px 0; font-size: ${smallFontSize}; color: #999;">球場名をクリックで詳細ページへ</p>
         </div>
     `;
     
