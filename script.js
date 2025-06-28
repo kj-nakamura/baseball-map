@@ -79,7 +79,8 @@ const baseballTeams = [
         lat: 33.5957,
         lng: 130.3619,
         color: leagueColors["パシフィック・リーグ"],
-        detailUrl: "https://npb.jp/stadium/detail.html?245"
+        detailUrl: "https://npb.jp/stadium/detail.html?245",
+        guideUrl: "hawks-guide.html"
     },
     {
         name: "北海道日本ハムファイターズ",
@@ -100,7 +101,8 @@ const baseballTeams = [
         lat: 35.6470,
         lng: 140.0316,
         color: leagueColors["パシフィック・リーグ"],
-        detailUrl: "https://npb.jp/stadium/detail.html?073"
+        detailUrl: "https://npb.jp/stadium/detail.html?073",
+        guideUrl: "marines-guide.html"
     },
     {
         name: "東北楽天ゴールデンイーグルス",
@@ -110,7 +112,8 @@ const baseballTeams = [
         lat: 38.2566,
         lng: 140.9015,
         color: leagueColors["パシフィック・リーグ"],
-        detailUrl: "https://npb.jp/stadium/detail.html?029"
+        detailUrl: "https://npb.jp/stadium/detail.html?029",
+        guideUrl: "eagles-guide.html"
     },
     {
         name: "オリックス・バファローズ",
@@ -120,7 +123,8 @@ const baseballTeams = [
         lat: 34.6650,
         lng: 135.4755,
         color: leagueColors["パシフィック・リーグ"],
-        detailUrl: "https://npb.jp/stadium/detail.html?175"
+        detailUrl: "https://npb.jp/stadium/detail.html?175",
+        guideUrl: "buffaloes-guide.html"
     },
     {
         name: "埼玉西武ライオンズ",
@@ -130,7 +134,8 @@ const baseballTeams = [
         lat: 35.7651,
         lng: 139.4178,
         color: leagueColors["パシフィック・リーグ"],
-        detailUrl: "https://npb.jp/stadium/detail.html?068"
+        detailUrl: "https://npb.jp/stadium/detail.html?068",
+        guideUrl: "lions-guide.html"
     },
     // ファーム（2軍）球場
     {

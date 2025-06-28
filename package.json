@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest --run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:run": "vitest run",
@@ -28,7 +28,14 @@
     "prettier": "^3.1.0",
     "typescript": "^5.3.0"
   },
-  "keywords": ["baseball", "map", "japan", "npb", "interactive-map", "sports"],
+  "keywords": [
+    "baseball",
+    "map",
+    "japan",
+    "npb",
+    "interactive-map",
+    "sports"
+  ],
   "author": "",
   "license": "MIT",
   "repository": {
