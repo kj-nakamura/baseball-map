@@ -1,0 +1,30 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "routes": [
+    {
+      "src": "/fighters-guide.html",
+      "dest": "/fighters-guide.html"
+    },
+    {
+      "src": "/hawks-guide.html", 
+      "dest": "/hawks-guide.html"
+    },
+    {
+      "src": "/marines-guide.html",
+      "dest": "/marines-guide.html"
+    },
+    {
+      "src": "/eagles-guide.html",
+      "dest": "/eagles-guide.html"
+    },
+    {
+      "src": "/buffaloes-guide.html",
+      "dest": "/buffaloes-guide.html"
+    },
+    {
+      "src": "/lions-guide.html",
+      "dest": "/lions-guide.html"
+    }
+  ]
+}
