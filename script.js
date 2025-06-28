@@ -1,5 +1,5 @@
 // リーグ色の定義
-const leagueColors = {
+export const leagueColors = {
     "セントラル・リーグ": "#e74c3c",      // 赤
     "パシフィック・リーグ": "#3498db",    // 青
     "イースタン・リーグ": "#f39c12",      // オレンジ
@@ -8,7 +8,7 @@ const leagueColors = {
 };
 
 // プロ野球12球団のデータ
-const baseballTeams = [
+export const baseballTeams = [
     // セントラル・リーグ
     {
         name: "読売ジャイアンツ",
@@ -551,7 +551,7 @@ let markers = [];
 let infoWindow;
 
 // Google Maps用のカスタムスタイル（日本風）
-const japaneseMapStyle = [
+export const japaneseMapStyle = [
     {
         "featureType": "all",
         "stylers": [
@@ -593,8 +593,8 @@ const japaneseMapStyle = [
 // 環境変数からAPIキーを取得
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-// 地図を初期化（グローバルスコープに公開）
-window.initMap = function() {
+// 地図を初期化
+export function initMap() {
     // 日本の中心座標
     const japanCenter = { lat: 36.2048, lng: 138.2529 };
     
@@ -639,8 +639,8 @@ window.initMap = function() {
         left: 50
     });
     
-    // すべての球団マーカーを表示
-    showAllTeams();
+    // 1軍のみ表示（デフォルト）
+    showMainTeams();
     
     // ウィンドウリサイズ時に地図を再描画
     window.addEventListener('resize', function() {
@@ -650,7 +650,7 @@ window.initMap = function() {
 };
 
 // マーカーをクリアする
-function clearMarkers() {
+export function clearMarkers() {
     markers.forEach(marker => {
         marker.setMap(null);
     });
@@ -658,7 +658,7 @@ function clearMarkers() {
 }
 
 // 球団情報を表示する
-function showTeamInfo(team) {
+export function showTeamInfo(team) {
     const teamNameElement = document.getElementById('team-name');
     teamNameElement.innerHTML = `<a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${team.name}</a>`;
     document.getElementById('stadium-name').textContent = team.stadium;
@@ -668,7 +668,7 @@ function showTeamInfo(team) {
 }
 
 // Google Maps用のマーカーを作成
-function addMarker(team) {
+export function addMarker(team) {
     const position = { lat: team.lat, lng: team.lng };
     
     // レスポンシブ対応: デバイスサイズに応じてマーカーサイズを調整
@@ -776,7 +776,7 @@ function addMarker(team) {
 }
 
 // すべての球団を表示
-window.showAllTeams = function() {
+export function showAllTeams() {
     clearMarkers();
     baseballTeams.forEach(team => {
         addMarker(team);
@@ -785,7 +785,7 @@ window.showAllTeams = function() {
 };
 
 // セ・リーグのみ表示
-window.showCentralLeague = function() {
+export function showCentralLeague() {
     clearMarkers();
     const centralTeams = baseballTeams.filter(team => team.league === "セントラル・リーグ");
     centralTeams.forEach(team => {
@@ -795,7 +795,7 @@ window.showCentralLeague = function() {
 };
 
 // パ・リーグのみ表示
-window.showPacificLeague = function() {
+export function showPacificLeague() {
     clearMarkers();
     const pacificTeams = baseballTeams.filter(team => team.league === "パシフィック・リーグ");
     pacificTeams.forEach(team => {
@@ -805,7 +805,7 @@ window.showPacificLeague = function() {
 };
 
 // イースタン・リーグのみ表示
-window.showEasternLeague = function() {
+export function showEasternLeague() {
     clearMarkers();
     const easternTeams = baseballTeams.filter(team => team.league === "イースタン・リーグ");
     easternTeams.forEach(team => {
@@ -815,7 +815,7 @@ window.showEasternLeague = function() {
 };
 
 // ウエスタン・リーグのみ表示
-window.showWesternLeague = function() {
+export function showWesternLeague() {
     clearMarkers();
     const westernTeams = baseballTeams.filter(team => team.league === "ウエスタン・リーグ");
     westernTeams.forEach(team => {
@@ -825,7 +825,7 @@ window.showWesternLeague = function() {
 };
 
 // 1軍のみ表示
-window.showMainTeams = function() {
+export function showMainTeams() {
     clearMarkers();
     const mainTeams = baseballTeams.filter(team => !team.type || team.type === undefined);
     mainTeams.forEach(team => {
@@ -835,7 +835,7 @@ window.showMainTeams = function() {
 };
 
 // ファーム（2軍）のみ表示
-window.showFarmTeams = function() {
+export function showFarmTeams() {
     clearMarkers();
     const farmTeams = baseballTeams.filter(team => team.type === 'farm');
     farmTeams.forEach(team => {
@@ -845,7 +845,7 @@ window.showFarmTeams = function() {
 };
 
 // 地方開催球場のみ表示
-window.showRegionalStadiums = function() {
+export function showRegionalStadiums() {
     clearMarkers();
     const regionalTeams = baseballTeams.filter(team => team.type === 'regional');
     regionalTeams.forEach(team => {
@@ -855,7 +855,7 @@ window.showRegionalStadiums = function() {
 };
 
 // アクティブなボタンを更新
-function updateActiveButton(activeIndex) {
+export function updateActiveButton(activeIndex) {
     const buttons = document.querySelectorAll('.league-btn');
     buttons.forEach((btn, index) => {
         if (index === activeIndex) {
@@ -866,4 +866,17 @@ function updateActiveButton(activeIndex) {
     });
 }
 
-// DOMContentLoaded は不要（Google Maps API コールバックで初期化）
+if (typeof window !== 'undefined') {
+    window.initMap = initMap;
+    window.showAllTeams = showAllTeams;
+    window.showCentralLeague = showCentralLeague;
+    window.showPacificLeague = showPacificLeague;
+    window.showEasternLeague = showEasternLeague;
+    window.showWesternLeague = showWesternLeague;
+    window.showMainTeams = showMainTeams;
+    window.showFarmTeams = showFarmTeams;
+    window.showRegionalStadiums = showRegionalStadiums;
+    window.updateActiveButton = updateActiveButton;
+    window.baseballTeams = baseballTeams;
+    window.markers = markers;
+}

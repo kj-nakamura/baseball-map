@@ -35,14 +35,7 @@ global.google = {
     }
 };
 
-// 環境変数のモック
-global.import = {
-    meta: {
-        env: {
-            VITE_GOOGLE_MAPS_API_KEY: 'test-api-key'
-        }
-    }
-};
+
 
 // window.innerWidthのモック
 Object.defineProperty(window, 'innerWidth', {

@@ -27,5 +27,8 @@ export default defineConfig({
     },
     include: ['tests/**/*.test.js'],
     exclude: ['node_modules/', 'dist/']
+  },
+  define: {
+    'import.meta.env.VITE_GOOGLE_MAPS_API_KEY': JSON.stringify('test-api-key')
   }
 });

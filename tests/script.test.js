@@ -1,93 +1,77 @@
-
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { JSDOM } from 'jsdom';
 import fs from 'fs';
 import path from 'path';
+import * as script from '../script.js';
 
-// HTMLとスクリプトを読み込む
+// HTMLを読み込む
 const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
-const script = fs.readFileSync(path.resolve(__dirname, '../script.js'), 'utf8');
 
 describe('スクリプトの機能テスト', () => {
-    let dom;
-    let window;
-    let document;
-
     beforeEach(() => {
-        dom = new JSDOM(html, {
-            runScripts: "dangerously",
-            resources: "usable",
-            url: "http://localhost"
+        const dom = new JSDOM(html, { 
+            runScripts: 'dangerously',
+            url: 'http://localhost'
         });
-        window = dom.window;
-        document = window.document;
+        global.window = dom.window;
+        global.document = dom.window.document;
 
-        // script.jsの内容をJSDOM環境で実行
-        const scriptEl = document.createElement("script");
-        scriptEl.textContent = script;
-        document.body.appendChild(scriptEl);
+        // script.jsでエクスポートされた変数をグローバルスコープに設定
+        window.baseballTeams = script.baseballTeams;
+        window.markers = [];
 
         // Google Maps APIのモック
-        window.google = {
+        global.google = {
             maps: {
                 Map: vi.fn(() => ({
                     setCenter: vi.fn(),
                     setZoom: vi.fn(),
                     fitBounds: vi.fn(),
-                    addListener: vi.fn()
+                    addListener: vi.fn(),
                 })),
                 Marker: vi.fn(() => ({
                     setMap: vi.fn(),
                     addListener: vi.fn(),
-                    setAnimation: vi.fn()
+                    setAnimation: vi.fn(),
                 })),
                 InfoWindow: vi.fn(() => ({
                     setContent: vi.fn(),
                     open: vi.fn(),
-                    close: vi.fn()
+                    close: vi.fn(),
                 })),
                 LatLngBounds: vi.fn(),
                 LatLng: vi.fn(),
                 event: {
-                    trigger: vi.fn()
+                    trigger: vi.fn(),
                 },
                 Animation: {
                     DROP: 'DROP',
-                    BOUNCE: 'BOUNCE'
+                    BOUNCE: 'BOUNCE',
                 },
                 SymbolPath: {
                     CIRCLE: 'CIRCLE',
-                    FORWARD_CLOSED_ARROW: 'FORWARD_CLOSED_ARROW'
-                }
-            }
-        };
-        
-        // import.meta.envのモック
-        window.import = {
-            meta: {
-                env: {
-                    VITE_GOOGLE_MAPS_API_KEY: 'test-api-key'
-                }
-            }
+                    FORWARD_CLOSED_ARROW: 'FORWARD_CLOSED_ARROW',
+                },
+            },
         };
     });
 
     it('initMapが地図を正しく初期化する', () => {
-        window.initMap();
-        expect(window.google.maps.Map).toHaveBeenCalledOnce();
-        expect(window.google.maps.Map).toHaveBeenCalledWith(
+        script.initMap();
+        expect(google.maps.Map).toHaveBeenCalledOnce();
+        expect(google.maps.Map).toHaveBeenCalledWith(
             document.getElementById('map'),
             expect.any(Object)
         );
     });
 
     it('clearMarkersがすべてのマーカーを削除する', () => {
-        window.initMap();
-        window.showAllTeams();
+        script.initMap();
+        script.showAllTeams();
         const initialMarkers = window.markers.length;
         expect(initialMarkers).toBeGreaterThan(0);
-        
-        window.clearMarkers();
+
+        script.clearMarkers();
         expect(window.markers).toHaveLength(0);
     });
 
@@ -100,7 +84,7 @@ describe('スクリプトの機能テスト', () => {
             color: "#ff0000",
             detailUrl: "http://example.com"
         };
-        window.showTeamInfo(team);
+        script.showTeamInfo(team);
 
         const teamName = document.getElementById('team-name').textContent;
         const stadiumName = document.getElementById('stadium-name').textContent;
@@ -115,20 +99,20 @@ describe('スクリプトの機能テスト', () => {
     });
 
     it('showAllTeamsがすべてのチームのマーカーを表示する', () => {
-        window.initMap();
-        window.showAllTeams();
-        expect(window.markers.length).toBe(window.baseballTeams.length);
+        script.initMap();
+        script.showAllTeams();
+        expect(window.markers.length).toBe(script.baseballTeams.length);
     });
 
     it('showCentralLeagueがセ・リーグのチームのみ表示する', () => {
-        window.initMap();
-        window.showCentralLeague();
-        const centralTeams = window.baseballTeams.filter(t => t.league === 'セントラル・リーグ');
+        script.initMap();
+        script.showCentralLeague();
+        const centralTeams = script.baseballTeams.filter(t => t.league === 'セントラル・リーグ');
         expect(window.markers.length).toBe(centralTeams.length);
     });
 
     it('updateActiveButtonが指定されたボタンをアクティブにする', () => {
-        window.updateActiveButton(1);
+        script.updateActiveButton(1);
         const buttons = document.querySelectorAll('.league-btn');
         expect(buttons[1].classList.contains('active')).toBe(true);
         expect(buttons[0].classList.contains('active')).toBe(false);
