@@ -89,7 +89,8 @@ const baseballTeams = [
         lat: 42.9869,
         lng: 141.5642,
         color: leagueColors["パシフィック・リーグ"],
-        detailUrl: "https://npb.jp/stadium/detail.html?290"
+        detailUrl: "https://npb.jp/stadium/detail.html?290",
+        guideUrl: "fighters-guide.html"
     },
     {
         name: "千葉ロッテマリーンズ",
@@ -733,6 +734,12 @@ function addMarker(team) {
     const fontSize = isMobileInfo ? '11px' : '12px';
     const smallFontSize = isMobileInfo ? '9px' : '11px';
     
+    // 観戦ガイドボタンの生成
+    let guideButton = '';
+    if (team.guideUrl) {
+        guideButton = `<p style="margin: 8px 0;"><a href="${team.guideUrl}" target="_blank" style="background: #e74c3c; color: white; padding: 6px 12px; border-radius: 15px; text-decoration: none; font-size: ${isMobileInfo ? '10px' : '11px'}; display: inline-block;">📖 観戦ガイド</a></p>`;
+    }
+    
     const infoContent = `
         <div style="text-align: center; min-width: ${minWidth};">
             <h4 style="margin: 5px 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
@@ -742,6 +749,7 @@ function addMarker(team) {
             <p style="margin: 3px 0; font-size: ${fontSize};">${team.location}</p>
             <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${team.league}${teamType}</p>
             ${additionalInfo}
+            ${guideButton}
             <p style="margin: 5px 0; font-size: ${smallFontSize}; color: #999;">球場名をクリックで詳細ページへ</p>
         </div>
     `;
