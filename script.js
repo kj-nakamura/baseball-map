@@ -814,7 +814,7 @@ window.showWesternLeague = function() {
 // 1軍のみ表示
 window.showMainTeams = function() {
     clearMarkers();
-    const mainTeams = baseballTeams.filter(team => team.type !== 'farm');
+    const mainTeams = baseballTeams.filter(team => !team.type || team.type === undefined);
     mainTeams.forEach(team => {
         addMarker(team);
     });
