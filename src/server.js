@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // 静的ファイルを配信
-app.use(express.static('dist'));
+app.use(express.static('.'));
 
 // API設定エンドポイント
 app.get('/api/config', (req, res) => {
@@ -17,7 +17,7 @@ app.get('/api/config', (req, res) => {
 
 // メインページ
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
