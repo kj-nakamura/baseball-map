@@ -3,6 +3,7 @@ import { JSDOM } from 'jsdom';
 import fs from 'fs';
 import path from 'path';
 import * as script from '../script.js';
+import { markers } from '../script.js';
 
 // HTMLを読み込む
 const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
@@ -18,7 +19,6 @@ describe('スクリプトの機能テスト', () => {
 
         // script.jsでエクスポートされた変数をグローバルスコープに設定
         window.baseballTeams = script.baseballTeams;
-        window.markers = [];
 
         // Google Maps APIのモック
         global.google = {
@@ -68,11 +68,11 @@ describe('スクリプトの機能テスト', () => {
     it('clearMarkersがすべてのマーカーを削除する', () => {
         script.initMap();
         script.showAllTeams();
-        const initialMarkers = window.markers.length;
+        const initialMarkers = markers.length;
         expect(initialMarkers).toBeGreaterThan(0);
 
         script.clearMarkers();
-        expect(window.markers).toHaveLength(0);
+        expect(markers).toHaveLength(0);
     });
 
     it('showTeamInfoがチーム情報を正しく表示する', () => {
@@ -101,14 +101,14 @@ describe('スクリプトの機能テスト', () => {
     it('showAllTeamsがすべてのチームのマーカーを表示する', () => {
         script.initMap();
         script.showAllTeams();
-        expect(window.markers.length).toBe(script.baseballTeams.length);
+        expect(markers.length).toBe(script.baseballTeams.length);
     });
 
     it('showCentralLeagueがセ・リーグのチームのみ表示する', () => {
         script.initMap();
         script.showCentralLeague();
         const centralTeams = script.baseballTeams.filter(t => t.league === 'セントラル・リーグ');
-        expect(window.markers.length).toBe(centralTeams.length);
+        expect(markers.length).toBe(centralTeams.length);
     });
 
     it('updateActiveButtonが指定されたボタンをアクティブにする', () => {

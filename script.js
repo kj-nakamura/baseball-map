@@ -547,7 +547,7 @@ export const baseballTeams = [
 ];
 
 let map;
-let markers = [];
+export let markers = [];
 let infoWindow;
 
 // Google Maps用のカスタムスタイル（日本風）
@@ -654,7 +654,7 @@ export function clearMarkers() {
     markers.forEach(marker => {
         marker.setMap(null);
     });
-    markers = [];
+    markers.length = 0;
 }
 
 // 球団情報を表示する
@@ -878,5 +878,4 @@ if (typeof window !== 'undefined') {
     window.showRegionalStadiums = showRegionalStadiums;
     window.updateActiveButton = updateActiveButton;
     window.baseballTeams = baseballTeams;
-    window.markers = markers;
 }
