@@ -87,92 +87,92 @@ global.document = dom.window.document;
 global.navigator = dom.window.navigator;
 
 describe('DOM構造のテスト', () => {
-    beforeEach(() => {
-        // 各テスト前にDOMをリセット
-        document.body.innerHTML = dom.window.document.body.innerHTML;
-    });
+  beforeEach(() => {
+    // 各テスト前にDOMをリセット
+    document.body.innerHTML = dom.window.document.body.innerHTML;
+  });
 
-    it('必要なHTML要素が存在する', () => {
-        expect(document.querySelector('.header')).toBeTruthy();
-        expect(document.querySelector('#map')).toBeTruthy();
-        expect(document.querySelector('.legend')).toBeTruthy();
-        expect(document.querySelector('#team-info')).toBeTruthy();
-    });
+  it('必要なHTML要素が存在する', () => {
+    expect(document.querySelector('.header')).toBeTruthy();
+    expect(document.querySelector('#map')).toBeTruthy();
+    expect(document.querySelector('.legend')).toBeTruthy();
+    expect(document.querySelector('#team-info')).toBeTruthy();
+  });
 
-    it('ヘッダーに正しいタイトルが表示される', () => {
-        const title = document.querySelector('.header h1');
-        expect(title.textContent).toBe('プロ野球12球団本拠地マップ');
-    });
+  it('ヘッダーに正しいタイトルが表示される', () => {
+    const title = document.querySelector('.header h1');
+    expect(title.textContent).toBe('プロ野球12球団本拠地マップ');
+  });
 
-    it('すべてのリーグボタンが存在する', () => {
-        const buttons = document.querySelectorAll('.league-btn');
-        expect(buttons).toHaveLength(8);
+  it('すべてのリーグボタンが存在する', () => {
+    const buttons = document.querySelectorAll('.league-btn');
+    expect(buttons).toHaveLength(8);
         
-        const buttonTexts = Array.from(buttons).map(btn => btn.textContent);
-        expect(buttonTexts).toContain('全球場');
-        expect(buttonTexts).toContain('1軍のみ');
-        expect(buttonTexts).toContain('ファームのみ');
-        expect(buttonTexts).toContain('地方開催');
-        expect(buttonTexts).toContain('セ・リーグ');
-        expect(buttonTexts).toContain('パ・リーグ');
-        expect(buttonTexts).toContain('イースタン');
-        expect(buttonTexts).toContain('ウエスタン');
-    });
+    const buttonTexts = Array.from(buttons).map(btn => btn.textContent);
+    expect(buttonTexts).toContain('全球場');
+    expect(buttonTexts).toContain('1軍のみ');
+    expect(buttonTexts).toContain('ファームのみ');
+    expect(buttonTexts).toContain('地方開催');
+    expect(buttonTexts).toContain('セ・リーグ');
+    expect(buttonTexts).toContain('パ・リーグ');
+    expect(buttonTexts).toContain('イースタン');
+    expect(buttonTexts).toContain('ウエスタン');
+  });
 
-    it('凡例のアイテムが正しく表示される', () => {
-        const legendItems = document.querySelectorAll('.legend-item');
-        expect(legendItems).toHaveLength(5);
+  it('凡例のアイテムが正しく表示される', () => {
+    const legendItems = document.querySelectorAll('.legend-item');
+    expect(legendItems).toHaveLength(5);
         
-        const legendTexts = Array.from(legendItems).map(item => item.textContent.trim());
-        expect(legendTexts).toContain('セントラル・リーグ（1軍）');
-        expect(legendTexts).toContain('パシフィック・リーグ（1軍）');
-        expect(legendTexts).toContain('イースタン・リーグ（ファーム）');
-        expect(legendTexts).toContain('ウエスタン・リーグ（ファーム）');
-        expect(legendTexts).toContain('地方開催球場（2025年）');
-    });
+    const legendTexts = Array.from(legendItems).map(item => item.textContent.trim());
+    expect(legendTexts).toContain('セントラル・リーグ（1軍）');
+    expect(legendTexts).toContain('パシフィック・リーグ（1軍）');
+    expect(legendTexts).toContain('イースタン・リーグ（ファーム）');
+    expect(legendTexts).toContain('ウエスタン・リーグ（ファーム）');
+    expect(legendTexts).toContain('地方開催球場（2025年）');
+  });
 
-    it('チーム情報エリアの要素が存在する', () => {
-        expect(document.querySelector('#team-name')).toBeTruthy();
-        expect(document.querySelector('#stadium-name')).toBeTruthy();
-        expect(document.querySelector('#location')).toBeTruthy();
-        expect(document.querySelector('#league')).toBeTruthy();
-    });
+  it('チーム情報エリアの要素が存在する', () => {
+    expect(document.querySelector('#team-name')).toBeTruthy();
+    expect(document.querySelector('#stadium-name')).toBeTruthy();
+    expect(document.querySelector('#location')).toBeTruthy();
+    expect(document.querySelector('#league')).toBeTruthy();
+  });
 
-    it('初期状態でチーム情報が非表示になっている', () => {
-        const teamInfo = document.querySelector('#team-info');
-        expect(teamInfo.style.display).toBe('none');
-    });
+  it('初期状態でチーム情報が非表示になっている', () => {
+    const teamInfo = document.querySelector('#team-info');
+    expect(teamInfo.style.display).toBe('none');
+  });
 
-    it('デフォルトで「全球場」ボタンがアクティブになっている', () => {
-        const allTeamsBtn = document.querySelector('.league-btn.active');
-        expect(allTeamsBtn.textContent).toBe('全球場');
-    });
+  it('デフォルトで「全球場」ボタンがアクティブになっている', () => {
+    const allTeamsBtn = document.querySelector('.league-btn.active');
+    expect(allTeamsBtn.textContent).toBe('全球場');
+  });
 });
 
 describe('アクセシビリティのテスト', () => {
-    it('HTMLにlang属性が設定されている', () => {
-        expect(document.documentElement.lang).toBe('ja');
-    });
+  it('HTMLにlang属性が設定されている', () => {
+    expect(document.documentElement.lang).toBe('ja');
+  });
 
-    it('メタタグが適切に設定されている', () => {
-        const charset = document.querySelector('meta[charset]');
-        expect(charset.getAttribute('charset')).toBe('UTF-8');
+  it('メタタグが適切に設定されている', () => {
+    const charset = document.querySelector('meta[charset]');
+    expect(charset.getAttribute('charset')).toBe('UTF-8');
         
-        const viewport = document.querySelector('meta[name="viewport"]');
-        expect(viewport.getAttribute('content')).toBe('width=device-width, initial-scale=1.0');
-    });
+    const viewport = document.querySelector('meta[name="viewport"]');
+    expect(viewport.getAttribute('content')).toBe('width=device-width, initial-scale=1.0');
+  });
 
-    it('ページタイトルが設定されている', () => {
-        expect(document.title).toBe('プロ野球12球団本拠地マップ');
-    });
+  it('ページタイトルが設定されている', () => {
+    expect(document.title).toBe('プロ野球12球団本拠地マップ');
+  });
 
-    it('ファビコンリンクが設定されている', () => {
-        const svgFavicon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
-        const icoFavicon = document.querySelector('link[rel="icon"][type="image/x-icon"]');
+  it('ファビコンリンクが設定されている', () => {
+    const svgFavicon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+    const icoFavicon = document.querySelector('link[rel="icon"][type="image/x-icon"]');
         
-        expect(svgFavicon).toBeTruthy();
-        expect(icoFavicon).toBeTruthy();
-        expect(svgFavicon.href).toContain('favicon.svg');
-        expect(icoFavicon.href).toContain('favicon.ico');
-    });
+    expect(svgFavicon).toBeTruthy();
+    expect(icoFavicon).toBeTruthy();
+    expect(svgFavicon.href).toContain('favicon.svg');
+    expect(icoFavicon.href).toContain('favicon.ico');
+  });
 });
