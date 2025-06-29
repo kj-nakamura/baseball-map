@@ -1,0 +1,6 @@
+{
+  "ignores": [
+    "@vitest/coverage-v8"
+  ],
+  "skip-missing": false
+}

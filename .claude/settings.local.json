@@ -20,7 +20,8 @@
       "Bash(npm run test:*)",
       "Bash(mv:*)",
       "Bash(npm audit:*)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(npx depcheck:*)"
     ],
     "deny": []
   }
