@@ -18,7 +18,8 @@ export const baseballTeams = [
     lat: 35.7056,
     lng: 139.7519,
     color: leagueColors['セントラル・リーグ'],
-    detailUrl: 'https://npb.jp/stadium/detail.html?081'
+    detailUrl: 'https://npb.jp/stadium/detail.html?081',
+    guideUrl: 'giants-guide.html'
   },
   {
     name: '阪神タイガース',
@@ -28,7 +29,8 @@ export const baseballTeams = [
     lat: 34.7213,
     lng: 135.3619,
     color: leagueColors['セントラル・リーグ'],
-    detailUrl: 'https://npb.jp/stadium/detail.html?181'
+    detailUrl: 'https://npb.jp/stadium/detail.html?181',
+    guideUrl: 'tigers-guide.html'
   },
   {
     name: '横浜DeNAベイスターズ',
@@ -38,7 +40,8 @@ export const baseballTeams = [
     lat: 35.4437,
     lng: 139.6380,
     color: leagueColors['セントラル・リーグ'],
-    detailUrl: 'https://npb.jp/stadium/detail.html?093'
+    detailUrl: 'https://npb.jp/stadium/detail.html?093',
+    guideUrl: 'baystars-guide.html'
   },
   {
     name: '広島東洋カープ',
@@ -48,7 +51,8 @@ export const baseballTeams = [
     lat: 34.3914,
     lng: 132.4626,
     color: leagueColors['セントラル・リーグ'],
-    detailUrl: 'https://npb.jp/stadium/detail.html?208'
+    detailUrl: 'https://npb.jp/stadium/detail.html?208',
+    guideUrl: 'carp-guide.html'
   },
   {
     name: '東京ヤクルトスワローズ',
@@ -58,7 +62,8 @@ export const baseballTeams = [
     lat: 35.6784,
     lng: 139.7170,
     color: leagueColors['セントラル・リーグ'],
-    detailUrl: 'https://npb.jp/stadium/detail.html?082'
+    detailUrl: 'https://npb.jp/stadium/detail.html?082',
+    guideUrl: 'swallows-guide.html'
   },
   {
     name: '中日ドラゴンズ',
@@ -68,7 +73,8 @@ export const baseballTeams = [
     lat: 35.1855,
     lng: 136.9493,
     color: leagueColors['セントラル・リーグ'],
-    detailUrl: 'https://npb.jp/stadium/detail.html?151'
+    detailUrl: 'https://npb.jp/stadium/detail.html?151',
+    guideUrl: 'dragons-guide.html'
   },
   // パシフィック・リーグ
   {

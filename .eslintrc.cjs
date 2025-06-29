@@ -5,6 +5,7 @@ module.exports = {
     node: true,
     'vitest-globals/env': true
   },
+  ignorePatterns: ['dist/', 'node_modules/', '*.min.js', '*.bundle.js'],
   extends: [
     'eslint:recommended'
   ],
