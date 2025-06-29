@@ -16,7 +16,9 @@
       "Bash(npm run build:*)",
       "Bash(npm run lint)",
       "Bash(pkill:*)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(npm run test:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

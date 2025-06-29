@@ -2,11 +2,11 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { JSDOM } from 'jsdom';
 import fs from 'fs';
 import path from 'path';
-import * as script from '../script.js';
-import { markers } from '../script.js';
+import * as script from '../src/script.js';
+import { markers } from '../src/script.js';
 
 // HTMLを読み込む
-const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+const html = fs.readFileSync(path.resolve(__dirname, '../src/index.html'), 'utf8');
 
 describe('スクリプトの機能テスト', () => {
   beforeEach(() => {
