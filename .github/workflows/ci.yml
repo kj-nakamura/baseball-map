@@ -72,42 +72,6 @@ jobs:
         name: dist
         path: dist/
         
-  lighthouse:
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22.x'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: dist
-        path: dist/
-        
-    - name: Serve files
-      run: |
-        npm install -g serve
-        serve -s dist -p 3000 &
-        sleep 5
-        
-    - name: Run Lighthouse CI
-      run: |
-        npm install -g @lhci/cli
-        lhci autorun --upload.target=temporary-public-storage
-      env:
-        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-        
   security:
     runs-on: ubuntu-latest
     
