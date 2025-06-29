@@ -1,4 +1,0 @@
-dist/
-node_modules/
-*.min.js
-*.bundle.js

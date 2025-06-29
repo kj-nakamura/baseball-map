@@ -18,7 +18,9 @@
       "Bash(pkill:*)",
       "Bash(true)",
       "Bash(npm run test:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm view:*)"
     ],
     "deny": []
   }
