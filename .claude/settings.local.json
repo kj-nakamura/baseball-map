@@ -21,7 +21,9 @@
       "Bash(mv:*)",
       "Bash(npm audit:*)",
       "Bash(npm view:*)",
-      "Bash(npx depcheck:*)"
+      "Bash(npx depcheck:*)",
+      "Bash(find:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

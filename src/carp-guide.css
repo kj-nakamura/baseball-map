@@ -1,4 +1,23 @@
-@import url('team-guide-base.css');
+/* 基本スタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
 
 /* カープテーマ色 */
 :root {
@@ -12,8 +31,8 @@
 
 /* ヘッダー */
 header {
-    background: var(--background-gradient);
-    color: var(--text-light);
+    background: var(--background-gradient) !important;
+    color: var(--text-light) !important;
     text-align: center;
     padding: 2rem 1rem;
     position: relative;
