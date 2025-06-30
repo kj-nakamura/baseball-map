@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="weather.css">
   </head>
   <body>
     <div class="header">
@@ -35,6 +36,10 @@
       <p><strong>球場:</strong> <span id="stadium-name"></span></p>
       <p><strong>所在地:</strong> <span id="location"></span></p>
       <p><strong>リーグ:</strong> <span id="league"></span></p>
+      <div id="weather-info"></div>
+      <div style="margin-top: 1rem;">
+        <a id="guide-link" href="#" style="display: inline-block; background: #3498db; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px;">📖 観戦ガイドを見る</a>
+      </div>
     </div>
 
 
@@ -59,6 +64,40 @@
 
       // ページ読み込み時にAPIを読み込み
       document.addEventListener('DOMContentLoaded', loadGoogleMapsAPI);
+      
+      // 天気情報統合用のグローバル関数
+      window.updateTeamWeatherInfo = async function(stadium) {
+        const weatherInfoDiv = document.getElementById('weather-info');
+        const guideLink = document.getElementById('guide-link');
+        
+        if (weatherInfoDiv) {
+          weatherInfoDiv.innerHTML = '<div style="color: #666; font-size: 0.9rem;">天気情報を読み込み中...</div>';
+          
+          try {
+            // 天気UI機能を動的インポート
+            const { createCompactWeatherInfo } = await import('./weather-ui.js');
+            
+            // ドーム球場の判定
+            const isIndoor = stadium.stadium.includes('ドーム') || 
+                           stadium.stadium.includes('ドーム') ||
+                           stadium.stadium === '東京ドーム';
+            
+            const weatherHtml = await createCompactWeatherInfo(stadium, isIndoor);
+            weatherInfoDiv.innerHTML = weatherHtml;
+          } catch (error) {
+            console.error('Weather info error:', error);
+            weatherInfoDiv.innerHTML = '<div style="color: #999; font-size: 0.8rem;">天気情報を取得できませんでした</div>';
+          }
+        }
+        
+        // 観戦ガイドリンクを更新
+        if (guideLink && stadium.guideUrl) {
+          guideLink.href = stadium.guideUrl;
+          guideLink.style.display = 'inline-block';
+        } else if (guideLink) {
+          guideLink.style.display = 'none';
+        }
+      };
     </script>
     <script type="module" src="script.js"></script>
   </body>
