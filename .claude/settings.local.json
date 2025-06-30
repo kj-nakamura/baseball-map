@@ -26,7 +26,8 @@
       "Bash(rm:*)",
       "WebFetch(domain:developers.google.com)",
       "Bash(curl:*)",
-      "WebFetch(domain:openweathermap.org)"
+      "WebFetch(domain:openweathermap.org)",
+      "Bash(npm test)"
     ],
     "deny": []
   }
