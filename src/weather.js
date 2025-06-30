@@ -116,7 +116,7 @@ function parseOpenWeatherData(data, locationName) {
 /**
  * OpenWeatherMap予報データをパース（3日分）
  */
-function parseOpenWeatherForecastData(data, locationName) {
+function parseOpenWeatherForecastData(data, _locationName) {
   const dailyForecasts = {};
   
   data.list.forEach(item => {
@@ -154,7 +154,9 @@ function parseOpenWeatherForecastData(data, locationName) {
  * 観戦向け天気アドバイスを生成
  */
 export function getWeatherAdvice(weatherData, isIndoorStadium = false) {
-  if (!weatherData) return [];
+  if (!weatherData) {
+    return [];
+  }
 
   const advice = [];
   const temp = weatherData.temperature;
