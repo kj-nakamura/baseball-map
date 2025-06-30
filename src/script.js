@@ -1,10 +1,10 @@
 // リーグ色の定義
 export const leagueColors = {
-  'セントラル・リーグ': '#e74c3c',      // 赤
-  'パシフィック・リーグ': '#3498db',    // 青
-  'イースタン・リーグ': '#f39c12',      // オレンジ
-  'ウエスタン・リーグ': '#27ae60',      // 緑
-  '地方開催球場': '#9b59b6'             // 紫
+  'セントラル・リーグ': '#e74c3c', // 赤
+  'パシフィック・リーグ': '#3498db', // 青
+  'イースタン・リーグ': '#f39c12', // オレンジ
+  'ウエスタン・リーグ': '#27ae60', // 緑
+  地方開催球場: '#9b59b6', // 紫
 };
 
 // プロ野球12球団のデータ
@@ -19,7 +19,7 @@ export const baseballTeams = [
     lng: 139.7519,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?081',
-    guideUrl: 'giants-guide.html'
+    guideUrl: 'giants-guide.html',
   },
   {
     name: '阪神タイガース',
@@ -30,7 +30,7 @@ export const baseballTeams = [
     lng: 135.3619,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?181',
-    guideUrl: 'tigers-guide.html'
+    guideUrl: 'tigers-guide.html',
   },
   {
     name: '横浜DeNAベイスターズ',
@@ -38,10 +38,10 @@ export const baseballTeams = [
     location: '神奈川県横浜市',
     league: 'セントラル・リーグ',
     lat: 35.4437,
-    lng: 139.6380,
+    lng: 139.638,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?093',
-    guideUrl: 'baystars-guide.html'
+    guideUrl: 'baystars-guide.html',
   },
   {
     name: '広島東洋カープ',
@@ -52,7 +52,7 @@ export const baseballTeams = [
     lng: 132.4626,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?208',
-    guideUrl: 'carp-guide.html'
+    guideUrl: 'carp-guide.html',
   },
   {
     name: '東京ヤクルトスワローズ',
@@ -60,10 +60,10 @@ export const baseballTeams = [
     location: '東京都新宿区',
     league: 'セントラル・リーグ',
     lat: 35.6784,
-    lng: 139.7170,
+    lng: 139.717,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?082',
-    guideUrl: 'swallows-guide.html'
+    guideUrl: 'swallows-guide.html',
   },
   {
     name: '中日ドラゴンズ',
@@ -74,7 +74,7 @@ export const baseballTeams = [
     lng: 136.9493,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?151',
-    guideUrl: 'dragons-guide.html'
+    guideUrl: 'dragons-guide.html',
   },
   // パシフィック・リーグ
   {
@@ -86,7 +86,7 @@ export const baseballTeams = [
     lng: 130.3619,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?245',
-    guideUrl: 'hawks-guide.html'
+    guideUrl: 'hawks-guide.html',
   },
   {
     name: '北海道日本ハムファイターズ',
@@ -97,18 +97,18 @@ export const baseballTeams = [
     lng: 141.5642,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?290',
-    guideUrl: 'fighters-guide.html'
+    guideUrl: 'fighters-guide.html',
   },
   {
     name: '千葉ロッテマリーンズ',
     stadium: 'ZOZOマリンスタジアム',
     location: '千葉県千葉市',
     league: 'パシフィック・リーグ',
-    lat: 35.6470,
+    lat: 35.647,
     lng: 140.0316,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?073',
-    guideUrl: 'marines-guide.html'
+    guideUrl: 'marines-guide.html',
   },
   {
     name: '東北楽天ゴールデンイーグルス',
@@ -119,18 +119,18 @@ export const baseballTeams = [
     lng: 140.9015,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?029',
-    guideUrl: 'eagles-guide.html'
+    guideUrl: 'eagles-guide.html',
   },
   {
     name: 'オリックス・バファローズ',
     stadium: '京セラドーム大阪',
     location: '大阪府大阪市',
     league: 'パシフィック・リーグ',
-    lat: 34.6650,
+    lat: 34.665,
     lng: 135.4755,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?175',
-    guideUrl: 'buffaloes-guide.html'
+    guideUrl: 'buffaloes-guide.html',
   },
   {
     name: '埼玉西武ライオンズ',
@@ -141,7 +141,7 @@ export const baseballTeams = [
     lng: 139.4178,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?068',
-    guideUrl: 'lions-guide.html'
+    guideUrl: 'lions-guide.html',
   },
   // ファーム（2軍）球場
   {
@@ -153,7 +153,7 @@ export const baseballTeams = [
     lng: 139.5047,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.giants.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '阪神タイガース（ファーム）',
@@ -164,7 +164,7 @@ export const baseballTeams = [
     lng: 135.4061,
     color: leagueColors['ウエスタン・リーグ'],
     detailUrl: 'https://hanshintigers.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '横浜DeNAベイスターズ（ファーム）',
@@ -175,7 +175,7 @@ export const baseballTeams = [
     lng: 139.6714,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.baystars.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '広島東洋カープ（ファーム）',
@@ -186,7 +186,7 @@ export const baseballTeams = [
     lng: 132.2206,
     color: leagueColors['ウエスタン・リーグ'],
     detailUrl: 'https://www.carp.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '東京ヤクルトスワローズ（ファーム）',
@@ -197,7 +197,7 @@ export const baseballTeams = [
     lng: 139.6881,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.yakult-swallows.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '中日ドラゴンズ（ファーム）',
@@ -208,7 +208,7 @@ export const baseballTeams = [
     lng: 136.9308,
     color: leagueColors['ウエスタン・リーグ'],
     detailUrl: 'https://dragons.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '福岡ソフトバンクホークス（ファーム）',
@@ -219,7 +219,7 @@ export const baseballTeams = [
     lng: 130.5833,
     color: leagueColors['ウエスタン・リーグ'],
     detailUrl: 'https://www.softbankhawks.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '北海道日本ハムファイターズ（ファーム）',
@@ -230,7 +230,7 @@ export const baseballTeams = [
     lng: 140.0031,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.fighters.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '千葉ロッテマリーンズ（ファーム）',
@@ -241,7 +241,7 @@ export const baseballTeams = [
     lng: 139.6456,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.marines.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '東北楽天ゴールデンイーグルス（ファーム）',
@@ -252,7 +252,7 @@ export const baseballTeams = [
     lng: 141.0133,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.rakuteneagles.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: 'オリックス・バファローズ（ファーム）',
@@ -263,7 +263,7 @@ export const baseballTeams = [
     lng: 135.1711,
     color: leagueColors['ウエスタン・リーグ'],
     detailUrl: 'https://www.buffaloes.co.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   {
     name: '埼玉西武ライオンズ（ファーム）',
@@ -274,7 +274,7 @@ export const baseballTeams = [
     lng: 139.4172,
     color: leagueColors['イースタン・リーグ'],
     detailUrl: 'https://www.seibulions.jp/',
-    type: 'farm'
+    type: 'farm',
   },
   // 地方開催球場（2025年1軍公式戦）
   {
@@ -288,7 +288,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?046',
     type: 'regional',
     capacity: 18220,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: 'こまちスタジアム',
@@ -301,7 +301,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?031',
     type: 'regional',
     capacity: 25000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '富山市民球場アルペンスタジアム',
@@ -314,7 +314,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?052',
     type: 'regional',
     capacity: 25000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: 'ほっともっとフィールド神戸',
@@ -327,7 +327,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?185',
     type: 'regional',
     capacity: 35000,
-    games2025: 5
+    games2025: 5,
   },
   {
     name: '沖縄セルラースタジアム那覇',
@@ -340,7 +340,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?287',
     type: 'regional',
     capacity: 20000,
-    games2025: 2
+    games2025: 2,
   },
   {
     name: 'きらやかスタジアム',
@@ -353,7 +353,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?025',
     type: 'regional',
     capacity: 12272,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '県営あづま球場',
@@ -366,7 +366,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?048',
     type: 'regional',
     capacity: 30000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '静岡草薙球場',
@@ -379,7 +379,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?137',
     type: 'regional',
     capacity: 21656,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: 'はるか夢球場',
@@ -392,7 +392,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?021',
     type: 'regional',
     capacity: 15050,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '石川県立野球場',
@@ -405,7 +405,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?061',
     type: 'regional',
     capacity: 25000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '長良川球場',
@@ -418,7 +418,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?086',
     type: 'regional',
     capacity: 30000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '倉敷マスカットスタジアム',
@@ -426,12 +426,12 @@ export const baseballTeams = [
     location: '岡山県倉敷市',
     league: '地方開催球場',
     lat: 34.5833,
-    lng: 133.7500,
+    lng: 133.75,
     color: leagueColors['地方開催球場'],
     detailUrl: 'https://npb.jp/stadium/detail.html?194',
     type: 'regional',
     capacity: 30670,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: 'HARD OFF ECOスタジアム新潟',
@@ -444,7 +444,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?099',
     type: 'regional',
     capacity: 25025,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '上毛新聞敷島球場',
@@ -452,12 +452,12 @@ export const baseballTeams = [
     location: '群馬県前橋市',
     league: '地方開催球場',
     lat: 36.3667,
-    lng: 139.0500,
+    lng: 139.05,
     color: leagueColors['地方開催球場'],
     detailUrl: 'https://npb.jp/stadium/detail.html?065',
     type: 'regional',
     capacity: 17000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '北九州市民球場',
@@ -470,7 +470,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?244',
     type: 'regional',
     capacity: 15000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: 'ヤマリョースタジアム山形',
@@ -483,7 +483,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?026',
     type: 'regional',
     capacity: 25000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: 'いわきグリーンスタジアム',
@@ -491,12 +491,12 @@ export const baseballTeams = [
     location: '福島県いわき市',
     league: '地方開催球場',
     lat: 37.017,
-    lng: 140.860,
+    lng: 140.86,
     color: leagueColors['地方開催球場'],
     detailUrl: 'https://npb.jp/stadium/detail.html?047',
     type: 'regional',
     capacity: 30000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '青森県営野球場',
@@ -509,7 +509,7 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?022',
     type: 'regional',
     capacity: 25000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '岩手県営野球場',
@@ -522,20 +522,20 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?023',
     type: 'regional',
     capacity: 25000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '県営宮城球場',
     stadium: '県営宮城球場',
     location: '宮城県仙台市',
     league: '地方開催球場',
-    lat: 38.3150,
+    lat: 38.315,
     lng: 140.9022,
     color: leagueColors['地方開催球場'],
     detailUrl: 'https://npb.jp/stadium/detail.html?027',
     type: 'regional',
     capacity: 23000,
-    games2025: 1
+    games2025: 1,
   },
   {
     name: '坊っちゃんスタジアム',
@@ -548,8 +548,8 @@ export const baseballTeams = [
     detailUrl: 'https://npb.jp/stadium/detail.html?230',
     type: 'regional',
     capacity: 30000,
-    games2025: 1
-  }
+    games2025: 1,
+  },
 ];
 
 let map;
@@ -559,98 +559,69 @@ let infoWindow;
 // Google Maps用のカスタムスタイル（日本風）
 export const japaneseMapStyle = [
   {
-    'featureType': 'all',
-    'stylers': [
-      { 'saturation': -20 }
-    ]
+    featureType: 'all',
+    stylers: [{ saturation: -20 }],
   },
   {
-    'featureType': 'water',
-    'stylers': [
-      { 'color': '#a4d4e6' }
-    ]
+    featureType: 'water',
+    stylers: [{ color: '#a4d4e6' }],
   },
   {
-    'featureType': 'landscape',
-    'stylers': [
-      { 'color': '#f0f8e8' }
-    ]
+    featureType: 'landscape',
+    stylers: [{ color: '#f0f8e8' }],
   },
   {
-    'featureType': 'road',
-    'stylers': [
-      { 'visibility': 'simplified' }
-    ]
+    featureType: 'road',
+    stylers: [{ visibility: 'simplified' }],
   },
   {
-    'featureType': 'poi',
-    'stylers': [
-      { 'visibility': 'off' }
-    ]
+    featureType: 'poi',
+    stylers: [{ visibility: 'off' }],
   },
   {
-    'featureType': 'transit',
-    'stylers': [
-      { 'visibility': 'off' }
-    ]
-  }
+    featureType: 'transit',
+    stylers: [{ visibility: 'off' }],
+  },
 ];
-
-
 
 // 地図を初期化
 export function initMap() {
-  // 日本の中心座標
-  const japanCenter = { lat: 36.2048, lng: 138.2529 };
-    
+  // 関東圏の中心座標（東京周辺）
+  const kantoCenter = { lat: 35.6762, lng: 139.6503 };
+
   // レスポンシブ対応: デバイスサイズに応じて初期ズームレベルを調整
   const isMobile = window.innerWidth <= 480;
   const isTablet = window.innerWidth <= 768;
-  let initialZoom = 6;
-    
+  let initialZoom = 8; // 関東圏がアップになるズームレベル
+
   if (isMobile) {
-    initialZoom = 5;
+    initialZoom = 6;
   } else if (isTablet) {
-    initialZoom = 5.5;
+    initialZoom = 7;
   }
-    
+
   // Google Map を初期化
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: initialZoom,
-    center: japanCenter,
+    center: kantoCenter,
     styles: japaneseMapStyle,
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: !isMobile, // モバイルではフルスクリーンボタンを非表示
     zoomControl: true,
-    gestureHandling: isMobile ? 'greedy' : 'cooperative' // モバイルでは単指操作を有効
+    gestureHandling: isMobile ? 'greedy' : 'cooperative', // モバイルでは単指操作を有効
   });
-    
+
   // InfoWindow を初期化
   infoWindow = new google.maps.InfoWindow();
-    
-  // 日本全体が見えるように境界を設定（より狭い範囲で大きく表示）
-  const japanBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(30.0, 128.0), // 南西（沖縄を含む）
-    new google.maps.LatLng(46.0, 146.0)  // 北東（北海道を含む）
-  );
-  map.fitBounds(japanBounds);
-    
-  // パディングを追加してマーカーが端に来すぎないように調整
-  map.fitBounds(japanBounds, {
-    top: 50,
-    right: 50,
-    bottom: 50,
-    left: 50
-  });
-    
+
   // 1軍のみ表示（デフォルト）
   showMainTeams();
-    
+
   // ウィンドウリサイズ時に地図を再描画
   window.addEventListener('resize', () => {
     google.maps.event.trigger(map, 'resize');
-    map.setCenter(japanCenter);
+    map.setCenter(kantoCenter);
   });
 }
 
@@ -670,7 +641,7 @@ export function showTeamInfo(team) {
   document.getElementById('location').textContent = team.location;
   document.getElementById('league').textContent = team.league;
   document.getElementById('team-info').style.display = 'block';
-  
+
   // 天気情報を更新
   if (typeof window !== 'undefined' && window.updateTeamWeatherInfo) {
     window.updateTeamWeatherInfo(team);
@@ -680,22 +651,22 @@ export function showTeamInfo(team) {
 // Google Maps用のマーカーを作成
 export function addMarker(team) {
   const position = { lat: team.lat, lng: team.lng };
-    
+
   // レスポンシブ対応: デバイスサイズに応じてマーカーサイズを調整
   const isMobileDevice = window.innerWidth <= 480;
   const sizeMultiplier = isMobileDevice ? 0.8 : 1;
-    
+
   // カスタムマーカーアイコンを作成
   let markerIcon;
   if (team.type === 'regional') {
     // 地方開催球場用ダイヤモンドマーカー
     markerIcon = {
-      path: 'M 0,-10 L 7,0 L 0,10 L -7,0 Z',  // ダイヤモンド形状
+      path: 'M 0,-10 L 7,0 L 0,10 L -7,0 Z', // ダイヤモンド形状
       scale: 1.2 * sizeMultiplier,
       fillColor: team.color,
       fillOpacity: 0.8,
       strokeColor: '#ffffff',
-      strokeWeight: isMobileDevice ? 1.5 : 2
+      strokeWeight: isMobileDevice ? 1.5 : 2,
     };
   } else if (team.type === 'farm') {
     // ファーム球場用矢印マーカー
@@ -705,7 +676,7 @@ export function addMarker(team) {
       fillColor: team.color,
       fillOpacity: 0.6,
       strokeColor: '#ffffff',
-      strokeWeight: isMobileDevice ? 2 : 3
+      strokeWeight: isMobileDevice ? 2 : 3,
     };
   } else {
     // 1軍本拠地用円マーカー
@@ -715,22 +686,22 @@ export function addMarker(team) {
       fillColor: team.color,
       fillOpacity: 0.8,
       strokeColor: '#ffffff',
-      strokeWeight: isMobileDevice ? 2 : 3
+      strokeWeight: isMobileDevice ? 2 : 3,
     };
   }
-    
+
   const marker = new google.maps.Marker({
     position: position,
     map: map,
     title: team.name,
     icon: markerIcon,
-    animation: google.maps.Animation.DROP
+    animation: google.maps.Animation.DROP,
   });
-    
+
   // InfoWindow のコンテンツ
   let teamType = '';
   let additionalInfo = '';
-    
+
   if (team.type === 'farm') {
     teamType = '（ファーム）';
   } else if (team.type === 'regional') {
@@ -742,19 +713,19 @@ export function addMarker(team) {
       additionalInfo += `<p style="margin: 3px 0; font-size: 12px;">2025年開催: ${team.games2025}試合</p>`;
     }
   }
-    
+
   // レスポンシブ対応: モバイルでInfoWindowのサイズを調整
   const isMobileInfo = window.innerWidth <= 480;
   const minWidth = isMobileInfo ? '150px' : '200px';
   const fontSize = isMobileInfo ? '11px' : '12px';
   const smallFontSize = isMobileInfo ? '9px' : '11px';
-    
+
   // 観戦ガイドボタンの生成
   let guideButton = '';
   if (team.guideUrl) {
     guideButton = `<p style="margin: 8px 0;"><a href="${team.guideUrl}" target="_blank" style="background: #e74c3c; color: white; padding: 6px 12px; border-radius: 15px; text-decoration: none; font-size: ${isMobileInfo ? '10px' : '11px'}; display: inline-block;">📖 観戦ガイド</a></p>`;
   }
-    
+
   const infoContent = `
         <div style="text-align: center; min-width: ${minWidth};">
             <h4 style="margin: 5px 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
@@ -765,17 +736,16 @@ export function addMarker(team) {
             <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${team.league}${teamType}</p>
             ${additionalInfo}
             ${guideButton}
-            <p style="margin: 5px 0; font-size: ${smallFontSize}; color: #999;">球場名をクリックで詳細ページへ</p>
         </div>
     `;
-    
+
   // クリックイベントを追加
   marker.addListener('click', async () => {
     // 天気情報を取得してInfoWindowに追加
     try {
       const { createMapWeatherInfo } = await import('./weather-ui.js');
       const weatherInfo = await createMapWeatherInfo(team);
-      
+
       // 天気情報を含むコンテンツを作成
       const contentWithWeather = `
         <div style="text-align: center; min-width: ${minWidth};">
@@ -788,29 +758,27 @@ export function addMarker(team) {
             ${additionalInfo}
             ${weatherInfo}
             ${guideButton}
-            <p style="margin: 5px 0; font-size: ${smallFontSize}; color: #999;">球場名をクリックで詳細ページへ</p>
         </div>
       `;
-      
+
       infoWindow.setContent(contentWithWeather);
     } catch (error) {
       console.error('Weather info loading error:', error);
       infoWindow.setContent(infoContent);
     }
-    
+
     infoWindow.open(map, marker);
     showTeamInfo(team);
-        
+
     // マーカーをバウンスアニメーション
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(() => {
       marker.setAnimation(null);
     }, 2000);
   });
-    
+
   markers.push(marker);
 }
-
 
 // すべての球団を表示
 export function showAllTeams() {
@@ -824,7 +792,9 @@ export function showAllTeams() {
 // セ・リーグのみ表示
 export function showCentralLeague() {
   clearMarkers();
-  const centralTeams = baseballTeams.filter(team => team.league === 'セントラル・リーグ');
+  const centralTeams = baseballTeams.filter(
+    team => team.league === 'セントラル・リーグ'
+  );
   centralTeams.forEach(team => {
     addMarker(team);
   });
@@ -834,7 +804,9 @@ export function showCentralLeague() {
 // パ・リーグのみ表示
 export function showPacificLeague() {
   clearMarkers();
-  const pacificTeams = baseballTeams.filter(team => team.league === 'パシフィック・リーグ');
+  const pacificTeams = baseballTeams.filter(
+    team => team.league === 'パシフィック・リーグ'
+  );
   pacificTeams.forEach(team => {
     addMarker(team);
   });
@@ -844,7 +816,9 @@ export function showPacificLeague() {
 // イースタン・リーグのみ表示
 export function showEasternLeague() {
   clearMarkers();
-  const easternTeams = baseballTeams.filter(team => team.league === 'イースタン・リーグ');
+  const easternTeams = baseballTeams.filter(
+    team => team.league === 'イースタン・リーグ'
+  );
   easternTeams.forEach(team => {
     addMarker(team);
   });
@@ -854,7 +828,9 @@ export function showEasternLeague() {
 // ウエスタン・リーグのみ表示
 export function showWesternLeague() {
   clearMarkers();
-  const westernTeams = baseballTeams.filter(team => team.league === 'ウエスタン・リーグ');
+  const westernTeams = baseballTeams.filter(
+    team => team.league === 'ウエスタン・リーグ'
+  );
   westernTeams.forEach(team => {
     addMarker(team);
   });
@@ -864,7 +840,9 @@ export function showWesternLeague() {
 // 1軍のみ表示
 export function showMainTeams() {
   clearMarkers();
-  const mainTeams = baseballTeams.filter(team => !team.type || team.type === undefined);
+  const mainTeams = baseballTeams.filter(
+    team => !team.type || team.type === undefined
+  );
   mainTeams.forEach(team => {
     addMarker(team);
   });
