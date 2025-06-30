@@ -718,7 +718,6 @@ export function addMarker(team) {
   const isMobileInfo = window.innerWidth <= 480;
   const minWidth = isMobileInfo ? '150px' : '200px';
   const fontSize = isMobileInfo ? '11px' : '12px';
-  const smallFontSize = isMobileInfo ? '9px' : '11px';
 
   // 観戦ガイドボタンの生成
   let guideButton = '';
