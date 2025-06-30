@@ -670,6 +670,11 @@ export function showTeamInfo(team) {
   document.getElementById('location').textContent = team.location;
   document.getElementById('league').textContent = team.league;
   document.getElementById('team-info').style.display = 'block';
+  
+  // 天気情報を更新
+  if (typeof window !== 'undefined' && window.updateTeamWeatherInfo) {
+    window.updateTeamWeatherInfo(team);
+  }
 }
 
 // Google Maps用のマーカーを作成
@@ -765,8 +770,34 @@ export function addMarker(team) {
     `;
     
   // クリックイベントを追加
-  marker.addListener('click', () => {
-    infoWindow.setContent(infoContent);
+  marker.addListener('click', async () => {
+    // 天気情報を取得してInfoWindowに追加
+    try {
+      const { createMapWeatherInfo } = await import('./weather-ui.js');
+      const weatherInfo = await createMapWeatherInfo(team);
+      
+      // 天気情報を含むコンテンツを作成
+      const contentWithWeather = `
+        <div style="text-align: center; min-width: ${minWidth};">
+            <h4 style="margin: 5px 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
+                <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${team.name}</a>
+            </h4>
+            <p style="margin: 3px 0; font-size: ${fontSize};"><strong>${team.stadium}</strong></p>
+            <p style="margin: 3px 0; font-size: ${fontSize};">${team.location}</p>
+            <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${team.league}${teamType}</p>
+            ${additionalInfo}
+            ${weatherInfo}
+            ${guideButton}
+            <p style="margin: 5px 0; font-size: ${smallFontSize}; color: #999;">球場名をクリックで詳細ページへ</p>
+        </div>
+      `;
+      
+      infoWindow.setContent(contentWithWeather);
+    } catch (error) {
+      console.error('Weather info loading error:', error);
+      infoWindow.setContent(infoContent);
+    }
+    
     infoWindow.open(map, marker);
     showTeamInfo(team);
         
@@ -779,6 +810,7 @@ export function addMarker(team) {
     
   markers.push(marker);
 }
+
 
 // すべての球団を表示
 export function showAllTeams() {
