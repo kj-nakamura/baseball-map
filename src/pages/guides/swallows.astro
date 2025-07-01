@@ -156,6 +156,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <p>神宮外苑の四季折々の自然を感じながらの観戦</p>
       </div>
     </section>
+
+    <section class="travel-plan">
+      <h2>🗾 東京観光プラン</h2>
+      <div class="travel-info">
+        <p>野球観戦と合わせて東京観光を楽しみませんか？</p>
+        <div class="travel-links">
+          <a href="/travel/tokyo-swallows-2days" class="travel-link">
+            <div class="travel-icon">🎨</div>
+            <h3>東京モダン観光コース</h3>
+            <p>表参道・六本木・新宿を巡るトレンディな2日間プラン</p>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -279,6 +293,61 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     color: #2c3e50;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .travel-plan {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #f8f9fa;
+  }
+
+  .travel-plan h2 {
+    color: #2c3e50;
+    border-bottom: 3px solid #003087;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .travel-info {
+    text-align: center;
+  }
+
+  .travel-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .travel-link {
+    background: white;
+    border: 2px solid #003087;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 280px;
+  }
+
+  .travel-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+
+  .travel-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .travel-link h3 {
+    color: #003087;
+    margin-bottom: 0.5rem;
+  }
+
+  .travel-link p {
+    color: #666;
+    font-size: 0.9rem;
   }
 
   footer {
