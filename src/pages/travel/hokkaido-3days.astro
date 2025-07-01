@@ -1,26 +1,30 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogLayout from '../../layouts/BlogLayout.astro';
 ---
 
-<BaseLayout title="北海道2泊3日モデルコース - ファイターズ観戦付き" description="北海道日本ハムファイターズの試合観戦を含む、充実の2泊3日旅行プラン">
-  <header class="travel-header">
-    <div class="header-content">
-      <h1>🏔️ 北海道2泊3日モデルコース</h1>
-      <p class="subtitle">ファイターズ観戦＆北海道グルメ・絶景を満喫！</p>
-      <nav>
-        <a href="/guides/fighters" class="nav-link">ファイターズ観戦ガイド</a>
-        <a href="/" class="nav-link">← 球場マップに戻る</a>
-      </nav>
+<BlogLayout 
+  title="北海道2泊3日モデルコース"
+  description="ファイターズ観戦＆北海道グルメ・絶景を満喫する充実の旅行プラン"
+  author="プロ野球球場ガイド編集部"
+  publishDate="2025-01-01"
+  category="旅行プラン"
+  tags={["北海道", "ファイターズ", "観戦旅行", "グルメ", "モデルコース"]}
+>
+  <!-- イントロダクション -->
+  <section class="intro">
+    <h2>⚾ 野球観戦＋北海道の魅力を3日間で堪能</h2>
+    <p>北海道日本ハムファイターズの本拠地・エスコンフィールド北海道での試合観戦を軸に、北海道の絶景・グルメ・温泉を満喫する充実の2泊3日プランをご紹介します。新千歳空港発着で効率的にまわれるよう計画しました。</p>
+    
+    <div class="highlight-box">
+      <h3>🌟 このプランのポイント</h3>
+      <ul>
+        <li>最新球場エスコンフィールドでのプロ野球観戦</li>
+        <li>小樽・洞爺湖・ニセコの定番観光スポット</li>
+        <li>北海道の新鮮な海の幸と地元グルメ</li>
+        <li>温泉でゆったりリラックス</li>
+      </ul>
     </div>
-  </header>
-
-  <main class="travel-content">
-    <section class="hero">
-      <div class="hero-content">
-        <h2>⚾ 野球観戦＋北海道の魅力を3日間で堪能</h2>
-        <p>新千歳空港から始まる、効率的な北海道旅行コース</p>
-      </div>
-    </section>
+  </section>
 
     <section class="overview">
       <h2>📅 コース概要</h2>
@@ -260,259 +264,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 プロ野球球場ガイド</p>
-      <p><a href="/">球場マップに戻る</a></p>
+  <!-- 関連リンク -->
+  <section class="related-content">
+    <h2>🔗 関連情報</h2>
+    <div class="related-grid">
+      <a href="/guides/fighters" class="related-card">
+        <div class="card-icon">⚾</div>
+        <h3>ファイターズ観戦ガイド</h3>
+        <p>エスコンフィールド北海道の詳細な観戦情報</p>
+      </a>
+      
+      <a href="/guides" class="related-card">
+        <div class="card-icon">🏟️</div>
+        <h3>他球団の観戦ガイド</h3>
+        <p>全12球団の球場情報をチェック</p>
+      </a>
     </div>
-  </footer>
-</BaseLayout>
+  </section>
+</BlogLayout>
 
 <style>
-  .travel-header {
-    background: linear-gradient(135deg, #152b5c 0%, #87ceeb 100%);
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  .header-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    opacity: 0.9;
-  }
-
-  .nav-link {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 0 0.5rem;
-    transition: background 0.3s;
-  }
-
-  .nav-link:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .hero {
-    background: #f8f9fa;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  .hero-content h2 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
-
-  .travel-content {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .overview, .itinerary, .must-eat, .budget, .tips, .related {
-    padding: 2rem 1rem;
-  }
-
-  .overview h2, .itinerary h2, .must-eat h2, .budget h2, .tips h2, .related h2 {
-    color: #2c3e50;
-    border-bottom: 3px solid #152b5c;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .overview-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .overview-item {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    border-left: 4px solid #152b5c;
-  }
-
-  .overview-item h3 {
-    color: #152b5c;
-    margin-bottom: 0.5rem;
-  }
-
-  .day-section {
-    margin-bottom: 2rem;
-  }
-
-  .day-title {
-    background: #152b5c;
-    color: white;
-    padding: 1rem;
-    border-radius: 8px 8px 0 0;
-    margin: 0;
-  }
-
-  .schedule {
-    border: 1px solid #ddd;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-  }
-
-  .time-slot {
-    display: flex;
-    border-bottom: 1px solid #eee;
-    padding: 1rem;
-  }
-
-  .time-slot:last-child {
-    border-bottom: none;
-  }
-
-  .time {
-    background: #87ceeb;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-weight: bold;
-    min-width: 80px;
-    text-align: center;
-    margin-right: 1rem;
-  }
-
-  .activity {
-    flex: 1;
-  }
-
-  .activity h4 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-
-  .activity small {
-    color: #666;
-    font-style: italic;
-  }
-
-  .food-grid, .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-
-  .food-card, .tip-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #152b5c;
-  }
-
-  .food-card h3, .tip-card h3 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-
-  .food-card small, .tip-card small {
-    color: #666;
-    font-style: italic;
-  }
-
-  .budget-breakdown {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-  }
-
-  .budget-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .budget-item:last-of-type {
-    border-bottom: 2px solid #152b5c;
-  }
-
-  .budget-total {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 0 0 0;
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #152b5c;
-  }
-
-  .related-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-  }
-
-  .related-link {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    border-left: 4px solid #152b5c;
-    transition: background 0.3s;
-  }
-
-  .related-link:hover {
-    background: #e9ecef;
-  }
-
-  .related-link h3 {
-    color: #152b5c;
-    margin-bottom: 0.5rem;
-  }
-
-  footer {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-  }
-
-  footer a {
-    color: #87ceeb;
-    text-decoration: none;
-  }
-
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-  @media (max-width: 768px) {
-    .header-content h1 {
-      font-size: 2rem;
-    }
-    
-    .subtitle {
-      font-size: 1rem;
-    }
-    
-    .time-slot {
-      flex-direction: column;
-    }
-    
-    .time {
-      margin-right: 0;
-      margin-bottom: 1rem;
-      align-self: flex-start;
-    }
-    
-    .overview-grid, .food-grid, .tips-grid, .related-links {
-      grid-template-columns: 1fr;
-    }
-  }
+  @import '/src/styles/travel.css';
 </style>
