@@ -152,6 +152,35 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <p>車椅子席各階に完備、エレベーター・エスカレーター、多目的トイレ</p>
       </div>
     </section>
+
+    <section class="travel-plan">
+      <h2>🗾 大阪旅行プラン</h2>
+      <div class="travel-info">
+        <h3>🏙️ 観戦と合わせて大阪を満喫</h3>
+        <p>バファローズ観戦を含む、大阪の魅力を存分に楽しめる1泊2日のモデルコースをご紹介。</p>
+        
+        <div class="travel-highlights">
+          <div class="highlight-item">
+            <h4>⚾ 野球観戦</h4>
+            <p>屋内ドーム球場で快適にバファローズの熱戦を観戦</p>
+          </div>
+          <div class="highlight-item">
+            <h4>🍽️ 大阪グルメ</h4>
+            <p>たこ焼き、お好み焼き、串カツなど大阪名物を堪能</p>
+          </div>
+          <div class="highlight-item">
+            <h4>🏰 観光スポット</h4>
+            <p>大阪城、道頓堀、心斎橋、通天閣の定番観光</p>
+          </div>
+        </div>
+        
+        <div class="travel-cta">
+          <a href="/travel/osaka-2days" class="travel-link">
+            📖 詳細な1泊2日モデルコースを見る
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -206,13 +235,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     margin-bottom: 1rem;
   }
 
-  .stadium-info, .access, .seating, .food, .tips, .weather, .facilities {
+  .stadium-info, .access, .seating, .food, .tips, .weather, .facilities, .travel-plan {
     padding: 2rem 1rem;
     max-width: 800px;
     margin: 0 auto;
   }
 
-  .stadium-info h2, .access h2, .seating h2, .food h2, .tips h2, .weather h2, .facilities h2 {
+  .stadium-info h2, .access h2, .seating h2, .food h2, .tips h2, .weather h2, .facilities h2, .travel-plan h2 {
     color: #2c3e50;
     border-bottom: 3px solid #152b5c;
     padding-bottom: 0.5rem;
@@ -271,10 +300,50 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     margin-bottom: 0.5rem;
   }
 
-  .weather-info h3, .facilities-info h3 {
+  .weather-info h3, .facilities-info h3, .travel-info h3 {
     color: #2c3e50;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .travel-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight-item {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #152b5c;
+  }
+
+  .highlight-item h4 {
+    color: #152b5c;
+    margin-bottom: 0.5rem;
+  }
+
+  .travel-cta {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .travel-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #152b5c 0%, #ffd700 100%);
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .travel-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(21, 43, 92, 0.3);
   }
 
   footer {
@@ -302,7 +371,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       font-size: 1rem;
     }
     
-    .info-grid, .seat-types, .food-items, .tips-list {
+    .info-grid, .seat-types, .food-items, .tips-list, .travel-highlights {
       grid-template-columns: 1fr;
     }
   }
