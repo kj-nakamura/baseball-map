@@ -3,7 +3,6 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  srcDir: './astro-src',
   output: 'static',
   adapter: node({
     mode: 'standalone'
@@ -15,7 +14,7 @@ export default defineConfig({
     envDir: '.',
   },
   server: {
-    port: 3002,
+    port: 4321,
     host: true
   }
 });

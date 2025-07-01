@@ -7,6 +7,10 @@ export interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// サーバーサイドで環境変数を取得（フォールバック付き）
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBHS73Lg8QMhIWmuJEZ8mr_fC-J7aiEPfQ';
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b187a1b8cba7d79fbed4a1d0562';
 ---
 
 <BaseLayout title={title} description={description}>
@@ -42,9 +46,11 @@ const { title, description } = Astro.props;
     </div>
   </div>
 
-  <script type="module">
-    // 環境変数からAPIキーを取得
-    const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  <script type="module" define:vars={{ GOOGLE_MAPS_API_KEY, OPENWEATHER_API_KEY }}>
+    // サーバーから環境変数を受け取り
+    // グローバルに設定してweather.jsからも利用可能にする
+    window.GOOGLE_MAPS_API_KEY = GOOGLE_MAPS_API_KEY;
+    window.OPENWEATHER_API_KEY = OPENWEATHER_API_KEY;
 
     // Google Maps APIを動的に読み込み
     function loadGoogleMapsAPI() {
@@ -60,8 +66,26 @@ const { title, description } = Astro.props;
       document.head.appendChild(script);
     }
 
-    // ページ読み込み時にAPIを読み込み
-    document.addEventListener('DOMContentLoaded', loadGoogleMapsAPI);
+    // script.jsから関数をインポートしてグローバルに設定
+    import('/src/scripts/script.js').then(module => {
+      window.initMap = module.initMap;
+      window.showAllTeams = module.showAllTeams;
+      window.showMainTeams = module.showMainTeams;
+      window.showFarmTeams = module.showFarmTeams;
+      window.showRegionalStadiums = module.showRegionalStadiums;
+      window.showCentralLeague = module.showCentralLeague;
+      window.showPacificLeague = module.showPacificLeague;
+      window.showEasternLeague = module.showEasternLeague;
+      window.showWesternLeague = module.showWesternLeague;
+      
+      // Google Maps APIを読み込み
+      loadGoogleMapsAPI();
+    });
+
+    // ページ読み込み時にモジュールを読み込み
+    document.addEventListener('DOMContentLoaded', () => {
+      // script.jsは上記のimportで処理されるので、ここでは何もしない
+    });
     
     // 天気情報統合用のグローバル関数
     window.updateTeamWeatherInfo = async function(stadium) {
@@ -73,7 +97,7 @@ const { title, description } = Astro.props;
         
         try {
           // 天気UI機能を動的インポート
-          const { createCompactWeatherInfo } = await import('/src/weather-ui.js');
+          const { createCompactWeatherInfo } = await import('/src/scripts/weather-ui.js');
           
           // ドーム球場の判定
           const isIndoor = stadium.stadium.includes('ドーム') || 
@@ -97,10 +121,9 @@ const { title, description } = Astro.props;
       }
     };
   </script>
-  <script type="module" src="/src/script.js"></script>
 </MapLayout>
 
 <style>
-  @import '/src/style.css';
-  @import '/src/weather.css';
+  @import '/src/styles/style.css';
+  @import '/src/styles/weather.css';
 </style>

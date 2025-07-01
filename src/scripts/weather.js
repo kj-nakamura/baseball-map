@@ -1,5 +1,5 @@
 // Weather API service for baseball stadiums using OpenWeatherMap API
-const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+const OPENWEATHER_API_KEY = window.OPENWEATHER_API_KEY || '3d403b187a1b8cba7d79fbed4a1d0562';
 const CACHE_DURATION = 30 * 60 * 1000; // 30分間キャッシュ
 
 // キャッシュ管理

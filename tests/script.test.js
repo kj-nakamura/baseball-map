@@ -2,11 +2,36 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { JSDOM } from 'jsdom';
 import fs from 'fs';
 import path from 'path';
-import * as script from '../src/script.js';
-import { markers } from '../src/script.js';
+import * as script from '../src/scripts/script.js';
+import { markers } from '../src/scripts/script.js';
 
-// HTMLを読み込む
-const html = fs.readFileSync(path.resolve(__dirname, '../src/index.html'), 'utf8');
+// HTMLテンプレートを作成（index.htmlは存在しないため）
+const html = `
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テスト用HTML</title>
+</head>
+<body>
+  <div class="league-toggle">
+    <button class="league-btn">全球場</button>
+    <button class="league-btn active">1軍のみ</button>
+    <button class="league-btn">ファームのみ</button>
+    <button class="league-btn regional">地方開催</button>
+  </div>
+  <div id="map"></div>
+  <div id="team-info" style="display: none;">
+    <h2 id="team-name"></h2>
+    <p><strong>球場:</strong> <span id="stadium-name"></span></p>
+    <p><strong>所在地:</strong> <span id="location"></span></p>
+    <p><strong>リーグ:</strong> <span id="league"></span></p>
+    <div id="weather-info"></div>
+  </div>
+</body>
+</html>
+`;
 
 describe('スクリプトの機能テスト', () => {
   beforeEach(() => {

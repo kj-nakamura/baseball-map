@@ -19,7 +19,7 @@ export const baseballTeams = [
     lng: 139.7519,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?081',
-    guideUrl: 'giants-guide.html',
+    guideUrl: '/guides/giants',
   },
   {
     name: '阪神タイガース',
@@ -30,7 +30,7 @@ export const baseballTeams = [
     lng: 135.3619,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?181',
-    guideUrl: 'tigers-guide.html',
+    guideUrl: '/guides/tigers',
   },
   {
     name: '横浜DeNAベイスターズ',
@@ -41,7 +41,7 @@ export const baseballTeams = [
     lng: 139.638,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?093',
-    guideUrl: 'baystars-guide.html',
+    guideUrl: '/guides/baystars',
   },
   {
     name: '広島東洋カープ',
@@ -52,7 +52,7 @@ export const baseballTeams = [
     lng: 132.4626,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?208',
-    guideUrl: 'carp-guide.html',
+    guideUrl: '/guides/carp',
   },
   {
     name: '東京ヤクルトスワローズ',
@@ -63,7 +63,7 @@ export const baseballTeams = [
     lng: 139.717,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?082',
-    guideUrl: 'swallows-guide.html',
+    guideUrl: '/guides/swallows',
   },
   {
     name: '中日ドラゴンズ',
@@ -74,7 +74,7 @@ export const baseballTeams = [
     lng: 136.9493,
     color: leagueColors['セントラル・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?151',
-    guideUrl: 'dragons-guide.html',
+    guideUrl: '/guides/dragons',
   },
   // パシフィック・リーグ
   {
@@ -86,7 +86,7 @@ export const baseballTeams = [
     lng: 130.3619,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?245',
-    guideUrl: 'hawks-guide.html',
+    guideUrl: '/guides/hawks',
   },
   {
     name: '北海道日本ハムファイターズ',
@@ -97,7 +97,7 @@ export const baseballTeams = [
     lng: 141.5642,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?290',
-    guideUrl: 'fighters-guide.html',
+    guideUrl: '/guides/fighters',
   },
   {
     name: '千葉ロッテマリーンズ',
@@ -108,7 +108,7 @@ export const baseballTeams = [
     lng: 140.0316,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?073',
-    guideUrl: 'marines-guide.html',
+    guideUrl: '/guides/marines',
   },
   {
     name: '東北楽天ゴールデンイーグルス',
@@ -119,7 +119,7 @@ export const baseballTeams = [
     lng: 140.9015,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?029',
-    guideUrl: 'eagles-guide.html',
+    guideUrl: '/guides/eagles',
   },
   {
     name: 'オリックス・バファローズ',
@@ -130,7 +130,7 @@ export const baseballTeams = [
     lng: 135.4755,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?175',
-    guideUrl: 'buffaloes-guide.html',
+    guideUrl: '/guides/buffaloes',
   },
   {
     name: '埼玉西武ライオンズ',
@@ -141,7 +141,7 @@ export const baseballTeams = [
     lng: 139.4178,
     color: leagueColors['パシフィック・リーグ'],
     detailUrl: 'https://npb.jp/stadium/detail.html?068',
-    guideUrl: 'lions-guide.html',
+    guideUrl: '/guides/lions',
   },
   // ファーム（2軍）球場
   {

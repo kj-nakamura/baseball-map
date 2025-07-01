@@ -32,7 +32,10 @@
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(npm run astro:dev:*)",
-      "Bash(npm run astro:build:*)"
+      "Bash(npm run astro:build:*)",
+      "Bash(grep:*)",
+      "WebFetch(domain:docs.astro.build)",
+      "Bash(node:*)"
     ],
     "deny": []
   }
