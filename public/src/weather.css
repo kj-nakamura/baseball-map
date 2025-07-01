@@ -1,0 +1,241 @@
+/* Weather component styles */
+
+.weather-widget {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  border-radius: 12px;
+  padding: 1rem;
+  color: white;
+  margin: 1rem 0;
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+}
+
+.weather-current {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.weather-icon {
+  font-size: 3rem;
+}
+
+.weather-main {
+  flex: 1;
+}
+
+.weather-temp {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.weather-description {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.weather-detail {
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.weather-detail-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  display: block;
+}
+
+.weather-detail-value {
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* 天気予報 */
+.weather-forecast {
+  margin-top: 1.5rem;
+}
+
+.forecast-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.forecast-days {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.forecast-day {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.8rem 0.5rem;
+  text-align: center;
+}
+
+.forecast-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 0.3rem;
+}
+
+.forecast-icon {
+  font-size: 1.5rem;
+  margin: 0.2rem 0;
+}
+
+.forecast-temps {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.forecast-max {
+  color: #fff;
+}
+
+.forecast-min {
+  opacity: 0.7;
+  margin-left: 0.3rem;
+}
+
+/* 観戦アドバイス */
+.weather-advice {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.advice-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.advice-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.advice-item {
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+/* エラー状態 */
+.weather-error {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  margin: 1rem 0;
+}
+
+.weather-loading {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  margin: 1rem 0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .weather-current {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .weather-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .forecast-days {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+  
+  .forecast-day {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+  
+  .forecast-icon {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .weather-widget {
+    background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+  }
+  
+  .map-weather-icon {
+    background: rgba(45, 52, 54, 0.9);
+    color: white;
+  }
+}
+
+/* アニメーション */
+.weather-widget {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-loading::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

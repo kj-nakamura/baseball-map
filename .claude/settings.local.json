@@ -27,7 +27,12 @@
       "WebFetch(domain:developers.google.com)",
       "Bash(curl:*)",
       "WebFetch(domain:openweathermap.org)",
-      "Bash(npm test)"
+      "Bash(npm test)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(npm run astro:dev:*)",
+      "Bash(npm run astro:build:*)"
     ],
     "deny": []
   }

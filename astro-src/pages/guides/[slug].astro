@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: guide,
+  }));
+}
+
+const guide = Astro.props;
+const { Content } = await guide.render();
+---
+
+<BaseLayout title={guide.data.title} description={guide.data.description}>
+  <header class="guide-header">
+    <div class="header-content">
+      <h1>🏟️ {guide.data.stadium} 観戦ガイド</h1>
+      <p class="subtitle">{guide.data.description}</p>
+      <nav>
+        <a href="/" class="nav-link">← 球場マップに戻る</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="guide-content">
+    <section class="hero">
+      <div class="hero-content">
+        <h2>⚾ {guide.data.team}</h2>
+        <p>{guide.data.league} | {guide.data.location}</p>
+      </div>
+    </section>
+
+    <article class="markdown-content">
+      <Content />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .guide-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .header-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .nav-link {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .hero {
+    background: #f8f9fa;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .guide-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .markdown-content {
+    padding: 2rem 1rem;
+    line-height: 1.8;
+  }
+
+  .markdown-content h1 {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .markdown-content h2 {
+    color: #34495e;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .markdown-content h3 {
+    color: #7f8c8d;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-content ul, .markdown-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .markdown-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-content p {
+    margin-bottom: 1rem;
+  }
+
+  .markdown-content strong {
+    color: #2c3e50;
+  }
+
+  @media (max-width: 768px) {
+    .header-content h1 {
+      font-size: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+    }
+    
+    .markdown-content {
+      padding: 1rem;
+    }
+  }
+</style>
