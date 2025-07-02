@@ -51,8 +51,17 @@
 
 .guides-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
   gap: 1.5rem;
+}
+
+/* 最大3カラムに制限 */
+@media (min-width: 1200px) {
+  .guides-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .guide-card {
@@ -127,6 +136,14 @@
   color: #2980b9;
 }
 
+/* タブレット用レイアウト */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .guides-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 768px) {
   .header-content h1 {
     font-size: 2rem;
@@ -138,5 +155,19 @@
 
   .guides-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .guides-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .league-section {
+    margin-bottom: 2rem;
+  }
+
+  .league-title {
+    font-size: 1.5rem;
+    padding: 0.75rem;
   }
 }
