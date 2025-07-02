@@ -1,18 +1,28 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const guides = await getCollection('guides');
-const sortedGuides = guides.sort((a, b) =>
-  a.data.team.localeCompare(b.data.team)
-);
+// 静的な球団データ
+const guides = [
+  { slug: 'giants', team: 'ジャイアンツ', stadium: '東京ドーム', location: '東京都', league: 'セントラル・リーグ', capacity: 46000, description: '日本野球界の名門、読売ジャイアンツの本拠地' },
+  { slug: 'tigers', team: 'タイガース', stadium: '甲子園球場', location: '兵庫県西宮市', league: 'セントラル・リーグ', capacity: 47000, description: '阪神タイガースの聖地、高校野球の甲子園でも有名' },
+  { slug: 'dragons', team: 'ドラゴンズ', stadium: 'バンテリンドーム ナゴヤ', location: '愛知県名古屋市', league: 'セントラル・リーグ', capacity: 40500, description: '中日ドラゴンズの本拠地、ドーム球場' },
+  { slug: 'carp', team: 'カープ', stadium: 'MAZDA Zoom-Zoom スタジアム広島', location: '広島県広島市', league: 'セントラル・リーグ', capacity: 33000, description: '広島東洋カープの本拠地、美しい景観が自慢' },
+  { slug: 'baystars', team: 'ベイスターズ', stadium: '横浜スタジアム', location: '神奈川県横浜市', league: 'セントラル・リーグ', capacity: 30000, description: '横浜DeNAベイスターズの本拠地、横浜の中心部に位置' },
+  { slug: 'swallows', team: 'スワローズ', stadium: '明治神宮野球場', location: '東京都新宿区', league: 'セントラル・リーグ', capacity: 31000, description: '東京ヤクルトスワローズの本拠地、神宮の森に囲まれた球場' },
+  { slug: 'fighters', team: 'ファイターズ', stadium: 'エスコンフィールド北海道', location: '北海道北広島市', league: 'パシフィック・リーグ', capacity: 35000, description: '北海道日本ハムファイターズの新本拠地' },
+  { slug: 'marines', team: 'マリーンズ', stadium: 'ZOZOマリンスタジアム', location: '千葉県千葉市', league: 'パシフィック・リーグ', capacity: 30000, description: '千葉ロッテマリーンズの本拠地、海風が心地よい' },
+  { slug: 'buffaloes', team: 'バファローズ', stadium: '京セラドーム大阪', location: '大阪府大阪市', league: 'パシフィック・リーグ', capacity: 36000, description: 'オリックス・バファローズの本拠地、関西の屋内球場' },
+  { slug: 'lions', team: 'ライオンズ', stadium: 'ベルーナドーム', location: '埼玉県所沢市', league: 'パシフィック・リーグ', capacity: 33000, description: '埼玉西武ライオンズの本拠地、埼玉の代表的球場' },
+  { slug: 'hawks', team: 'ホークス', stadium: 'PayPayドーム', location: '福岡県福岡市', league: 'パシフィック・リーグ', capacity: 40000, description: '福岡ソフトバンクホークスの本拠地、九州最大の球場' },
+  { slug: 'eagles', team: 'イーグルス', stadium: '楽天モバイルパーク宮城', location: '宮城県仙台市', league: 'パシフィック・リーグ', capacity: 30500, description: '東北楽天ゴールデンイーグルスの本拠地、東北の野球拠点' }
+];
 
 // リーグ別に分類
-const centralLeague = sortedGuides.filter(
-  guide => guide.data.league === 'セントラル・リーグ'
+const centralLeague = guides.filter(
+  guide => guide.league === 'セントラル・リーグ'
 );
-const pacificLeague = sortedGuides.filter(
-  guide => guide.data.league === 'パシフィック・リーグ'
+const pacificLeague = guides.filter(
+  guide => guide.league === 'パシフィック・リーグ'
 );
 ---
 
@@ -39,18 +49,18 @@ const pacificLeague = sortedGuides.filter(
           centralLeague.map(guide => (
             <div class="guide-card">
               <div class="card-header">
-                <h3>{guide.data.stadium}</h3>
-                <p class="team-name">{guide.data.team}</p>
+                <h3>{guide.stadium}</h3>
+                <p class="team-name">{guide.team}</p>
               </div>
               <div class="card-content">
-                <p class="league">{guide.data.league}</p>
-                <p class="location">📍 {guide.data.location}</p>
-                {guide.data.capacity && (
+                <p class="league">{guide.league}</p>
+                <p class="location">📍 {guide.location}</p>
+                {guide.capacity && (
                   <p class="capacity">
-                    👥 収容人数: {guide.data.capacity.toLocaleString()}人
+                    👥 収容人数: {guide.capacity.toLocaleString()}人
                   </p>
                 )}
-                <p class="description">{guide.data.description}</p>
+                <p class="description">{guide.description}</p>
               </div>
               <div class="card-footer">
                 <a href={`/guides/${guide.slug}`} class="guide-link">
@@ -71,18 +81,18 @@ const pacificLeague = sortedGuides.filter(
           pacificLeague.map(guide => (
             <div class="guide-card">
               <div class="card-header">
-                <h3>{guide.data.stadium}</h3>
-                <p class="team-name">{guide.data.team}</p>
+                <h3>{guide.stadium}</h3>
+                <p class="team-name">{guide.team}</p>
               </div>
               <div class="card-content">
-                <p class="league">{guide.data.league}</p>
-                <p class="location">📍 {guide.data.location}</p>
-                {guide.data.capacity && (
+                <p class="league">{guide.league}</p>
+                <p class="location">📍 {guide.location}</p>
+                {guide.capacity && (
                   <p class="capacity">
-                    👥 収容人数: {guide.data.capacity.toLocaleString()}人
+                    👥 収容人数: {guide.capacity.toLocaleString()}人
                   </p>
                 )}
-                <p class="description">{guide.data.description}</p>
+                <p class="description">{guide.description}</p>
               </div>
               <div class="card-footer">
                 <a href={`/guides/${guide.slug}`} class="guide-link">
