@@ -33,6 +33,76 @@ const formatDate = (dateString: string) => {
     day: 'numeric'
   });
 };
+
+// 現在のURLから関連する球団を推定
+const currentPath = Astro.url.pathname;
+const getRelatedTeamInfo = () => {
+  if (currentPath.includes('hokkaido') || currentPath.includes('fighters')) {
+    return { team: 'fighters', name: 'ファイターズ', stadium: 'エスコンフィールド北海道', icon: '🏔️' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('buffaloes')) {
+    return { team: 'buffaloes', name: 'バファローズ', stadium: '京セラドーム大阪', icon: '🐃' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('tigers')) {
+    return { team: 'tigers', name: 'タイガース', stadium: '阪神甲子園球場', icon: '🐅' };
+  } else if (currentPath.includes('saitama') || currentPath.includes('lions')) {
+    return { team: 'lions', name: 'ライオンズ', stadium: 'ベルーナドーム', icon: '🦁' };
+  } else if (currentPath.includes('chiba') || currentPath.includes('marines')) {
+    return { team: 'marines', name: 'マリーンズ', stadium: 'ZOZOマリンスタジアム', icon: '⚓' };
+  } else if (currentPath.includes('miyagi') || currentPath.includes('eagles')) {
+    return { team: 'eagles', name: 'イーグルス', stadium: '楽天モバイルパーク宮城', icon: '🦅' };
+  } else if (currentPath.includes('fukuoka') || currentPath.includes('hawks')) {
+    return { team: 'hawks', name: 'ホークス', stadium: 'PayPayドーム', icon: '🦅' };
+  } else if (currentPath.includes('tokyo-giants') || currentPath.includes('giants')) {
+    return { team: 'giants', name: 'ジャイアンツ', stadium: '東京ドーム', icon: '🧡' };
+  } else if (currentPath.includes('tokyo-swallows') || currentPath.includes('swallows')) {
+    return { team: 'swallows', name: 'スワローズ', stadium: '明治神宮野球場', icon: '🐦' };
+  } else if (currentPath.includes('yokohama') || currentPath.includes('baystars')) {
+    return { team: 'baystars', name: 'ベイスターズ', stadium: '横浜スタジアム', icon: '⭐' };
+  } else if (currentPath.includes('nagoya') || currentPath.includes('dragons')) {
+    return { team: 'dragons', name: 'ドラゴンズ', stadium: 'バンテリンドーム ナゴヤ', icon: '🐉' };
+  } else if (currentPath.includes('hiroshima') || currentPath.includes('carp')) {
+    return { team: 'carp', name: 'カープ', stadium: 'MAZDA Zoom-Zoom スタジアム広島', icon: '🎣' };
+  }
+  // デフォルト
+  return { team: 'fighters', name: 'ファイターズ', stadium: 'エスコンフィールド北海道', icon: '🏔️' };
+};
+
+const relatedTeam = getRelatedTeamInfo();
+
+// 関連する旅行記事を取得
+const getRelatedTravelInfo = () => {
+  if (currentPath.includes('hokkaido')) {
+    return { path: '/travel/hokkaido-3days', title: '北海道3日間モデルコース', icon: '🏔️' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('buffaloes')) {
+    return { path: '/travel/osaka-2days', title: '大阪2日間モデルコース', icon: '🏰' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('tigers')) {
+    return { path: '/travel/osaka-tigers-2days', title: '大阪・神戸2日間コース', icon: '🐅' };
+  } else if (currentPath.includes('saitama')) {
+    return { path: '/travel/saitama-2days', title: '埼玉2日間モデルコース', icon: '🌸' };
+  } else if (currentPath.includes('chiba')) {
+    return { path: '/travel/chiba-2days', title: '千葉2日間モデルコース', icon: '🌊' };
+  } else if (currentPath.includes('miyagi')) {
+    return { path: '/travel/miyagi-2days', title: '宮城2日間モデルコース', icon: '🌸' };
+  } else if (currentPath.includes('fukuoka')) {
+    return { path: '/travel/fukuoka-2days', title: '福岡2日間モデルコース', icon: '🍜' };
+  } else if (currentPath.includes('tokyo-giants')) {
+    return { path: '/travel/tokyo-giants-2days', title: '東京王道観光コース', icon: '🏯' };
+  } else if (currentPath.includes('tokyo-swallows')) {
+    return { path: '/travel/tokyo-swallows-2days', title: '東京モダン観光コース', icon: '🎨' };
+  } else if (currentPath.includes('yokohama')) {
+    return { path: '/travel/yokohama-2days', title: '横浜みなとみらいコース', icon: '🌉' };
+  } else if (currentPath.includes('nagoya')) {
+    return { path: '/travel/nagoya-2days', title: '名古屋めしコース', icon: '🏰' };
+  } else if (currentPath.includes('hiroshima')) {
+    return { path: '/travel/hiroshima-2days', title: '平和・宮島満喫コース', icon: '⛩️' };
+  }
+  return null;
+};
+
+const relatedTravel = getRelatedTravelInfo();
+
+// ページタイプを判定
+const isGuidePage = currentPath.includes('/guides/');
+const isTravelPage = currentPath.includes('/travel/');
 ---
 
 <BaseLayout title={title} description={description}>
@@ -118,21 +188,47 @@ const formatDate = (dateString: string) => {
       <div class="sidebar-section">
         <h3 class="sidebar-title">関連記事</h3>
         <div class="related-links">
-          <a href="/guides" class="related-link">
-            <span class="related-icon">⚾</span>
-            <div class="related-content">
-              <h4>球場観戦ガイド</h4>
-              <p>全12球団の観戦情報</p>
-            </div>
-          </a>
-          
-          <a href="/guides/fighters" class="related-link">
-            <span class="related-icon">🏔️</span>
-            <div class="related-content">
-              <h4>ファイターズ観戦ガイド</h4>
-              <p>エスコンフィールド北海道</p>
-            </div>
-          </a>
+          {isTravelPage ? (
+            // 旅行記事の場合：観戦ガイドを優先表示
+            <>
+              <a href={`/guides/${relatedTeam.team}`} class="related-link">
+                <span class="related-icon">{relatedTeam.icon}</span>
+                <div class="related-content">
+                  <h4>{relatedTeam.name}観戦ガイド</h4>
+                  <p>{relatedTeam.stadium}</p>
+                </div>
+              </a>
+              
+              <a href="/guides" class="related-link">
+                <span class="related-icon">⚾</span>
+                <div class="related-content">
+                  <h4>球場観戦ガイド一覧</h4>
+                  <p>全12球団の観戦情報</p>
+                </div>
+              </a>
+            </>
+          ) : (
+            // 観戦ガイドまたはその他の場合：旅行記事を優先表示
+            <>
+              {relatedTravel && (
+                <a href={relatedTravel.path} class="related-link">
+                  <span class="related-icon">{relatedTravel.icon}</span>
+                  <div class="related-content">
+                    <h4>{relatedTravel.title}</h4>
+                    <p>観戦＋観光旅行プラン</p>
+                  </div>
+                </a>
+              )}
+              
+              <a href="/guides" class="related-link">
+                <span class="related-icon">⚾</span>
+                <div class="related-content">
+                  <h4>球場観戦ガイド一覧</h4>
+                  <p>全12球団の観戦情報</p>
+                </div>
+                </a>
+            </>
+          )}
         </div>
       </div>
 
@@ -148,10 +244,22 @@ const formatDate = (dateString: string) => {
             <span class="nav-icon">📖</span>
             <span>観戦ガイド</span>
           </a>
-          <a href="/travel" class="nav-item">
-            <span class="nav-icon">✈️</span>
-            <span>旅行プラン</span>
-          </a>
+          {isTravelPage ? (
+            <a href={`/guides/${relatedTeam.team}`} class="nav-item">
+              <span class="nav-icon">{relatedTeam.icon}</span>
+              <span>{relatedTeam.name}ガイド</span>
+            </a>
+          ) : relatedTravel ? (
+            <a href={relatedTravel.path} class="nav-item">
+              <span class="nav-icon">{relatedTravel.icon}</span>
+              <span>旅行プラン</span>
+            </a>
+          ) : (
+            <a href="/travel" class="nav-item">
+              <span class="nav-icon">✈️</span>
+              <span>旅行プラン</span>
+            </a>
+          )}
         </nav>
       </div>
 

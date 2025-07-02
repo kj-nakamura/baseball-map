@@ -36,7 +36,8 @@
       "Bash(grep:*)",
       "WebFetch(domain:docs.astro.build)",
       "Bash(node:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(npm test:*)"
     ],
     "deny": []
   }
