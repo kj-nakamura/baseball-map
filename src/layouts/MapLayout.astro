@@ -14,7 +14,8 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="header">
+  <div class="map-container">
+    <div class="header">
     <h1>プロ野球12球団本拠地マップ</h1>
     <p>日本プロ野球12球団の本拠地球場を地図上で確認できます</p>
   </div>
@@ -159,6 +160,7 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
       }
     };
   </script>
+  </div>
 </MapLayout>
 
 <style>
@@ -167,4 +169,16 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
   @import '/src/styles/utilities.css';
   @import '/src/styles/style.css';
   @import '/src/styles/weather.css';
+
+  .map-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .map-container {
+      padding: 10px;
+    }
+  }
 </style>
