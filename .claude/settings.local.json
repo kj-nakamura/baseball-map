@@ -39,7 +39,8 @@
       "Bash(sed:*)",
       "Bash(npm test:*)",
       "Bash(git revert:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

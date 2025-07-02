@@ -1,5 +1,10 @@
 // Weather API service for baseball stadiums using OpenWeatherMap API
-const OPENWEATHER_API_KEY = window.OPENWEATHER_API_KEY || '3d403b187a1b8cba7d79fbed4a1d0562';
+const OPENWEATHER_API_KEY = window.OPENWEATHER_API_KEY;
+
+// API キーの検証
+if (!OPENWEATHER_API_KEY) {
+  console.warn('OpenWeather API key is not configured');
+}
 const CACHE_DURATION = 30 * 60 * 1000; // 30分間キャッシュ
 
 // キャッシュ管理

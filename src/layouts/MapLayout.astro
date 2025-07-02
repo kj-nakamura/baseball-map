@@ -8,9 +8,17 @@ export interface Props {
 
 const { title, description } = Astro.props;
 
-// サーバーサイドで環境変数を取得（フォールバック付き）
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBHS73Lg8QMhIWmuJEZ8mr_fC-J7aiEPfQ';
-const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b187a1b8cba7d79fbed4a1d0562';
+// サーバーサイドで環境変数を取得
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+
+// API キーの検証
+if (!GOOGLE_MAPS_API_KEY) {
+  console.warn('Google Maps API key is not configured');
+}
+if (!OPENWEATHER_API_KEY) {
+  console.warn('OpenWeather API key is not configured');
+}
 ---
 
 <BaseLayout title={title} description={description}>
