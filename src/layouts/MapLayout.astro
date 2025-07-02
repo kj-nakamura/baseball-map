@@ -113,25 +113,9 @@ if (!OPENWEATHER_API_KEY) {
       document.head.appendChild(script);
     }
 
-    // script.jsから関数をインポートしてグローバルに設定
-    import('/src/scripts/script.js').then(module => {
-      window.initMap = module.initMap;
-      window.showAllTeams = module.showAllTeams;
-      window.showMainTeams = module.showMainTeams;
-      window.showFarmTeams = module.showFarmTeams;
-      window.showRegionalStadiums = module.showRegionalStadiums;
-      window.showCentralLeague = module.showCentralLeague;
-      window.showPacificLeague = module.showPacificLeague;
-      window.showEasternLeague = module.showEasternLeague;
-      window.showWesternLeague = module.showWesternLeague;
-      
-      // Google Maps APIを読み込み
-      loadGoogleMapsAPI();
-    });
-
-    // ページ読み込み時にモジュールを読み込み
+    // ページ読み込み時にGoogle Maps APIを読み込み
     document.addEventListener('DOMContentLoaded', () => {
-      // script.jsは上記のimportで処理されるので、ここでは何もしない
+      loadGoogleMapsAPI();
     });
     
     // 天気情報統合用のグローバル関数
@@ -190,3 +174,6 @@ if (!OPENWEATHER_API_KEY) {
     }
   }
 </style>
+
+<script src="/src/scripts/script.js"></script>
+<script src="/src/scripts/weather.js"></script>
