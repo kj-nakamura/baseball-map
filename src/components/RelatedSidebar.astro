@@ -1,0 +1,212 @@
+---
+export interface Props {
+  relatedTeam: {
+    team: string;
+    name: string;
+    stadium: string;
+    icon: string;
+  };
+  relatedTravel?: {
+    path: string;
+    title: string;
+    icon: string;
+  } | null;
+  isTravelPage: boolean;
+}
+
+const { relatedTeam, relatedTravel, isTravelPage } = Astro.props;
+---
+
+<!-- 関連記事 -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">関連記事</h3>
+  <nav class="related-nav">
+    {isTravelPage ? (
+      // 旅行記事の場合：観戦ガイド＋旅行関連リンクを表示
+      <>
+        <a href={`/guides/${relatedTeam.team}`} class="nav-item">
+          <span class="nav-icon">{relatedTeam.icon}</span>
+          <span>{relatedTeam.name}ガイド</span>
+        </a>
+      </>
+    ) : (
+      // 観戦ガイドまたはその他の場合：旅行記事を優先表示
+      <>
+        {relatedTravel && (
+          <a href={relatedTravel.path} class="nav-item">
+            <span class="nav-icon">{relatedTravel.icon}</span>
+            <span>旅行プラン</span>
+          </a>
+        )}
+        
+        <a href="/guides" class="nav-item">
+          <span class="nav-icon">⚾</span>
+          <span>観戦ガイド一覧</span>
+        </a>
+      </>
+    )}
+  </nav>
+</div>
+
+<!-- クイックナビ -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">クイックナビ</h3>
+  <nav class="quick-nav">
+    <a href="/" class="nav-item">
+      <span class="nav-icon">🗾</span>
+      <span>球場マップ</span>
+    </a>
+    <a href="/guides" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>観戦ガイド一覧</span>
+    </a>
+    <a href="/travel" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>モデルコース一覧</span>
+    </a>
+  </nav>
+</div>
+
+<!-- SNSシェア -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">シェア</h3>
+  <div class="share-buttons">
+    <button class="share-btn twitter" onclick="shareToTwitter()">
+      <span class="share-icon">🐦</span>
+      <span>Twitter</span>
+    </button>
+    <button class="share-btn facebook" onclick="shareToFacebook()">
+      <span class="share-icon">👥</span>
+      <span>Facebook</span>
+    </button>
+    <button class="share-btn line" onclick="shareToLine()">
+      <span class="share-icon">💬</span>
+      <span>LINE</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  // SNSシェア機能
+  function shareToTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.title);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+  }
+
+  function shareToFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+  }
+
+  function shareToLine() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.title);
+    window.open(`https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`, '_blank');
+  }
+</script>
+
+<style>
+  .sidebar-section {
+    background: var(--gradient-surface, linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%));
+    padding: var(--spacing-lg, 2rem);
+    border-radius: var(--border-radius-lg, 20px);
+    box-shadow: var(--shadow-md, 0 4px 15px rgba(0, 0, 0, 0.1));
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg, 2rem);
+  }
+
+  .sidebar-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-rainbow, linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12));
+  }
+
+  .sidebar-title {
+    color: var(--color-text, #2c3e50);
+    margin-bottom: var(--spacing-lg, 2rem);
+    font-size: var(--font-size-xl, 1.25rem);
+    font-weight: var(--font-weight-bold, 700);
+    text-align: center;
+  }
+
+  /* ナビゲーション共通スタイル（関連記事とクイックナビ） */
+  .related-nav,
+  .quick-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.5rem);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 1rem);
+    padding: var(--spacing-sm, 1rem);
+    background: var(--color-background-light, #f8f9fa);
+    border-radius: var(--border-radius-sm, 8px);
+    text-decoration: none;
+    color: var(--color-text, #2c3e50);
+    transition: background var(--transition-normal, 0.3s ease);
+    font-size: var(--font-size-sm, 0.875rem);
+  }
+
+  .nav-item:hover {
+    background: var(--color-surface, #ffffff);
+  }
+
+  .nav-icon {
+    font-size: var(--font-size-xl, 1.25rem);
+    min-width: 20px;
+    color: var(--color-primary, #3498db);
+  }
+
+  /* シェアボタン */
+  .share-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+    width: 100%;
+    text-align: left;
+  }
+
+  .share-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .share-btn.twitter {
+    background: #1da1f2;
+    color: white;
+  }
+
+  .share-btn.facebook {
+    background: #4267b2;
+    color: white;
+  }
+
+  .share-btn.line {
+    background: #00b900;
+    color: white;
+  }
+
+  .share-icon {
+    font-size: 1rem;
+  }
+</style>

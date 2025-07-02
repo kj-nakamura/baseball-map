@@ -36,35 +36,37 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
   <div id="map"></div>
 
   <!-- リンクセクション -->
-  <section class="quick-links">
-    <div class="quick-links-container">
-      <h2 class="quick-links-title">⚾ 野球観戦をもっと楽しむ</h2>
-      <div class="quick-links-grid">
-        <a href="/guides" class="quick-link-card guides">
-          <div class="card-header">
-            <div class="card-icon">🏟️</div>
-            <span class="card-category">観戦ガイド</span>
+  <section class="section section--gradient section--rainbow-border">
+    <div class="section__container section__container--narrow">
+      <div class="heading">
+        <h2 class="heading__title">⚾ 野球観戦をもっと楽しむ</h2>
+      </div>
+      <div class="grid grid--responsive">
+        <a href="/guides" class="card card--interactive card--vertical card--primary">
+          <div class="card__header">
+            <div class="card__icon card__icon--primary">🏟️</div>
+            <span class="badge badge--primary">観戦ガイド</span>
           </div>
-          <div class="card-content">
-            <h3>全12球団観戦ガイド</h3>
-            <p>各球場の詳細な観戦情報、座席、アクセス方法、グルメ情報をチェック</p>
+          <div class="card__content">
+            <h3 class="card__title">全12球団観戦ガイド</h3>
+            <p class="card__description">各球場の詳細な観戦情報、座席、アクセス方法、グルメ情報をチェック</p>
           </div>
-          <div class="card-footer">
-            <span class="card-action">ガイドを見る →</span>
+          <div class="card__footer">
+            <span class="action-link">ガイドを見る →</span>
           </div>
         </a>
         
-        <a href="/travel" class="quick-link-card travel">
-          <div class="card-header">
-            <div class="card-icon">🗾</div>
-            <span class="card-category">旅行プラン</span>
+        <a href="/travel" class="card card--interactive card--vertical card--secondary">
+          <div class="card__header">
+            <div class="card__icon card__icon--secondary">🗾</div>
+            <span class="badge badge--primary">旅行プラン</span>
           </div>
-          <div class="card-content">
-            <h3>モデルコース一覧</h3>
-            <p>野球観戦と観光を組み合わせた、充実の旅行プランをご提案</p>
+          <div class="card__content">
+            <h3 class="card__title">モデルコース一覧</h3>
+            <p class="card__description">野球観戦と観光を組み合わせた、充実の旅行プランをご提案</p>
           </div>
-          <div class="card-footer">
-            <span class="card-action">コースを見る →</span>
+          <div class="card__footer">
+            <span class="action-link">コースを見る →</span>
           </div>
         </a>
       </div>
@@ -160,6 +162,9 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
 </MapLayout>
 
 <style>
+  @import '/src/styles/design-tokens.css';
+  @import '/src/styles/components.css';
+  @import '/src/styles/utilities.css';
   @import '/src/styles/style.css';
   @import '/src/styles/weather.css';
 </style>

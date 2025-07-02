@@ -1,10 +1,10 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import RelatedSidebar from '../components/RelatedSidebar.astro';
 
 export interface Props {
   title: string;
   description?: string;
-  author?: string;
   publishDate?: string;
   category?: string;
   tags?: string[];
@@ -17,7 +17,6 @@ export interface Props {
 const { 
   title, 
   description, 
-  author = 'プロ野球球場ガイド', 
   publishDate,
   category,
   tags = [],
@@ -143,35 +142,6 @@ const isTravelPage = currentPath.includes('/travel/');
         {description && (
           <p class="blog-description">{description}</p>
         )}
-        
-        <div class="blog-meta">
-          <div class="meta-item">
-            <span class="meta-icon">👤</span>
-            <span class="meta-text">{author}</span>
-          </div>
-          
-          {publishDate && (
-            <div class="meta-item">
-              <span class="meta-icon">📅</span>
-              <span class="meta-text">{formatDate(publishDate)}</span>
-            </div>
-          )}
-          
-          {category && (
-            <div class="meta-item">
-              <span class="meta-icon">📂</span>
-              <span class="meta-text">{category}</span>
-            </div>
-          )}
-        </div>
-        
-        {tags.length > 0 && (
-          <div class="blog-tags">
-            {tags.map(tag => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        )}
       </header>
     )}
 
@@ -184,103 +154,11 @@ const isTravelPage = currentPath.includes('/travel/');
 
     <!-- サイドバー -->
     <aside class="blog-sidebar">
-      <!-- 関連記事 -->
-      <div class="sidebar-section">
-        <h3 class="sidebar-title">関連記事</h3>
-        <div class="related-links">
-          {isTravelPage ? (
-            // 旅行記事の場合：観戦ガイドを優先表示
-            <>
-              <a href={`/guides/${relatedTeam.team}`} class="related-link">
-                <span class="related-icon">{relatedTeam.icon}</span>
-                <div class="related-content">
-                  <h4>{relatedTeam.name}観戦ガイド</h4>
-                  <p>{relatedTeam.stadium}</p>
-                </div>
-              </a>
-              
-              <a href="/guides" class="related-link">
-                <span class="related-icon">⚾</span>
-                <div class="related-content">
-                  <h4>球場観戦ガイド一覧</h4>
-                  <p>全12球団の観戦情報</p>
-                </div>
-              </a>
-            </>
-          ) : (
-            // 観戦ガイドまたはその他の場合：旅行記事を優先表示
-            <>
-              {relatedTravel && (
-                <a href={relatedTravel.path} class="related-link">
-                  <span class="related-icon">{relatedTravel.icon}</span>
-                  <div class="related-content">
-                    <h4>{relatedTravel.title}</h4>
-                    <p>観戦＋観光旅行プラン</p>
-                  </div>
-                </a>
-              )}
-              
-              <a href="/guides" class="related-link">
-                <span class="related-icon">⚾</span>
-                <div class="related-content">
-                  <h4>球場観戦ガイド一覧</h4>
-                  <p>全12球団の観戦情報</p>
-                </div>
-                </a>
-            </>
-          )}
-        </div>
-      </div>
-
-      <!-- クイックナビ -->
-      <div class="sidebar-section">
-        <h3 class="sidebar-title">クイックナビ</h3>
-        <nav class="quick-nav">
-          <a href="/" class="nav-item">
-            <span class="nav-icon">🗾</span>
-            <span>球場マップ</span>
-          </a>
-          <a href="/guides" class="nav-item">
-            <span class="nav-icon">📖</span>
-            <span>観戦ガイド</span>
-          </a>
-          {isTravelPage ? (
-            <a href={`/guides/${relatedTeam.team}`} class="nav-item">
-              <span class="nav-icon">{relatedTeam.icon}</span>
-              <span>{relatedTeam.name}ガイド</span>
-            </a>
-          ) : relatedTravel ? (
-            <a href={relatedTravel.path} class="nav-item">
-              <span class="nav-icon">{relatedTravel.icon}</span>
-              <span>旅行プラン</span>
-            </a>
-          ) : (
-            <a href="/travel" class="nav-item">
-              <span class="nav-icon">✈️</span>
-              <span>旅行プラン</span>
-            </a>
-          )}
-        </nav>
-      </div>
-
-      <!-- SNSシェア -->
-      <div class="sidebar-section">
-        <h3 class="sidebar-title">シェア</h3>
-        <div class="share-buttons">
-          <button class="share-btn twitter" onclick="shareToTwitter()">
-            <span class="share-icon">🐦</span>
-            <span>Twitter</span>
-          </button>
-          <button class="share-btn facebook" onclick="shareToFacebook()">
-            <span class="share-icon">👥</span>
-            <span>Facebook</span>
-          </button>
-          <button class="share-btn line" onclick="shareToLine()">
-            <span class="share-icon">💬</span>
-            <span>LINE</span>
-          </button>
-        </div>
-      </div>
+      <RelatedSidebar 
+        relatedTeam={relatedTeam}
+        relatedTravel={relatedTravel}
+        isTravelPage={isTravelPage}
+      />
     </aside>
   </div>
 
@@ -301,24 +179,6 @@ const isTravelPage = currentPath.includes('/travel/');
 
 <style>
   @import '/src/styles/blog.css';
+  @import '/src/styles/travel.css';
 </style>
 
-<script>
-  // SNSシェア機能
-  function shareToTwitter() {
-    const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(document.title);
-    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
-  }
-
-  function shareToFacebook() {
-    const url = encodeURIComponent(window.location.href);
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-  }
-
-  function shareToLine() {
-    const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(document.title);
-    window.open(`https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`, '_blank');
-  }
-</script>
