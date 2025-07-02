@@ -332,44 +332,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </section>
 
     <!-- 関連リンク -->
-    <section class="related-section">
-      <div class="related-header">
-        <div class="header-decoration">
-          <div class="decoration-line"></div>
-          <div class="decoration-icon">⚾</div>
-          <div class="decoration-line"></div>
-        </div>
-        <h2 class="related-title">関連ページ</h2>
-        <p class="related-subtitle">さらに詳しい情報をチェック</p>
-      </div>
-      
+    <section class="related-content">
+      <h2>🔗 関連情報</h2>
       <div class="related-grid">
-        <a href="/guides" class="related-card primary">
-          <div class="card-header">
-            <div class="card-icon">🏟️</div>
-            <span class="card-category">観戦ガイド</span>
-          </div>
-          <div class="card-content">
-            <h3>全12球団観戦ガイド</h3>
-            <p>各球場の詳細な観戦情報、座席、アクセス方法をチェック</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-action">詳細を見る →</span>
-          </div>
+        <a href="/guides" class="related-card">
+          <div class="card-icon">🏟️</div>
+          <h3>全12球団観戦ガイド</h3>
+          <p>各球場の詳細な観戦情報、座席、アクセス方法をチェック</p>
+          <span class="card-badge">観戦ガイド</span>
         </a>
         
-        <a href="/" class="related-card secondary">
-          <div class="card-header">
-            <div class="card-icon">🗾</div>
-            <span class="card-category">球場マップ</span>
-          </div>
-          <div class="card-content">
-            <h3>インタラクティブ球場マップ</h3>
-            <p>日本地図上で各球団の本拠地をインタラクティブに探索</p>
-          </div>
-          <div class="card-footer">
-            <span class="card-action">マップを見る →</span>
-          </div>
+        <a href="/" class="related-card">
+          <div class="card-icon">🗾</div>
+          <h3>インタラクティブ球場マップ</h3>
+          <p>日本地図上で各球団の本拠地をインタラクティブに探索</p>
+          <span class="card-badge">球場マップ</span>
         </a>
       </div>
     </section>
