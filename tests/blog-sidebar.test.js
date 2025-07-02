@@ -255,7 +255,7 @@ describe('Blog Sidebar Dynamic Content', () => {
         carp: '🎣'
       };
 
-      Object.entries(teamIcons).forEach(([team, icon]) => {
+      Object.entries(teamIcons).forEach(([_team, icon]) => {
         expect(icon).toBeTruthy();
         expect(typeof icon).toBe('string');
         expect(icon.length).toBeGreaterThan(0);

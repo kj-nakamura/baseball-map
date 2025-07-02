@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { JSDOM } from 'jsdom';
 
 // 観戦ガイドの旅行プランセクションのテスト用HTMLテンプレート
-const createGuideWithTravelPlanHTML = (team, travelUrl, teamColor) => `
+const createGuideWithTravelPlanHTML = (team, travelUrl, _teamColor) => `
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -214,9 +214,15 @@ describe('観戦ガイド旅行リンクテスト', () => {
         it('旅行プランが適切な位置に配置されている', () => {
           const sections = document.querySelectorAll('main > section');
           const sectionTypes = Array.from(sections).map(section => {
-            if (section.classList.contains('stadium-info')) return 'stadium-info';
-            if (section.classList.contains('travel-plan')) return 'travel-plan';
-            if (section.classList.contains('facilities')) return 'facilities';
+            if (section.classList.contains('stadium-info')) {
+              return 'stadium-info';
+            }
+            if (section.classList.contains('travel-plan')) {
+              return 'travel-plan';
+            }
+            if (section.classList.contains('facilities')) {
+              return 'facilities';
+            }
             return 'other';
           });
           
