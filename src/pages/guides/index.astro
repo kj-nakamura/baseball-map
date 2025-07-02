@@ -1,25 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// 球団データの静的定義
-const guides = [
-  { slug: 'giants', title: 'ジャイアンツ', stadium: '東京ドーム', icon: '🧡', league: 'セ・リーグ' },
-  { slug: 'tigers', title: 'タイガース', stadium: '阪神甲子園球場', icon: '🐅', league: 'セ・リーグ' },
-  { slug: 'dragons', title: 'ドラゴンズ', stadium: 'バンテリンドーム ナゴヤ', icon: '🐉', league: 'セ・リーグ' },
-  { slug: 'baystars', title: 'ベイスターズ', stadium: '横浜スタジアム', icon: '⭐', league: 'セ・リーグ' },
-  { slug: 'carp', title: 'カープ', stadium: 'MAZDA Zoom-Zoom スタジアム広島', icon: '🎣', league: 'セ・リーグ' },
-  { slug: 'swallows', title: 'スワローズ', stadium: '明治神宮野球場', icon: '🐦', league: 'セ・リーグ' },
-  { slug: 'fighters', title: 'ファイターズ', stadium: 'エスコンフィールド北海道', icon: '🏔️', league: 'パ・リーグ' },
-  { slug: 'marines', title: 'マリーンズ', stadium: 'ZOZOマリンスタジアム', icon: '⚓', league: 'パ・リーグ' },
-  { slug: 'buffaloes', title: 'バファローズ', stadium: '京セラドーム大阪', icon: '🐃', league: 'パ・リーグ' },
-  { slug: 'lions', title: 'ライオンズ', stadium: 'ベルーナドーム', icon: '🦁', league: 'パ・リーグ' },
-  { slug: 'eagles', title: 'イーグルス', stadium: '楽天モバイルパーク宮城', icon: '🦅', league: 'パ・リーグ' },
-  { slug: 'hawks', title: 'ホークス', stadium: 'PayPayドーム', icon: '🦅', league: 'パ・リーグ' }
-];
+const guides = await getCollection('guides');
+const sortedGuides = guides.sort((a, b) => a.data.team.localeCompare(b.data.team));
 
 // リーグ別に分類
-const centralLeague = guides.filter(guide => guide.league === 'セ・リーグ');
-const pacificLeague = guides.filter(guide => guide.league === 'パ・リーグ');
+const centralLeague = sortedGuides.filter(guide => guide.data.league === 'セントラル・リーグ');
+const pacificLeague = sortedGuides.filter(guide => guide.data.league === 'パシフィック・リーグ');
 ---
 
 <BaseLayout 
@@ -44,12 +32,16 @@ const pacificLeague = guides.filter(guide => guide.league === 'パ・リーグ')
         {centralLeague.map((guide) => (
           <div class="guide-card">
             <div class="card-header">
-              <h3>{guide.stadium}</h3>
-              <p class="team-name">{guide.title}</p>
+              <h3>{guide.data.stadium}</h3>
+              <p class="team-name">{guide.data.team}</p>
             </div>
             <div class="card-content">
-              <p class="league">{guide.league}</p>
-              <p class="icon">{guide.icon}</p>
+              <p class="league">{guide.data.league}</p>
+              <p class="location">📍 {guide.data.location}</p>
+              {guide.data.capacity && (
+                <p class="capacity">👥 収容人数: {guide.data.capacity.toLocaleString()}人</p>
+              )}
+              <p class="description">{guide.data.description}</p>
             </div>
             <div class="card-footer">
               <a href={`/guides/${guide.slug}`} class="guide-link">
@@ -68,12 +60,16 @@ const pacificLeague = guides.filter(guide => guide.league === 'パ・リーグ')
         {pacificLeague.map((guide) => (
           <div class="guide-card">
             <div class="card-header">
-              <h3>{guide.stadium}</h3>
-              <p class="team-name">{guide.title}</p>
+              <h3>{guide.data.stadium}</h3>
+              <p class="team-name">{guide.data.team}</p>
             </div>
             <div class="card-content">
-              <p class="league">{guide.league}</p>
-              <p class="icon">{guide.icon}</p>
+              <p class="league">{guide.data.league}</p>
+              <p class="location">📍 {guide.data.location}</p>
+              {guide.data.capacity && (
+                <p class="capacity">👥 収容人数: {guide.data.capacity.toLocaleString()}人</p>
+              )}
+              <p class="description">{guide.data.description}</p>
             </div>
             <div class="card-footer">
               <a href={`/guides/${guide.slug}`} class="guide-link">
@@ -183,12 +179,6 @@ const pacificLeague = guides.filter(guide => guide.league === 'パ・リーグ')
     color: #3498db;
     font-weight: bold;
     margin: 0 0 0.5rem 0;
-  }
-
-  .icon {
-    font-size: 2rem;
-    text-align: center;
-    margin: 0.5rem 0;
   }
 
   .location, .capacity {
