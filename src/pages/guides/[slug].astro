@@ -1,0 +1,211 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map(guide => ({
+    params: { slug: guide.slug },
+    props: guide,
+  }));
+}
+
+const guide = Astro.props;
+const { Content } = await guide.render();
+
+// 球団別のテーマカラーを定義
+const teamColors = {
+  giants: { primary: '#ff6b35', secondary: '#f7931e', name: 'ジャイアンツ' },
+  tigers: { primary: '#ffff00', secondary: '#000000', name: 'タイガース' },
+  dragons: { primary: '#005aab', secondary: '#0080ff', name: 'ドラゴンズ' },
+  carp: { primary: '#ff0000', secondary: '#cc0000', name: 'カープ' },
+  baystars: { primary: '#005baa', secondary: '#87ceeb', name: 'ベイスターズ' },
+  swallows: { primary: '#00539f', secondary: '#00a0b0', name: 'スワローズ' },
+  fighters: { primary: '#0f1419', secondary: '#00bfff', name: 'ファイターズ' },
+  marines: { primary: '#000000', secondary: '#ff6600', name: 'マリーンズ' },
+  buffaloes: { primary: '#ffd700', secondary: '#8b4513', name: 'バファローズ' },
+  lions: { primary: '#0f1419', secondary: '#ffd700', name: 'ライオンズ' },
+  hawks: { primary: '#ffff00', secondary: '#000000', name: 'ホークス' },
+  eagles: { primary: '#660000', secondary: '#ffd700', name: 'イーグルス' },
+};
+
+const currentTeam = teamColors[guide.slug] || teamColors.giants;
+
+// 旅行プランのマッピング
+const travelPlans = {
+  giants: {
+    path: '/travel/tokyo-giants-2days',
+    title: '東京王道観光コース',
+    icon: '🏯',
+    description: '皇居・浅草・銀座を巡る定番の2日間プラン',
+  },
+  tigers: {
+    path: '/travel/osaka-tigers-2days',
+    title: '大阪・神戸2日間コース',
+    icon: '🐅',
+    description: '大阪城と神戸の魅力を満喫',
+  },
+  dragons: {
+    path: '/travel/nagoya-2days',
+    title: '名古屋めしコース',
+    icon: '🏰',
+    description: '名古屋城と絶品グルメを楽しむ',
+  },
+  carp: {
+    path: '/travel/hiroshima-2days',
+    title: '平和・宮島満喫コース',
+    icon: '⛩️',
+    description: '広島の歴史と宮島の絶景',
+  },
+  baystars: {
+    path: '/travel/yokohama-2days',
+    title: '横浜みなとみらいコース',
+    icon: '🌉',
+    description: '港町横浜の魅力を満喫',
+  },
+  swallows: {
+    path: '/travel/tokyo-swallows-2days',
+    title: '東京モダン観光コース',
+    icon: '🎨',
+    description: '現代東京の魅力を発見',
+  },
+  fighters: {
+    path: '/travel/hokkaido-3days',
+    title: '北海道3日間モデルコース',
+    icon: '🏔️',
+    description: '大自然と美食の北海道',
+  },
+  marines: {
+    path: '/travel/chiba-2days',
+    title: '千葉2日間モデルコース',
+    icon: '🌊',
+    description: '房総半島の自然と海を満喫',
+  },
+  buffaloes: {
+    path: '/travel/osaka-2days',
+    title: '大阪2日間モデルコース',
+    icon: '🏰',
+    description: '大阪の食文化と観光スポット',
+  },
+  lions: {
+    path: '/travel/saitama-2days',
+    title: '埼玉2日間モデルコース',
+    icon: '🌸',
+    description: '小江戸川越と秩父の自然',
+  },
+  hawks: {
+    path: '/travel/fukuoka-2days',
+    title: '福岡2日間モデルコース',
+    icon: '🍜',
+    description: '博多グルメと歴史探訪',
+  },
+  eagles: {
+    path: '/travel/miyagi-2days',
+    title: '宮城2日間モデルコース',
+    icon: '🌸',
+    description: '仙台と松島の絶景巡り',
+  },
+};
+
+const currentTravel = travelPlans[guide.slug];
+---
+
+<BaseLayout title={guide.data.title} description={guide.data.description}>
+  <header
+    class="guide-header"
+    style={`background: linear-gradient(135deg, ${currentTeam.primary} 0%, ${currentTeam.secondary} 100%);`}
+  >
+    <div class="header-content">
+      <h1>🏟️ {guide.data.title}</h1>
+      <p class="subtitle">{guide.data.description}</p>
+      <nav>
+        <a href="/" class="nav-link">← 球場マップに戻る</a>
+        <a href="/guides" class="nav-link">観戦ガイド一覧</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="guide-main">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-label">球場</span>
+            <span class="stat-value">{guide.data.stadium}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">所在地</span>
+            <span class="stat-value">{guide.data.location}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">リーグ</span>
+            <span class="stat-value">{guide.data.league}</span>
+          </div>
+          {
+            guide.data.capacity && (
+              <div class="stat-item">
+                <span class="stat-label">収容人数</span>
+                <span class="stat-value">
+                  {guide.data.capacity.toLocaleString()}人
+                </span>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <div class="content-wrapper">
+      <article class="article-modern">
+        <Content />
+      </article>
+    </div>
+
+    {
+      currentTravel && (
+        <section class="travel-plan">
+          <h2>🗾 観光プラン</h2>
+          <div class="travel-info">
+            <p>
+              野球観戦と合わせて
+              {guide.data.location
+                .replace('県', '')
+                .replace('市', '')
+                .replace('都', '')
+                .replace('府', '')}
+              観光を楽しみませんか？
+            </p>
+            <div class="travel-links">
+              <a
+                href={currentTravel.path}
+                class="travel-link"
+                style={`border-color: ${currentTeam.primary};`}
+              >
+                <div class="travel-icon">{currentTravel.icon}</div>
+                <h3 style={`color: ${currentTeam.primary};`}>
+                  {currentTravel.title}
+                </h3>
+                <p>{currentTravel.description}</p>
+              </a>
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </main>
+
+  <footer class="guide-footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="/">🏠 球場マップ</a>
+        <a href="/guides">📖 観戦ガイド一覧</a>
+        <a href="/travel">🗾 旅行プラン</a>
+      </div>
+      <p class="footer-copyright">&copy; 2025 プロ野球12球団本拠地マップ</p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  @import './index.css';
+</style>

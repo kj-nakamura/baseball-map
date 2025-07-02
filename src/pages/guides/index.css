@@ -1,0 +1,173 @@
+.guides-header {
+  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.nav-link {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.guides-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.league-section {
+  margin-bottom: 3rem;
+}
+
+.league-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+
+/* 最大3カラムに制限 */
+@media (min-width: 1200px) {
+  .guides-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.guide-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.guide-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+}
+
+.card-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.team-name {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.league {
+  color: #3498db;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+}
+
+.location,
+.capacity {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.description {
+  color: #2c3e50;
+  margin: 1rem 0 0 0;
+  line-height: 1.6;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.guide-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.guide-link:hover {
+  color: #2980b9;
+}
+
+/* タブレット用レイアウト */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .guides-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .guides-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .guides-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .league-section {
+    margin-bottom: 2rem;
+  }
+
+  .league-title {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+}

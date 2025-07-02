@@ -1,0 +1,381 @@
+/* Blog Layout Styles */
+
+/* ヒーロー画像セクション */
+.hero-section {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 0.8) 0%,
+    rgba(52, 152, 219, 0.6) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ブログコンテナ */
+.blog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+}
+
+/* ブログヘッダー */
+.blog-header {
+  grid-column: 1 / -1;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.breadcrumb-link {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-current {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.blog-description {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.meta-icon {
+  font-size: 1rem;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: #ecf0f1;
+  color: #2c3e50;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* メインコンテンツ */
+.blog-content {
+  min-height: 500px;
+}
+
+.article {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  line-height: 1.8;
+}
+
+/* マークダウンのリストをCardInfoスタイルに */
+.blog-content .article ul {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 1rem !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1.5rem 0 !important;
+}
+
+.blog-content .article ul li {
+  background: #f8f9fa !important;
+  padding: 1.5rem !important;
+  border-radius: 8px !important;
+  border-left: 4px solid #3498db !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
+  font-size: 0.95rem !important;
+  color: #2c3e50 !important;
+  list-style: none !important;
+}
+
+.blog-content .article ul li:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+/* 通常の文章内のリストは除外（サブリスト） */
+.blog-content .article ul ul {
+  display: block !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  margin: 0.5rem 0 0 1rem !important;
+}
+
+.blog-content .article ul ul li {
+  background: none !important;
+  padding: 0.25rem 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  list-style: disc !important;
+  margin-left: 1rem !important;
+}
+
+.blog-content .article ul ul li:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* セクションごとのカラーバリエーション（見出し直後のリスト） */
+.blog-content .article h2 + ul li {
+  border-left-color: #3498db !important;
+}
+
+.blog-content .article h3 + ul li {
+  border-left-color: #2ecc71 !important;
+}
+
+/* 特定のセクションの色分け（ID付きの見出しがある場合） */
+.blog-content .article h2[id*="アクセス"] + ul li,
+.blog-content .article h3[id*="アクセス"] + ul li {
+  border-left-color: #27ae60 !important;
+}
+
+.blog-content .article h2[id*="グルメ"] + ul li,
+.blog-content .article h3[id*="グルメ"] + ul li {
+  border-left-color: #f39c12 !important;
+}
+
+.blog-content .article h2[id*="観戦"] + ul li,
+.blog-content .article h3[id*="観戦"] + ul li,
+.blog-content .article h2[id*="コツ"] + ul li,
+.blog-content .article h3[id*="コツ"] + ul li {
+  border-left-color: #e74c3c !important;
+}
+
+.blog-content .article h2[id*="座席"] + ul li,
+.blog-content .article h3[id*="座席"] + ul li {
+  border-left-color: #9b59b6 !important;
+}
+
+.blog-content .article h2[id*="天候"] + ul li,
+.blog-content .article h3[id*="天候"] + ul li {
+  border-left-color: #34495e !important;
+}
+
+/* サイドバー */
+.blog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* サイドバーコンポーネント用（テスト用の空の定義） */
+.sidebar-section {
+  /* RelatedSidebarコンポーネント内で定義済み */
+}
+
+.share-btn {
+  /* RelatedSidebarコンポーネント内で定義済み */
+}
+
+
+/* フッターナビ */
+.footer-nav {
+  background: #2c3e50;
+  margin-top: 3rem;
+}
+
+.footer-nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.footer-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.footer-nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.footer-nav-icon {
+  font-size: 1.5rem;
+}
+
+.footer-nav-text {
+  font-size: 0.9rem;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .blog-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .blog-sidebar {
+    order: -1;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .blog-title {
+    font-size: 2rem;
+  }
+
+  .blog-meta {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .article {
+    padding: 1.5rem;
+  }
+
+  /* モバイルでのリストカードレイアウト調整 */
+  .blog-content .article ul {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .blog-content .article ul li {
+    padding: 1rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .footer-nav-container {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .blog-title {
+    font-size: 1.5rem;
+  }
+
+  .article {
+    padding: 1rem;
+  }
+
+  /* 小画面でのリストカード調整 */
+  .blog-content .article ul li {
+    padding: 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+}

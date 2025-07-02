@@ -1,0 +1,138 @@
+/* src/styles/guide.css */
+
+.guide-header {
+  background: linear-gradient(135deg, #000000 0%, #c0c0c0 100%); /* Placeholder, will be overridden */
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.nav-link {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hero {
+  background: #f8f9fa;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.hero-content h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.access-method h3,
+.weather-info h3,
+.facilities-info h3,
+.travel-info h3,
+.attraction-info h3,
+.tradition-info h3,
+.culture-info h3,
+.facility-info h3 {
+  color: #2c3e50;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.access-method ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.access-method li {
+  margin-bottom: 0.5rem;
+}
+
+.travel-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.highlight-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #000000; /* Placeholder, will be overridden */
+}
+
+.highlight-item h4 {
+  color: #000000; /* Placeholder, will be overridden */
+  margin-bottom: 0.5rem;
+}
+
+.travel-cta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.travel-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #000000 0%, #c0c0c0 100%); /* Placeholder, will be overridden */
+  color: white;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.travel-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+footer a {
+  color: #c0c0c0; /* Placeholder, will be overridden */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .header-content h1 {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .travel-highlights {
+    grid-template-columns: 1fr;
+  }
+}

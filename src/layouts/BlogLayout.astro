@@ -1,0 +1,173 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import RelatedSidebar from '../components/RelatedSidebar.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  category?: string;
+  hero?: {
+    image?: string;
+    alt?: string;
+  };
+}
+
+const { 
+  title, 
+  description, 
+  category,
+  hero 
+} = Astro.props;
+
+// 現在のURLから関連する球団を推定
+const currentPath = Astro.url.pathname;
+const getRelatedTeamInfo = () => {
+  if (currentPath.includes('hokkaido') || currentPath.includes('fighters')) {
+    return { team: 'fighters', name: 'ファイターズ', stadium: 'エスコンフィールド北海道', icon: '🏔️' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('buffaloes')) {
+    return { team: 'buffaloes', name: 'バファローズ', stadium: '京セラドーム大阪', icon: '🐃' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('tigers')) {
+    return { team: 'tigers', name: 'タイガース', stadium: '阪神甲子園球場', icon: '🐅' };
+  } else if (currentPath.includes('saitama') || currentPath.includes('lions')) {
+    return { team: 'lions', name: 'ライオンズ', stadium: 'ベルーナドーム', icon: '🦁' };
+  } else if (currentPath.includes('chiba') || currentPath.includes('marines')) {
+    return { team: 'marines', name: 'マリーンズ', stadium: 'ZOZOマリンスタジアム', icon: '⚓' };
+  } else if (currentPath.includes('miyagi') || currentPath.includes('eagles')) {
+    return { team: 'eagles', name: 'イーグルス', stadium: '楽天モバイルパーク宮城', icon: '🦅' };
+  } else if (currentPath.includes('fukuoka') || currentPath.includes('hawks')) {
+    return { team: 'hawks', name: 'ホークス', stadium: 'PayPayドーム', icon: '🦅' };
+  } else if (currentPath.includes('tokyo-giants') || currentPath.includes('giants')) {
+    return { team: 'giants', name: 'ジャイアンツ', stadium: '東京ドーム', icon: '🧡' };
+  } else if (currentPath.includes('tokyo-swallows') || currentPath.includes('swallows')) {
+    return { team: 'swallows', name: 'スワローズ', stadium: '明治神宮野球場', icon: '🐦' };
+  } else if (currentPath.includes('yokohama') || currentPath.includes('baystars')) {
+    return { team: 'baystars', name: 'ベイスターズ', stadium: '横浜スタジアム', icon: '⭐' };
+  } else if (currentPath.includes('nagoya') || currentPath.includes('dragons')) {
+    return { team: 'dragons', name: 'ドラゴンズ', stadium: 'バンテリンドーム ナゴヤ', icon: '🐉' };
+  } else if (currentPath.includes('hiroshima') || currentPath.includes('carp')) {
+    return { team: 'carp', name: 'カープ', stadium: 'MAZDA Zoom-Zoom スタジアム広島', icon: '🎣' };
+  }
+  // デフォルト
+  return { team: 'fighters', name: 'ファイターズ', stadium: 'エスコンフィールド北海道', icon: '🏔️' };
+};
+
+const relatedTeam = getRelatedTeamInfo();
+
+// 関連する旅行記事を取得
+const getRelatedTravelInfo = () => {
+  if (currentPath.includes('hokkaido')) {
+    return { path: '/travel/hokkaido-3days', title: '北海道3日間モデルコース', icon: '🏔️' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('buffaloes')) {
+    return { path: '/travel/osaka-2days', title: '大阪2日間モデルコース', icon: '🏰' };
+  } else if (currentPath.includes('osaka') && currentPath.includes('tigers')) {
+    return { path: '/travel/osaka-tigers-2days', title: '大阪・神戸2日間コース', icon: '🐅' };
+  } else if (currentPath.includes('saitama')) {
+    return { path: '/travel/saitama-2days', title: '埼玉2日間モデルコース', icon: '🌸' };
+  } else if (currentPath.includes('chiba')) {
+    return { path: '/travel/chiba-2days', title: '千葉2日間モデルコース', icon: '🌊' };
+  } else if (currentPath.includes('miyagi')) {
+    return { path: '/travel/miyagi-2days', title: '宮城2日間モデルコース', icon: '🌸' };
+  } else if (currentPath.includes('fukuoka')) {
+    return { path: '/travel/fukuoka-2days', title: '福岡2日間モデルコース', icon: '🍜' };
+  } else if (currentPath.includes('tokyo-giants')) {
+    return { path: '/travel/tokyo-giants-2days', title: '東京王道観光コース', icon: '🏯' };
+  } else if (currentPath.includes('tokyo-swallows')) {
+    return { path: '/travel/tokyo-swallows-2days', title: '東京モダン観光コース', icon: '🎨' };
+  } else if (currentPath.includes('yokohama')) {
+    return { path: '/travel/yokohama-2days', title: '横浜みなとみらいコース', icon: '🌉' };
+  } else if (currentPath.includes('nagoya')) {
+    return { path: '/travel/nagoya-2days', title: '名古屋めしコース', icon: '🏰' };
+  } else if (currentPath.includes('hiroshima')) {
+    return { path: '/travel/hiroshima-2days', title: '平和・宮島満喫コース', icon: '⛩️' };
+  }
+  return null;
+};
+
+const relatedTravel = getRelatedTravelInfo();
+
+// ページタイプを判定
+const isTravelPage = currentPath.includes('/travel/');
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- ヒーロー画像セクション（オプション） -->
+  {hero && hero.image && (
+    <section class="hero-section">
+      <div class="hero-container">
+        <img src={hero.image} alt={hero.alt || title} class="hero-image" />
+        <div class="hero-overlay">
+          <div class="hero-content">
+            <h1 class="hero-title">{title}</h1>
+            {description && <p class="hero-description">{description}</p>}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ブログ記事コンテナ -->
+  <div class="blog-container">
+    <!-- ヘッダー（ヒーロー画像がない場合） -->
+    {!hero?.image && (
+      <header class="blog-header">
+        <div class="breadcrumb">
+          <a href="/" class="breadcrumb-link">ホーム</a>
+          <span class="breadcrumb-separator">›</span>
+          {category && (
+            <>
+              {isTravelPage ? (
+                <a href="/travel" class="breadcrumb-link">{category}</a>
+              ) : (
+                <span class="breadcrumb-category">{category}</span>
+              )}
+              <span class="breadcrumb-separator">›</span>
+            </>
+          )}
+          <span class="breadcrumb-current">{title}</span>
+        </div>
+        
+        <h1 class="blog-title">{title}</h1>
+        
+        {description && (
+          <p class="blog-description">{description}</p>
+        )}
+      </header>
+    )}
+
+    <!-- メインコンテンツ -->
+    <main class="blog-content">
+      <article class="article">
+        <slot />
+      </article>
+    </main>
+
+    <!-- サイドバー -->
+    <aside class="blog-sidebar">
+      <RelatedSidebar 
+        relatedTeam={relatedTeam}
+        relatedTravel={relatedTravel}
+        isTravelPage={isTravelPage}
+      />
+    </aside>
+  </div>
+
+  <!-- フッターナビゲーション -->
+  <section class="footer-nav">
+    <div class="footer-nav-container">
+      <a href="/" class="footer-nav-link">
+        <span class="footer-nav-icon">🏠</span>
+        <span class="footer-nav-text">ホームに戻る</span>
+      </a>
+      <a href="/guides" class="footer-nav-link">
+        <span class="footer-nav-icon">⚾</span>
+        <span class="footer-nav-text">観戦ガイド一覧</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  @import '/src/styles/blog.css';
+  @import '/src/styles/travel.css';
+</style>
+

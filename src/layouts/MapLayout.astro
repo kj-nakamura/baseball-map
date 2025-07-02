@@ -1,0 +1,184 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+// サーバーサイドで環境変数を取得（フォールバック付き）
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBHS73Lg8QMhIWmuJEZ8mr_fC-J7aiEPfQ';
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b187a1b8cba7d79fbed4a1d0562';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="map-container">
+    <div class="header">
+    <h1>プロ野球12球団本拠地マップ</h1>
+    <p>日本プロ野球12球団の本拠地球場を地図上で確認できます</p>
+  </div>
+
+  <div class="league-toggle">
+    <button class="league-btn" onclick="showAllTeams()">全球場</button>
+    <button class="league-btn active" onclick="showMainTeams()">1軍のみ</button>
+    <button class="league-btn" onclick="showFarmTeams()">ファームのみ</button>
+    <button class="league-btn regional" onclick="showRegionalStadiums()">地方開催</button>
+  </div>
+  
+  <div class="league-toggle">
+    <button class="league-btn central" onclick="showCentralLeague()">セ・リーグ</button>
+    <button class="league-btn pacific" onclick="showPacificLeague()">パ・リーグ</button>
+    <button class="league-btn eastern" onclick="showEasternLeague()">イースタン</button>
+    <button class="league-btn western" onclick="showWesternLeague()">ウエスタン</button>
+  </div>
+
+  <div id="map"></div>
+
+  <!-- リンクセクション -->
+  <section class="section section--gradient section--rainbow-border">
+    <div class="section__container section__container--narrow">
+      <div class="heading">
+        <h2 class="heading__title">⚾ 野球観戦をもっと楽しむ</h2>
+      </div>
+      <div class="grid grid--responsive">
+        <a href="/guides" class="card card--interactive card--vertical card--primary">
+          <div class="card__header">
+            <div class="card__icon card__icon--primary">🏟️</div>
+            <span class="badge badge--primary">観戦ガイド</span>
+          </div>
+          <div class="card__content">
+            <h3 class="card__title">全12球団観戦ガイド</h3>
+            <p class="card__description">各球場の詳細な観戦情報、座席、アクセス方法、グルメ情報をチェック</p>
+          </div>
+          <div class="card__footer">
+            <span class="action-link">ガイドを見る →</span>
+          </div>
+        </a>
+        
+        <a href="/travel" class="card card--interactive card--vertical card--secondary">
+          <div class="card__header">
+            <div class="card__icon card__icon--secondary">🗾</div>
+            <span class="badge badge--primary">旅行プラン</span>
+          </div>
+          <div class="card__content">
+            <h3 class="card__title">モデルコース一覧</h3>
+            <p class="card__description">野球観戦と観光を組み合わせた、充実の旅行プランをご提案</p>
+          </div>
+          <div class="card__footer">
+            <span class="action-link">コースを見る →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div id="team-info" style="display: none;">
+    <h2 id="team-name"></h2>
+    <p><strong>球場:</strong> <span id="stadium-name"></span></p>
+    <p><strong>所在地:</strong> <span id="location"></span></p>
+    <p><strong>リーグ:</strong> <span id="league"></span></p>
+    <div id="weather-info"></div>
+    <div style="margin-top: 1rem;">
+      <a id="guide-link" href="#" style="display: inline-block; background: #3498db; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px;">📖 観戦ガイドを見る</a>
+    </div>
+  </div>
+
+  <script type="module" define:vars={{ GOOGLE_MAPS_API_KEY, OPENWEATHER_API_KEY }}>
+    // サーバーから環境変数を受け取り
+    // グローバルに設定してweather.jsからも利用可能にする
+    window.GOOGLE_MAPS_API_KEY = GOOGLE_MAPS_API_KEY;
+    window.OPENWEATHER_API_KEY = OPENWEATHER_API_KEY;
+
+    // Google Maps APIを動的に読み込み
+    function loadGoogleMapsAPI() {
+      if (!GOOGLE_MAPS_API_KEY) {
+        console.error('Google Maps API キーが設定されていません');
+        return;
+      }
+      
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap&language=ja&region=JP`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+
+    // script.jsから関数をインポートしてグローバルに設定
+    import('/src/scripts/script.js').then(module => {
+      window.initMap = module.initMap;
+      window.showAllTeams = module.showAllTeams;
+      window.showMainTeams = module.showMainTeams;
+      window.showFarmTeams = module.showFarmTeams;
+      window.showRegionalStadiums = module.showRegionalStadiums;
+      window.showCentralLeague = module.showCentralLeague;
+      window.showPacificLeague = module.showPacificLeague;
+      window.showEasternLeague = module.showEasternLeague;
+      window.showWesternLeague = module.showWesternLeague;
+      
+      // Google Maps APIを読み込み
+      loadGoogleMapsAPI();
+    });
+
+    // ページ読み込み時にモジュールを読み込み
+    document.addEventListener('DOMContentLoaded', () => {
+      // script.jsは上記のimportで処理されるので、ここでは何もしない
+    });
+    
+    // 天気情報統合用のグローバル関数
+    window.updateTeamWeatherInfo = async function(stadium) {
+      const weatherInfoDiv = document.getElementById('weather-info');
+      const guideLink = document.getElementById('guide-link');
+      
+      if (weatherInfoDiv) {
+        weatherInfoDiv.innerHTML = '<div style="color: #666; font-size: 0.9rem;">天気情報を読み込み中...</div>';
+        
+        try {
+          // 天気UI機能を動的インポート
+          const { createCompactWeatherInfo } = await import('/src/scripts/weather-ui.js');
+          
+          // ドーム球場の判定
+          const isIndoor = stadium.stadium.includes('ドーム') || 
+                         stadium.stadium.includes('ドーム') ||
+                         stadium.stadium === '東京ドーム';
+          
+          const weatherHtml = await createCompactWeatherInfo(stadium, isIndoor);
+          weatherInfoDiv.innerHTML = weatherHtml;
+        } catch (error) {
+          console.error('Weather info error:', error);
+          weatherInfoDiv.innerHTML = '<div style="color: #999; font-size: 0.8rem;">天気情報を取得できませんでした</div>';
+        }
+      }
+      
+      // 観戦ガイドリンクを更新
+      if (guideLink && stadium.guideUrl) {
+        guideLink.href = stadium.guideUrl;
+        guideLink.style.display = 'inline-block';
+      } else if (guideLink) {
+        guideLink.style.display = 'none';
+      }
+    };
+  </script>
+  </div>
+</MapLayout>
+
+<style>
+  @import '/src/styles/design-tokens.css';
+  @import '/src/styles/components.css';
+  @import '/src/styles/utilities.css';
+  @import '/src/styles/style.css';
+  @import '/src/styles/weather.css';
+
+  .map-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .map-container {
+      padding: 10px;
+    }
+  }
+</style>

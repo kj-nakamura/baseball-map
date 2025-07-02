@@ -1,0 +1,208 @@
+/* Travel Article Specific Styles */
+
+.intro {
+  margin-bottom: 2rem;
+}
+
+.intro h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #3498db;
+  margin: 1.5rem 0;
+}
+
+.highlight-box h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.highlight-box ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.highlight-box li {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.overview h2, .itinerary h2, .must-eat h2, .budget h2, .tips h2 {
+  color: #2c3e50;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.overview-item {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border-left: 4px solid #3498db;
+  transition: transform 0.2s;
+}
+
+.overview-item:hover {
+  transform: translateY(-2px);
+}
+
+.overview-item h3 {
+  color: #3498db;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.day-section {
+  margin-bottom: 3rem;
+}
+
+.day-title {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px 12px 0 0;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.schedule {
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  background: white;
+}
+
+.time-slot {
+  display: flex;
+  padding: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.time-slot:last-child {
+  border-bottom: none;
+}
+
+.time {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  min-width: 100px;
+  text-align: center;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+.activity {
+  flex: 1;
+}
+
+.activity h4 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.activity p {
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.activity small {
+  color: #888;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.food-grid, .tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.food-card, .tip-card {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #3498db;
+  transition: transform 0.2s;
+}
+
+.food-card:hover, .tip-card:hover {
+  transform: translateY(-2px);
+}
+
+.food-card h3, .tip-card h3 {
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+}
+
+.budget-breakdown {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.budget-item:last-of-type {
+  border-bottom: 2px solid #3498db;
+}
+
+.budget-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 0 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+
+@media (max-width: 768px) {
+  .time-slot {
+    flex-direction: column;
+  }
+  
+  .time {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+  
+  .overview-grid, .food-grid, .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 関連コンテンツは共通コンポーネントでレスポンシブ対応済み */
+}

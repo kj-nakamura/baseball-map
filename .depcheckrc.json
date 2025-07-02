@@ -1,6 +1,7 @@
 {
   "ignores": [
-    "@vitest/coverage-v8"
+    "@vitest/coverage-v8",
+    "astro:content"
   ],
   "skip-missing": false
 }

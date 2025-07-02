@@ -2,7 +2,7 @@ import vitest from 'eslint-plugin-vitest-globals';
 
 export default [
   {
-    ignores: ['dist/**', 'node_modules/**', '**/*.min.js', '**/*.bundle.js']
+    ignores: ['dist/**', 'node_modules/**', '**/*.min.js', '**/*.bundle.js', '.astro/**', '**/*.d.ts']
   },
   {
     files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],

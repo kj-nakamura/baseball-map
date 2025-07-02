@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const guides = await getCollection('guides');
+const sortedGuides = guides.sort((a, b) =>
+  a.data.team.localeCompare(b.data.team)
+);
+
+// リーグ別に分類
+const centralLeague = sortedGuides.filter(
+  guide => guide.data.league === 'セントラル・リーグ'
+);
+const pacificLeague = sortedGuides.filter(
+  guide => guide.data.league === 'パシフィック・リーグ'
+);
+---
+
+<BaseLayout
+  title="観戦ガイド一覧 | プロ野球12球団本拠地マップ"
+  description="プロ野球12球団の観戦ガイド一覧。各球場のアクセス、グルメ、観戦のコツを詳しく紹介"
+>
+  <header class="guides-header">
+    <div class="header-content">
+      <h1>📖 観戦ガイド一覧</h1>
+      <p class="subtitle">プロ野球12球団の本拠地球場観戦ガイド</p>
+      <nav>
+        <a href="/" class="nav-link">← 球場マップに戻る</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="guides-content">
+    <!-- セ・リーグ -->
+    <section class="league-section">
+      <h2 class="league-title">🔴 セントラル・リーグ</h2>
+      <div class="guides-grid">
+        {
+          centralLeague.map(guide => (
+            <div class="guide-card">
+              <div class="card-header">
+                <h3>{guide.data.stadium}</h3>
+                <p class="team-name">{guide.data.team}</p>
+              </div>
+              <div class="card-content">
+                <p class="league">{guide.data.league}</p>
+                <p class="location">📍 {guide.data.location}</p>
+                {guide.data.capacity && (
+                  <p class="capacity">
+                    👥 収容人数: {guide.data.capacity.toLocaleString()}人
+                  </p>
+                )}
+                <p class="description">{guide.data.description}</p>
+              </div>
+              <div class="card-footer">
+                <a href={`/guides/${guide.slug}`} class="guide-link">
+                  観戦ガイドを見る →
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- パ・リーグ -->
+    <section class="league-section">
+      <h2 class="league-title">🔵 パシフィック・リーグ</h2>
+      <div class="guides-grid">
+        {
+          pacificLeague.map(guide => (
+            <div class="guide-card">
+              <div class="card-header">
+                <h3>{guide.data.stadium}</h3>
+                <p class="team-name">{guide.data.team}</p>
+              </div>
+              <div class="card-content">
+                <p class="league">{guide.data.league}</p>
+                <p class="location">📍 {guide.data.location}</p>
+                {guide.data.capacity && (
+                  <p class="capacity">
+                    👥 収容人数: {guide.data.capacity.toLocaleString()}人
+                  </p>
+                )}
+                <p class="description">{guide.data.description}</p>
+              </div>
+              <div class="card-footer">
+                <a href={`/guides/${guide.slug}`} class="guide-link">
+                  観戦ガイドを見る →
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  @import './index.css';
+</style>

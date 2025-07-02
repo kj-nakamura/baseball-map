@@ -1,0 +1,103 @@
+/* デザイントークン - 共通CSS変数 */
+
+:root {
+  /* カラーパレット */
+  --color-primary: #3498db;
+  --color-secondary: #2ecc71;
+  --color-accent-red: #e74c3c;
+  --color-accent-orange: #f39c12;
+  --color-accent-purple: #9b59b6;
+  
+  --color-dark: #2c3e50;
+  --color-dark-secondary: #34495e;
+  --color-text: #2c3e50;
+  --color-text-muted: #666;
+  --color-text-light: #7f8c8d;
+  
+  --color-background: #f5f5f5;
+  --color-background-light: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-border: #e0e0e0;
+  --color-border-light: #e9ecef;
+  
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), #2980b9);
+  --gradient-secondary: linear-gradient(135deg, var(--color-secondary), #27ae60);
+  --gradient-rainbow: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent-red), var(--color-accent-orange));
+  --gradient-surface: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  --gradient-text: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-secondary) 100%);
+  --gradient-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  --gradient-badge: linear-gradient(45deg, #ff6b6b, #feca57);
+  
+  /* 間隔・サイズ */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-xxl: 4rem;
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-xl: 50px;
+  --border-radius-full: 50%;
+  
+  /* シャドウ */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 35px rgba(0, 0, 0, 0.15);
+  --shadow-xxl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  
+  /* トランジション */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-shimmer: 0.6s ease;
+  
+  /* タイポグラフィ */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+  
+  /* Z-index */
+  --z-index-base: 1;
+  --z-index-overlay: 10;
+  --z-index-modal: 100;
+  --z-index-toast: 1000;
+}
+
+/* ダークモード対応（将来の拡張用） - 現在は無効化 */
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1a1a1a;
+    --color-surface: #2d2d2d;
+    --color-text: #ffffff;
+    --color-text-muted: #cccccc;
+  }
+}
+*/
+
+/* レスポンシブブレークポイント */
+@custom-media --mobile (max-width: 480px);
+@custom-media --tablet (max-width: 768px);
+@custom-media --desktop (min-width: 769px);
+@custom-media --large-desktop (min-width: 1200px);
