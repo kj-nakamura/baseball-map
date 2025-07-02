@@ -1,8 +1,12 @@
 ---
+import CardInfo from '../../components/CardInfo/index.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="マリーンズ球場観戦ガイド - ZOZOマリンスタジアム" description="千葉ロッテマリーンズと海風を感じる開放的な野球場">
+<BaseLayout
+  title="マリーンズ球場観戦ガイド - ZOZOマリンスタジアム"
+  description="千葉ロッテマリーンズと海風を感じる開放的な野球場"
+>
   <header class="guide-header">
     <div class="header-content">
       <h1>🏟️ ZOZOマリンスタジアム 観戦ガイド</h1>
@@ -21,27 +25,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
     </section>
 
-    <section class="stadium-info">
-      <h2>⚾ 球場基本情報</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>収容人数</h3>
-          <p>30,118人</p>
-        </div>
-        <div class="info-item">
-          <h3>開業年</h3>
-          <p>1990年</p>
-        </div>
-        <div class="info-item">
-          <h3>フィールド</h3>
-          <p>人工芝</p>
-        </div>
-        <div class="info-item">
-          <h3>特徴</h3>
-          <p>海が見える開放的球場</p>
-        </div>
-      </div>
-    </section>
+    <CardInfo
+      title="⚾ 球場基本情報"
+      items={[
+        {
+          title: '収容人数',
+          description: '30,118人',
+        },
+        {
+          title: '開業年',
+          description: '1990年',
+        },
+        {
+          title: 'フィールド',
+          description: '人工芝',
+        },
+        {
+          title: '特徴',
+          description: '海が見える開放的球場',
+        },
+      ]}
+    />
 
     <section class="access">
       <h2>🚗 アクセス</h2>
@@ -52,88 +56,92 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <li>海浜バス「マリンスタジアム前」下車</li>
           <li>東京駅から京葉線で約30分</li>
         </ul>
-        
+
         <h3>🚗 車</h3>
         <p>約9,000台収容の駐車場あり（普通車1,000円、一部事前予約可）</p>
       </div>
     </section>
 
-    <section class="seating">
-      <h2>💺 座席ガイド</h2>
-      <div class="seat-types">
-        <div class="seat-type">
-          <h3>アウラニ席</h3>
-          <p>ハワイアンテーマVIP席。専用ラウンジ・ドリンクサービス（6,000円〜10,000円）</p>
-        </div>
-        <div class="seat-type">
-          <h3>フィールドシート</h3>
-          <p>選手に最も近い内野席。プレイがよく見える（2,500円〜5,500円）</p>
-        </div>
-        <div class="seat-type">
-          <h3>外野指定席</h3>
-          <p>マリーンズ応援団と一体感。海風を感じながら観戦（1,000円〜2,500円）</p>
-        </div>
-        <div class="seat-type">
-          <h3>オーシャンビューシート</h3>
-          <p>海が見える特別席。夕日が美しい夕方試合がおすすめ</p>
-        </div>
-      </div>
-    </section>
+    <CardInfo
+      title="💺 座席ガイド"
+      items={[
+        {
+          title: 'アウラニ席',
+          description:
+            'ハワイアンテーマVIP席。専用ラウンジ・ドリンクサービス（6,000円〜10,000円）',
+        },
+        {
+          title: 'フィールドシート',
+          description:
+            '選手に最も近い内野席。プレイがよく見える（2,500円〜5,500円）',
+        },
+        {
+          title: '外野指定席',
+          description:
+            'マリーンズ応援団と一体感。海風を感じながら観戦（1,000円〜2,500円）',
+        },
+        {
+          title: 'オーシャンビューシート',
+          description: '海が見える特別席。夕日が美しい夕方試合がおすすめ',
+        },
+      ]}
+    />
 
-    <section class="food">
-      <h2>🍔 グルメ</h2>
-      <div class="food-items">
-        <div class="food-item">
-          <h3>海鮮丼</h3>
-          <p>千葉の新鮮海鮮を使った海鮮丼や海鮮料理</p>
-        </div>
-        <div class="food-item">
-          <h3>千葉県産落花生</h3>
-          <p>千葉名物の落花生や新鮮海鮮弁当</p>
-        </div>
-        <div class="food-item">
-          <h3>地元ラーメン</h3>
-          <p>千葉の地元ラーメンや海風を感じるドリンク</p>
-        </div>
-        <div class="food-item">
-          <h3>各種弁当</h3>
-          <p>チーム弁当、海鮮チラシ弁当、キッズ向け弁当など</p>
-        </div>
-      </div>
-      <p style="font-size: 0.9rem; color: #666; margin-top: 1rem; text-align: center;">※メニュー・料金は時期により変動します。詳細は公式サイトでご確認ください。</p>
-    </section>
+    <CardInfo
+      title="🍔 グルメ"
+      items={[
+        {
+          title: '海鮮丼',
+          description: '千葉の新鮮海鮮を使った海鮮丼や海鮮料理',
+        },
+        {
+          title: '千葉県産落花生',
+          description: '千葉名物の落花生や新鮮海鮮弁当',
+        },
+        {
+          title: '地元ラーメン',
+          description: '千葉の地元ラーメンや海風を感じるドリンク',
+        },
+        {
+          title: '各種弁当',
+          description: 'チーム弁当、海鮮チラシ弁当、キッズ向け弁当など',
+        },
+      ]}
+      ,
+      info="※メニュー・料金は時期により変動します。詳細は公式サイトでご確認ください。"
+    />
 
-    <section class="tips">
-      <h2>📝 観戦のコツ</h2>
-      <div class="tips-list">
-        <div class="tip">
-          <h3>🎫 チケット購入</h3>
-          <p>人気カードは早めの予約を。公式サイトが便利</p>
-        </div>
-        <div class="tip">
-          <h3>⏰ 到着時間</h3>
-          <p>試合開始1時間前がおすすめ。選手練習見学も可能</p>
-        </div>
-        <div class="tip">
-          <h3>🎌 応援グッズ</h3>
-          <p>黒とシルバーのユニフォーム。「WE LOVE MARINES」コール</p>
-        </div>
-        <div class="tip">
-          <h3>🏴‍☠️ 海賊旗</h3>
-          <p>海賊旗を振って応援。謎かけ応援で盛り上がり</p>
-        </div>
-      </div>
-    </section>
+    <CardInfo
+      title="📝 観戦のコツ"
+      items={[
+        {
+          title: '🎫 チケット購入',
+          description: '人気カードは早めの予約を。公式サイトが便利',
+        },
+        {
+          title: '⏰ 到着時間',
+          description: '試合開始1時間前がおすすめ。選手練習見学も可能',
+        },
+        {
+          title: '🎌 応援グッズ',
+          description: '黒とシルバーのユニフォーム。「WE LOVE MARINES」コール',
+        },
+        {
+          title: '🏴‍☠️ 海賊旗',
+          description: '海賊旗を振って応援。謎かけ応援で盛り上がり',
+        },
+      ]}
+    />
 
     <section class="weather">
       <h2>☀️ 天候対策</h2>
       <div class="weather-info">
         <h3>🌊 海風の影響</h3>
         <p>春・秋は海風で肌寒いことあり。防風対策を忘れずに</p>
-        
+
         <h3>☀️ 夏場の注意</h3>
         <p>日差し対策と熱中症注意。海風が強い日は防風対策も</p>
-        
+
         <h3>🌧️ 雨天時</h3>
         <p>屋根のない座席は雨具必須。夕方試合は夕日が美しい</p>
       </div>
@@ -143,11 +151,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <h2>🏢 球場設備</h2>
       <div class="facilities-info">
         <h3>🛍️ ショッピング</h3>
-        <p>マリーンズストア（チームグッズ）、千葉県産品コーナー、選手グッズ専門店</p>
-        
+        <p>
+          マリーンズストア（チームグッズ）、千葉県産品コーナー、選手グッズ専門店
+        </p>
+
         <h3>👶 ファミリー向け</h3>
         <p>キッズエリア（遊具完備）、授乳室・おむつ交換台、ファミリーシート</p>
-        
+
         <h3>♿ バリアフリー</h3>
         <p>車椅子席各階に設置、エレベーター完備、多目的トイレ</p>
       </div>
@@ -157,8 +167,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <h2>🗾 千葉・東京ベイエリア旅行プラン</h2>
       <div class="travel-info">
         <h3>🌊 観戦と合わせて千葉・東京ベイエリアを満喫</h3>
-        <p>マリーンズ観戦を含む、幕張新都心とお台場・豊洲の最新スポットを楽しめる1泊2日のモデルコースをご紹介。</p>
-        
+        <p>
+          マリーンズ観戦を含む、幕張新都心とお台場・豊洲の最新スポットを楽しめる1泊2日のモデルコースをご紹介。
+        </p>
+
         <div class="travel-highlights">
           <div class="highlight-item">
             <h4>⚾ 野球観戦</h4>
@@ -173,7 +185,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <p>幕張・お台場・豊洲の近未来的な街並みを満喫</p>
           </div>
         </div>
-        
+
         <div class="travel-cta">
           <a href="/travel/chiba-2days" class="travel-link">
             📖 詳細な1泊2日モデルコースを見る
@@ -192,187 +204,36 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+  @import '../../styles/guide.css';
+
   .guide-header {
     background: linear-gradient(135deg, #000000 0%, #c0c0c0 100%);
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
   }
 
-  .header-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    opacity: 0.9;
-  }
-
-  .nav-link {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
-  }
-
-  .nav-link:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .hero {
-    background: #f8f9fa;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  .hero-content h2 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
-
-  .stadium-info, .access, .seating, .food, .tips, .weather, .facilities, .travel-plan {
-    padding: 2rem 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .stadium-info h2, .access h2, .seating h2, .food h2, .tips h2, .weather h2, .facilities h2, .travel-plan h2 {
-    color: #2c3e50;
+  .stadium-info h2,
+  .access h2,
+  .seating h2,
+  .food h2,
+  .tips h2,
+  .weather h2,
+  .facilities h2,
+  .travel-plan h2 {
     border-bottom: 3px solid #000000;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .info-item {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-  }
-
-  .info-item h3 {
-    color: #000000;
-    margin-bottom: 0.5rem;
-  }
-
-  .access-method h3 {
-    color: #2c3e50;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .access-method ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .access-method li {
-    margin-bottom: 0.5rem;
-  }
-
-  .seat-types, .food-items, .tips-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-
-  .seat-type, .food-item, .tip {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #000000;
-  }
-
-  .seat-type h3, .food-item h3, .tip h3 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-
-  .weather-info h3, .facilities-info h3, .travel-info h3 {
-    color: #2c3e50;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .travel-highlights {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
   }
 
   .highlight-item {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
     border-left: 4px solid #000000;
   }
 
   .highlight-item h4 {
     color: #000000;
-    margin-bottom: 0.5rem;
-  }
-
-  .travel-cta {
-    text-align: center;
-    margin-top: 2rem;
   }
 
   .travel-link {
-    display: inline-block;
     background: linear-gradient(135deg, #000000 0%, #c0c0c0 100%);
-    color: white;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .travel-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  footer {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 1rem;
   }
 
   footer a {
     color: #c0c0c0;
-    text-decoration: none;
-  }
-
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-  @media (max-width: 768px) {
-    .header-content h1 {
-      font-size: 2rem;
-    }
-    
-    .subtitle {
-      font-size: 1rem;
-    }
-    
-    .info-grid, .seat-types, .food-items, .tips-list, .travel-highlights {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

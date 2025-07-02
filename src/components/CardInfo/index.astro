@@ -1,0 +1,36 @@
+---
+export interface Props {
+  title: string;
+  items: {
+    title: string;
+    description: string;
+  }[];
+  info?: string;
+}
+
+const { title, items, info } = Astro.props;
+---
+
+<section class="container">
+  <h2>{title}</h2>
+  <div class="items">
+    {
+      items.map(item => (
+        <div class="item">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <p
+    style="font-size: 0.9rem; color: #666; margin-top: 1rem; text-align: center;"
+  >
+    {info}
+  </p>
+</section>
+
+<style>
+  @import './index.css';
+</style>
