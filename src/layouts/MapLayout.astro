@@ -8,9 +8,17 @@ export interface Props {
 
 const { title, description } = Astro.props;
 
-// サーバーサイドで環境変数を取得（フォールバック付き）
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBHS73Lg8QMhIWmuJEZ8mr_fC-J7aiEPfQ';
-const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b187a1b8cba7d79fbed4a1d0562';
+// サーバーサイドで環境変数を取得
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+
+// API キーの検証
+if (!GOOGLE_MAPS_API_KEY) {
+  console.warn('Google Maps API key is not configured');
+}
+if (!OPENWEATHER_API_KEY) {
+  console.warn('OpenWeather API key is not configured');
+}
 ---
 
 <BaseLayout title={title} description={description}>
@@ -105,25 +113,9 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
       document.head.appendChild(script);
     }
 
-    // script.jsから関数をインポートしてグローバルに設定
-    import('/src/scripts/script.js').then(module => {
-      window.initMap = module.initMap;
-      window.showAllTeams = module.showAllTeams;
-      window.showMainTeams = module.showMainTeams;
-      window.showFarmTeams = module.showFarmTeams;
-      window.showRegionalStadiums = module.showRegionalStadiums;
-      window.showCentralLeague = module.showCentralLeague;
-      window.showPacificLeague = module.showPacificLeague;
-      window.showEasternLeague = module.showEasternLeague;
-      window.showWesternLeague = module.showWesternLeague;
-      
-      // Google Maps APIを読み込み
-      loadGoogleMapsAPI();
-    });
-
-    // ページ読み込み時にモジュールを読み込み
+    // ページ読み込み時にGoogle Maps APIを読み込み
     document.addEventListener('DOMContentLoaded', () => {
-      // script.jsは上記のimportで処理されるので、ここでは何もしない
+      loadGoogleMapsAPI();
     });
     
     // 天気情報統合用のグローバル関数
@@ -182,3 +174,6 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
     }
   }
 </style>
+
+<script src="/src/scripts/script.js"></script>
+<script src="/src/scripts/weather.js"></script>

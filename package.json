@@ -21,10 +21,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@astrojs/node": "^9.2.2",
-    "astro": "^5.10.1",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "astro": "^5.10.1"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^3.2.4",
