@@ -5,9 +5,7 @@ import RelatedSidebar from '../components/RelatedSidebar.astro';
 export interface Props {
   title: string;
   description?: string;
-  publishDate?: string;
   category?: string;
-  tags?: string[];
   hero?: {
     image?: string;
     alt?: string;
@@ -17,21 +15,9 @@ export interface Props {
 const { 
   title, 
   description, 
-  publishDate,
   category,
-  tags = [],
   hero 
 } = Astro.props;
-
-// 日付のフォーマット
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('ja-JP', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
 
 // 現在のURLから関連する球団を推定
 const currentPath = Astro.url.pathname;
@@ -100,7 +86,6 @@ const getRelatedTravelInfo = () => {
 const relatedTravel = getRelatedTravelInfo();
 
 // ページタイプを判定
-const isGuidePage = currentPath.includes('/guides/');
 const isTravelPage = currentPath.includes('/travel/');
 ---
 
@@ -130,7 +115,11 @@ const isTravelPage = currentPath.includes('/travel/');
           <span class="breadcrumb-separator">›</span>
           {category && (
             <>
-              <span class="breadcrumb-category">{category}</span>
+              {isTravelPage ? (
+                <a href="/travel" class="breadcrumb-link">{category}</a>
+              ) : (
+                <span class="breadcrumb-category">{category}</span>
+              )}
               <span class="breadcrumb-separator">›</span>
             </>
           )}
