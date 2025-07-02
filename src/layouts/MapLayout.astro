@@ -35,6 +35,42 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || '3d403b1
 
   <div id="map"></div>
 
+  <!-- リンクセクション -->
+  <section class="quick-links">
+    <div class="quick-links-container">
+      <h2 class="quick-links-title">⚾ 野球観戦をもっと楽しむ</h2>
+      <div class="quick-links-grid">
+        <a href="/guides" class="quick-link-card guides">
+          <div class="card-header">
+            <div class="card-icon">🏟️</div>
+            <span class="card-category">観戦ガイド</span>
+          </div>
+          <div class="card-content">
+            <h3>全12球団観戦ガイド</h3>
+            <p>各球場の詳細な観戦情報、座席、アクセス方法、グルメ情報をチェック</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-action">ガイドを見る →</span>
+          </div>
+        </a>
+        
+        <a href="/travel" class="quick-link-card travel">
+          <div class="card-header">
+            <div class="card-icon">🗾</div>
+            <span class="card-category">旅行プラン</span>
+          </div>
+          <div class="card-content">
+            <h3>モデルコース一覧</h3>
+            <p>野球観戦と観光を組み合わせた、充実の旅行プランをご提案</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-action">コースを見る →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <div id="team-info" style="display: none;">
     <h2 id="team-name"></h2>
     <p><strong>球場:</strong> <span id="stadium-name"></span></p>
