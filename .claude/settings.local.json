@@ -40,7 +40,11 @@
       "Bash(npm test:*)",
       "Bash(git revert:*)",
       "Bash(git commit:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(npm run:*)",
+      "Bash(gh workflow:*)"
     ],
     "deny": []
   }
