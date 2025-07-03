@@ -1,7 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 // 旅行プラン一覧ページのフィルター機能テスト
 describe('旅行プラン一覧ページフィルター機能テスト', () => {
@@ -275,7 +273,7 @@ describe('旅行プラン一覧ページフィルター機能テスト', () => {
         description = 'すべての野球観戦旅行プランを一覧でご確認いただけます';
       } else {
         const leagueText = leagueFilter === 'central' ? 'セ・リーグ' : 
-                          leagueFilter === 'pacific' ? 'パ・リーグ' : '';
+          leagueFilter === 'pacific' ? 'パ・リーグ' : '';
         const durationText = durationFilter !== 'all' ? durationFilter : '';
         
         const filterTexts = [leagueText, durationText].filter(text => text).join(' ');

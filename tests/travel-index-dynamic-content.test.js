@@ -18,7 +18,7 @@ describe('旅行プラン一覧ページ動的コンテンツテスト', () => {
 
     it('travel/index.astro が getCollection を使用している', () => {
       const content = readFileSync(travelIndexPath, 'utf-8');
-      expect(content).toContain("getCollection('travel')");
+      expect(content).toContain('getCollection(\'travel\')');
     });
   });
 
