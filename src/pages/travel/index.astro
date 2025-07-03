@@ -80,88 +80,45 @@ const pacificTravels = sortedTravels.filter(travel => {
   </header>
 
   <main class="travel-main">
-    <!-- セ・リーグ -->
-    <section class="league-section">
-      <div class="league-header">
-        <h2 class="league-title">🔴 セントラル・リーグ</h2>
-        <p class="league-description">伝統と歴史ある6球団の本拠地を巡る旅</p>
-      </div>
-
-      <div class="course-grid">
-        {centralTravels.map((travel) => {
-          const info = getTeamInfo(travel.slug);
-          return (
-            <article class="course-card central-league">
-              <div class="course-image">
-                <div class="course-icon">{info.icon}</div>
-                <div class="course-badge">{info.prefecture}</div>
-              </div>
-              <div class="course-content">
-                <h3 class="course-title">{travel.data.title}</h3>
-                <p class="course-team">{info.name}</p>
-                <p class="course-description">{travel.data.description}</p>
-                <div class="course-details">
-                  <span class="course-duration">{travel.data.duration}</span>
-                  <span class="course-budget">{travel.data.cost.budget}</span>
-                </div>
-                <a href={`/travel/${travel.slug}`} class="course-link">
-                  詳細を見る <span class="link-arrow">→</span>
-                </a>
-              </div>
-            </article>
-          );
-        })}
+    <!-- フィルター -->
+    <section class="filter-section">
+      <div class="filter-container">
+        <h3 class="filter-title">🔍 プランを絞り込む</h3>
+        <div class="filter-groups">
+          <div class="filter-group">
+            <label class="filter-label">リーグ</label>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all">すべて</button>
+              <button class="filter-btn" data-filter="central">セ・リーグ</button>
+              <button class="filter-btn" data-filter="pacific">パ・リーグ</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">宿泊日数</label>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-duration="all">すべて</button>
+              <button class="filter-btn" data-duration="1泊2日">1泊2日</button>
+              <button class="filter-btn" data-duration="2泊3日">2泊3日</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- パ・リーグ -->
-    <section class="league-section">
+    <!-- 全プラン表示エリア -->
+    <section class="all-plans-section">
       <div class="league-header">
-        <h2 class="league-title">🔵 パシフィック・リーグ</h2>
-        <p class="league-description">革新的で魅力ある6球団の本拠地を巡る旅</p>
+        <h2 class="league-title" id="results-title">📋 全プラン一覧</h2>
+        <p class="league-description" id="results-description">すべての野球観戦旅行プランを一覧でご確認いただけます</p>
       </div>
 
-      <div class="course-grid">
-        {pacificTravels.map((travel) => {
-          const info = getTeamInfo(travel.slug);
-          return (
-            <article class="course-card pacific-league">
-              <div class="course-image">
-                <div class="course-icon">{info.icon}</div>
-                <div class="course-badge">{info.prefecture}</div>
-              </div>
-              <div class="course-content">
-                <h3 class="course-title">{travel.data.title}</h3>
-                <p class="course-team">{info.name}</p>
-                <p class="course-description">{travel.data.description}</p>
-                <div class="course-details">
-                  <span class="course-duration">{travel.data.duration}</span>
-                  <span class="course-budget">{travel.data.cost.budget}</span>
-                </div>
-                <a href={`/travel/${travel.slug}`} class="course-link">
-                  詳細を見る <span class="link-arrow">→</span>
-                </a>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-
-    <!-- 全プラン一覧 -->
-    <section class="league-section">
-      <div class="league-header">
-        <h2 class="league-title">📋 全プラン一覧</h2>
-        <p class="league-description">すべての野球観戦旅行プランを一覧でご確認いただけます</p>
-      </div>
-
-      <div class="course-grid">
+      <div class="course-grid" id="filtered-results">
         {sortedTravels.map((travel) => {
           const info = getTeamInfo(travel.slug);
           const cardClass = info.league === 'pacific' ? 'pacific-league' : 'central-league';
           
           return (
-            <article class={`course-card ${cardClass}`}>
+            <article class={`course-card ${cardClass}`} data-league={info.league} data-duration={travel.data.duration}>
               <div class="course-image">
                 <div class="course-icon">{info.icon}</div>
                 <div class="course-badge">{info.prefecture}</div>
@@ -183,6 +140,8 @@ const pacificTravels = sortedTravels.filter(travel => {
         })}
       </div>
     </section>
+
+    <!-- 以前のセクションは削除し、フィルター対応の統合表示に変更 -->
 
     <!-- プラン比較 -->
     <section class="comparison-section">
@@ -259,4 +218,165 @@ const pacificTravels = sortedTravels.filter(travel => {
 
 <style>
   @import './index.css';
+  
+  /* フィルターセクションのスタイル */
+  .filter-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem 1rem;
+    margin: 2rem -1rem;
+    border-radius: 20px;
+  }
+  
+  .filter-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .filter-title {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .filter-groups {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .filter-group {
+    text-align: center;
+  }
+  
+  .filter-label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+  }
+  
+  .filter-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  .filter-btn.active {
+    background: #3498db;
+    color: white;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  }
+  
+  .all-plans-section {
+    margin-bottom: 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    .filter-groups {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .filter-buttons {
+      justify-content: center;
+    }
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const courseCards = document.querySelectorAll('.course-card');
+    const resultsTitle = document.getElementById('results-title');
+    const resultsDescription = document.getElementById('results-description');
+    
+    let currentLeagueFilter = 'all';
+    let currentDurationFilter = 'all';
+    
+    // フィルターボタンのクリックイベント
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filterType = this.dataset.filter || this.dataset.duration;
+        
+        if (this.dataset.filter) {
+          // リーグフィルター
+          document.querySelectorAll('[data-filter]').forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          currentLeagueFilter = filterType;
+        } else if (this.dataset.duration) {
+          // 宿泊日数フィルター
+          document.querySelectorAll('[data-duration]').forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          currentDurationFilter = filterType;
+        }
+        
+        applyFilters();
+      });
+    });
+    
+    function applyFilters() {
+      let visibleCount = 0;
+      
+      courseCards.forEach(card => {
+        const cardLeague = card.dataset.league;
+        const cardDuration = card.dataset.duration;
+        
+        const leagueMatch = currentLeagueFilter === 'all' || cardLeague === currentLeagueFilter;
+        const durationMatch = currentDurationFilter === 'all' || cardDuration === currentDurationFilter;
+        
+        if (leagueMatch && durationMatch) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      updateResultsTitle(visibleCount);
+    }
+    
+    function updateResultsTitle(count) {
+      let title = '📋 ';
+      let description = '';
+      
+      if (currentLeagueFilter === 'all' && currentDurationFilter === 'all') {
+        title += '全プラン一覧';
+        description = 'すべての野球観戦旅行プランを一覧でご確認いただけます';
+      } else {
+        const leagueText = currentLeagueFilter === 'central' ? 'セ・リーグ' : 
+                          currentLeagueFilter === 'pacific' ? 'パ・リーグ' : '';
+        const durationText = currentDurationFilter !== 'all' ? currentDurationFilter : '';
+        
+        const filterTexts = [leagueText, durationText].filter(text => text).join(' ');
+        title += `${filterTexts} プラン一覧`;
+        description = `${filterTexts}の野球観戦旅行プラン（${count}件）`;
+      }
+      
+      resultsTitle.textContent = title;
+      resultsDescription.textContent = description;
+    }
+  });
+</script>
