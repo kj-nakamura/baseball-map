@@ -34,13 +34,6 @@
   padding: 0.75rem 1rem 0.75rem 2.5rem;
   border-radius: 8px;
   border: 1px solid rgba(52, 152, 219, 0.2);
-  transition: all 0.2s ease;
-}
-
-.highlight-box li:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateX(2px);
-  border-color: rgba(52, 152, 219, 0.4);
 }
 
 .highlight-box li::before {
@@ -208,6 +201,43 @@ h2::before {
   padding-right: 2.5rem;
 }
 
+/* Article Content Lists */
+.article-content ul {
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-content li {
+  position: relative;
+  margin-bottom: 0.8rem;
+  padding-left: 2rem;
+  color: #2c3e50;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  background: linear-gradient(135deg, rgba(116, 185, 255, 0.05), rgba(52, 152, 219, 0.02));
+  padding: 0.8rem 1.2rem 0.8rem 2.5rem;
+  border-radius: 10px;
+  border-left: 3px solid #74b9ff;
+  box-shadow: 0 1px 3px rgba(116, 185, 255, 0.1);
+}
+
+.article-content li::before {
+  content: "▶";
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #74b9ff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.article-content li strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   h2 {
     font-size: 1.3rem;
@@ -249,5 +279,17 @@ h2::before {
   
   .tip-item p {
     padding-right: 1rem;
+  }
+  
+  .article-content li {
+    padding: 0.7rem 1rem 0.7rem 2.2rem;
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    border-radius: 8px;
+  }
+  
+  .article-content li::before {
+    left: 0.7rem;
+    font-size: 0.8rem;
   }
 }

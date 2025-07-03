@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
+import './slug.css';
 
 export async function getStaticPaths() {
   const travels = await getCollection('travel');
@@ -137,7 +138,3 @@ const { Content } = await travel.render();
     )
   }
 </BlogLayout>
-
-<style>
-  @import './slug.css';
-</style>
