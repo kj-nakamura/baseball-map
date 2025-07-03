@@ -6,6 +6,47 @@ const travels = await getCollection('travel');
 const sortedTravels = travels.sort((a, b) =>
   a.data.title.localeCompare(b.data.title)
 );
+
+// チーム名とリーグのマッピング
+const teamInfo = {
+  'tokyo-giants': { name: '読売ジャイアンツ', icon: '🏯', league: 'central', prefecture: '東京都' },
+  'tokyo-swallows': { name: '東京ヤクルトスワローズ', icon: '🎨', league: 'central', prefecture: '東京都' },
+  'yokohama': { name: '横浜DeNAベイスターズ', icon: '🌉', league: 'central', prefecture: '神奈川県' },
+  'osaka-tigers': { name: '阪神タイガース', icon: '🐅', league: 'central', prefecture: '兵庫県' },
+  'nagoya': { name: '中日ドラゴンズ', icon: '🏰', league: 'central', prefecture: '愛知県' },
+  'hiroshima': { name: '広島東洋カープ', icon: '⛩️', league: 'central', prefecture: '広島県' },
+  'hokkaido': { name: '北海道日本ハムファイターズ', icon: '🏔️', league: 'pacific', prefecture: '北海道' },
+  'osaka-2days': { name: 'オリックス・バファローズ', icon: '🐃', league: 'pacific', prefecture: '大阪府' },
+  'saitama': { name: '埼玉西武ライオンズ', icon: '🌸', league: 'pacific', prefecture: '埼玉県' },
+  'chiba-lotte': { name: '千葉ロッテマリーンズ', icon: '🌊', league: 'pacific', prefecture: '千葉県' },
+  'chiba': { name: '千葉ロッテマリーンズ', icon: '🌊', league: 'pacific', prefecture: '千葉県' },
+  'miyagi': { name: '東北楽天ゴールデンイーグルス', icon: '🦅', league: 'pacific', prefecture: '宮城県' },
+  'fukuoka': { name: '福岡ソフトバンクホークス', icon: '🍜', league: 'pacific', prefecture: '福岡県' }
+};
+
+function getTeamInfo(slug) {
+  // より正確なマッチングのため、より長いキーから試す
+  const sortedKeys = Object.keys(teamInfo).sort((a, b) => b.length - a.length);
+  const teamKey = sortedKeys.find(key => slug.includes(key));
+  return teamKey ? { key: teamKey, ...teamInfo[teamKey] } : { 
+    key: '', 
+    name: '球団未定', 
+    icon: '⚾', 
+    league: 'central',
+    prefecture: '未定'
+  };
+}
+
+// セ・リーグとパ・リーグに分けて整理
+const centralTravels = sortedTravels.filter(travel => {
+  const info = getTeamInfo(travel.slug);
+  return info.league === 'central';
+});
+
+const pacificTravels = sortedTravels.filter(travel => {
+  const info = getTeamInfo(travel.slug);
+  return info.league === 'pacific';
+});
 ---
 
 <BaseLayout
@@ -26,12 +67,12 @@ const sortedTravels = travels.sort((a, b) =>
             <span class="stat-label">球団</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">全国</span>
-            <span class="stat-label">対応</span>
+            <span class="stat-number">{sortedTravels.length}</span>
+            <span class="stat-label">プラン</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">1-3泊</span>
-            <span class="stat-label">プラン</span>
+            <span class="stat-label">コース</span>
           </div>
         </div>
       </div>
@@ -47,131 +88,29 @@ const sortedTravels = travels.sort((a, b) =>
       </div>
 
       <div class="course-grid">
-        <article class="course-card central-league">
-          <div class="course-image">
-            <div class="course-icon">🏯</div>
-            <div class="course-badge">王道</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">東京王道観光コース</h3>
-            <p class="course-team">読売ジャイアンツ</p>
-            <p class="course-description">
-              皇居・浅草・銀座を巡る定番の東京観光と東京ドーム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥4-9万円</span>
-            </div>
-            <a href="/travel/tokyo-giants-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card central-league">
-          <div class="course-image">
-            <div class="course-icon">🎨</div>
-            <div class="course-badge">モダン</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">東京モダン観光コース</h3>
-            <p class="course-team">東京ヤクルトスワローズ</p>
-            <p class="course-description">
-              表参道・六本木・新宿の最新スポットと神宮球場観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥5-10万円</span>
-            </div>
-            <a href="/travel/tokyo-swallows-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card central-league">
-          <div class="course-image">
-            <div class="course-icon">🌉</div>
-            <div class="course-badge">港町</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">横浜みなとみらいコース</h3>
-            <p class="course-team">横浜DeNAベイスターズ</p>
-            <p class="course-description">
-              みなとみらい・中華街・赤レンガ倉庫と横浜スタジアム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥4-8万円</span>
-            </div>
-            <a href="/travel/yokohama-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card central-league">
-          <div class="course-image">
-            <div class="course-icon">🐅</div>
-            <div class="course-badge">関西</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">大阪・神戸満喫コース</h3>
-            <p class="course-team">阪神タイガース</p>
-            <p class="course-description">
-              大阪城・道頓堀・神戸観光と甲子園球場観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥5-10万円</span>
-            </div>
-            <a href="/travel/osaka-tigers-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card central-league">
-          <div class="course-image">
-            <div class="course-icon">🏰</div>
-            <div class="course-badge">名古屋めし</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">名古屋グルメコース</h3>
-            <p class="course-team">中日ドラゴンズ</p>
-            <p class="course-description">
-              名古屋城・熱田神宮・名古屋めしとナゴヤドーム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥4-8万円</span>
-            </div>
-            <a href="/travel/nagoya-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card central-league">
-          <div class="course-image">
-            <div class="course-icon">⛩️</div>
-            <div class="course-badge">平和・世界遺産</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">平和・宮島満喫コース</h3>
-            <p class="course-team">広島東洋カープ</p>
-            <p class="course-description">
-              平和記念公園・宮島厳島神社とマツダスタジアム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥5-10万円</span>
-            </div>
-            <a href="/travel/hiroshima-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
+        {centralTravels.map((travel) => {
+          const info = getTeamInfo(travel.slug);
+          return (
+            <article class="course-card central-league">
+              <div class="course-image">
+                <div class="course-icon">{info.icon}</div>
+                <div class="course-badge">{info.prefecture}</div>
+              </div>
+              <div class="course-content">
+                <h3 class="course-title">{travel.data.title}</h3>
+                <p class="course-team">{info.name}</p>
+                <p class="course-description">{travel.data.description}</p>
+                <div class="course-details">
+                  <span class="course-duration">{travel.data.duration}</span>
+                  <span class="course-budget">{travel.data.cost.budget}</span>
+                </div>
+                <a href={`/travel/${travel.slug}`} class="course-link">
+                  詳細を見る <span class="link-arrow">→</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
 
@@ -183,131 +122,65 @@ const sortedTravels = travels.sort((a, b) =>
       </div>
 
       <div class="course-grid">
-        <article class="course-card pacific-league">
-          <div class="course-image">
-            <div class="course-icon">🏔️</div>
-            <div class="course-badge">大自然</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">北海道大自然コース</h3>
-            <p class="course-team">北海道日本ハムファイターズ</p>
-            <p class="course-description">
-              札幌・小樽・函館の大自然とエスコンフィールド観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">2泊3日</span>
-              <span class="course-budget">¥8-15万円</span>
-            </div>
-            <a href="/travel/hokkaido-3days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
+        {pacificTravels.map((travel) => {
+          const info = getTeamInfo(travel.slug);
+          return (
+            <article class="course-card pacific-league">
+              <div class="course-image">
+                <div class="course-icon">{info.icon}</div>
+                <div class="course-badge">{info.prefecture}</div>
+              </div>
+              <div class="course-content">
+                <h3 class="course-title">{travel.data.title}</h3>
+                <p class="course-team">{info.name}</p>
+                <p class="course-description">{travel.data.description}</p>
+                <div class="course-details">
+                  <span class="course-duration">{travel.data.duration}</span>
+                  <span class="course-budget">{travel.data.cost.budget}</span>
+                </div>
+                <a href={`/travel/${travel.slug}`} class="course-link">
+                  詳細を見る <span class="link-arrow">→</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
 
-        <article class="course-card pacific-league">
-          <div class="course-image">
-            <div class="course-icon">🐃</div>
-            <div class="course-badge">食い倒れ</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">大阪食い倒れコース</h3>
-            <p class="course-team">オリックス・バファローズ</p>
-            <p class="course-description">
-              たこ焼き・お好み焼きの本場とドーム球場観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥4-8万円</span>
-            </div>
-            <a href="/travel/osaka-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
+    <!-- 全プラン一覧 -->
+    <section class="league-section">
+      <div class="league-header">
+        <h2 class="league-title">📋 全プラン一覧</h2>
+        <p class="league-description">すべての野球観戦旅行プランを一覧でご確認いただけます</p>
+      </div>
 
-        <article class="course-card pacific-league">
-          <div class="course-image">
-            <div class="course-icon">🌸</div>
-            <div class="course-badge">近郊</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">埼玉のんびりコース</h3>
-            <p class="course-team">埼玉西武ライオンズ</p>
-            <p class="course-description">
-              秩父・川越の自然と歴史、ベルーナドーム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥3-6万円</span>
-            </div>
-            <a href="/travel/saitama-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card pacific-league">
-          <div class="course-image">
-            <div class="course-icon">🌊</div>
-            <div class="course-badge">海辺</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">千葉マリンコース</h3>
-            <p class="course-team">千葉ロッテマリーンズ</p>
-            <p class="course-description">
-              房総半島・海浜幕張の海辺リゾートとマリンスタジアム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥4-7万円</span>
-            </div>
-            <a href="/travel/chiba-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card pacific-league">
-          <div class="course-image">
-            <div class="course-icon">🦅</div>
-            <div class="course-badge">東北</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">宮城グルメコース</h3>
-            <p class="course-team">東北楽天ゴールデンイーグルス</p>
-            <p class="course-description">
-              仙台・松島の絶景と牛たん、楽天イーグルス観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥4-8万円</span>
-            </div>
-            <a href="/travel/miyagi-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="course-card pacific-league">
-          <div class="course-image">
-            <div class="course-icon">🍜</div>
-            <div class="course-badge">九州</div>
-          </div>
-          <div class="course-content">
-            <h3 class="course-title">福岡グルメコース</h3>
-            <p class="course-team">福岡ソフトバンクホークス</p>
-            <p class="course-description">
-              博多・太宰府のグルメと歴史、PayPayドーム観戦
-            </p>
-            <div class="course-details">
-              <span class="course-duration">1泊2日</span>
-              <span class="course-budget">¥5-9万円</span>
-            </div>
-            <a href="/travel/fukuoka-2days" class="course-link">
-              詳細を見る <span class="link-arrow">→</span>
-            </a>
-          </div>
-        </article>
+      <div class="course-grid">
+        {sortedTravels.map((travel) => {
+          const info = getTeamInfo(travel.slug);
+          const cardClass = info.league === 'pacific' ? 'pacific-league' : 'central-league';
+          
+          return (
+            <article class={`course-card ${cardClass}`}>
+              <div class="course-image">
+                <div class="course-icon">{info.icon}</div>
+                <div class="course-badge">{info.prefecture}</div>
+              </div>
+              <div class="course-content">
+                <h3 class="course-title">{travel.data.title}</h3>
+                <p class="course-team">{info.name}</p>
+                <p class="course-description">{travel.data.description}</p>
+                <div class="course-details">
+                  <span class="course-duration">{travel.data.duration}</span>
+                  <span class="course-budget">{travel.data.cost.budget}</span>
+                </div>
+                <a href={`/travel/${travel.slug}`} class="course-link">
+                  詳細を見る <span class="link-arrow">→</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
 
