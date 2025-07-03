@@ -25,6 +25,32 @@ const guidesCollection = defineCollection({
   })
 });
 
+const travelCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    destination: z.string(),
+    duration: z.string(),
+    category: z.string(),
+    highlights: z.array(z.string()),
+    itinerary: z.array(z.object({
+      day: z.number(),
+      title: z.string(),
+      activities: z.array(z.string())
+    })),
+    cost: z.object({
+      budget: z.string(),
+      accommodation: z.string().optional(),
+      transportation: z.string().optional(),
+      food: z.string().optional()
+    }).optional(),
+    tips: z.array(z.string()).optional(),
+    publishDate: z.date()
+  })
+});
+
 export const collections = {
   'guides': guidesCollection,
+  'travel': travelCollection,
 };

@@ -1,0 +1,143 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+export async function getStaticPaths() {
+  const travels = await getCollection('travel');
+  return travels.map(travel => ({
+    params: { slug: travel.slug },
+    props: travel,
+  }));
+}
+
+const travel = Astro.props;
+const { Content } = await travel.render();
+---
+
+<BlogLayout
+  title={travel.data.title}
+  description={travel.data.description}
+  category="旅行プラン"
+>
+  <!-- ハイライトボックス -->
+  <div class="highlight-box">
+    <h3>🌟 このプランのポイント</h3>
+    <ul>
+      {travel.data.highlights.map(highlight => <li>{highlight}</li>)}
+    </ul>
+  </div>
+
+  <!-- コース概要 -->
+  <section class="overview">
+    <h2>📅 コース概要</h2>
+    <div class="overview-grid">
+      <div class="overview-item">
+        <h3>期間</h3>
+        <p>{travel.data.duration}</p>
+      </div>
+      {
+        travel.data.cost && (
+          <div class="overview-item">
+            <h3>予算目安</h3>
+            <p>{travel.data.cost.budget}</p>
+          </div>
+        )
+      }
+      <div class="overview-item">
+        <h3>目的地</h3>
+        <p>{travel.data.destination}</p>
+      </div>
+      <div class="overview-item">
+        <h3>カテゴリ</h3>
+        <p>{travel.data.category}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 詳細スケジュール -->
+  <section class="itinerary">
+    <h2>🗓️ 詳細スケジュール</h2>
+
+    {
+      travel.data.itinerary.map(day => (
+        <div class="day-section">
+          <h3 class="day-title">
+            📅 {day.day}日目: {day.title}
+          </h3>
+          <div class="schedule">
+            {day.activities.map(activity => {
+              const [time, ...activityParts] = activity.split(' ');
+              const activityText = activityParts.join(' ');
+              return (
+                <div class="time-slot">
+                  <div class="time">{time}</div>
+                  <div class="activity">
+                    <p>{activityText}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- 予算詳細 -->
+  {
+    travel.data.cost && (
+      <section class="budget">
+        <h2>💰 予算詳細</h2>
+        <div class="budget-grid">
+          <div class="budget-item">
+            <h3>総予算</h3>
+            <p>{travel.data.cost.budget}</p>
+          </div>
+          {travel.data.cost.accommodation && (
+            <div class="budget-item">
+              <h3>宿泊費</h3>
+              <p>{travel.data.cost.accommodation}</p>
+            </div>
+          )}
+          {travel.data.cost.transportation && (
+            <div class="budget-item">
+              <h3>交通費</h3>
+              <p>{travel.data.cost.transportation}</p>
+            </div>
+          )}
+          {travel.data.cost.food && (
+            <div class="budget-item">
+              <h3>食事代</h3>
+              <p>{travel.data.cost.food}</p>
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- マークダウンコンテンツ -->
+  <div class="article-content">
+    <Content />
+  </div>
+
+  <!-- 旅行のコツ -->
+  {
+    travel.data.tips && travel.data.tips.length > 0 && (
+      <section class="tips">
+        <h2>💡 旅行のコツ</h2>
+        <div class="tips-grid">
+          {travel.data.tips.map(tip => (
+            <div class="tip-item">
+              <p>{tip}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BlogLayout>
+
+<style>
+  @import './slug.css';
+</style>
