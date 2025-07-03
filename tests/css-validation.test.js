@@ -181,7 +181,6 @@ describe('CSSパフォーマンステスト', () => {
         
         // 同一プロパティの重複をチェック（基本的なもの）
         const colorMatches = cssContent.match(/color:\s*[^;]+;/g) || [];
-        const uniqueColors = new Set(colorMatches);
         
         // 基本的なチェックのみ実行
         expect(colorMatches.length).toBeGreaterThan(0);
