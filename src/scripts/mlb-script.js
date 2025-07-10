@@ -477,8 +477,8 @@ export function addMLBMarker(team) {
   }).addTo(map);
 
   const isMobileInfo = window.innerWidth <= 480;
-  const minWidth = isMobileInfo ? '150px' : '200px';
-  const fontSize = isMobileInfo ? '11px' : '12px';
+  const minWidth = isMobileInfo ? '200px' : '300px';
+  const fontSize = isMobileInfo ? '13px' : '15px';
 
   const translatedTeamName = translateTeamName(team.name);
   const translatedStadium = translateStadiumName(team.stadium);
@@ -489,17 +489,17 @@ export function addMLBMarker(team) {
   const logoImg = createLogoImg(logoUrl, translatedTeamName, 'small');
 
   const infoContent = `
-    <div style="text-align: center; min-width: ${minWidth};">
-      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
+    <div style="text-align: center; min-width: ${minWidth}; padding: 10px;">
+      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
         ${logoImg}
-        <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
+        <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '16px' : '18px'}; font-weight: 600;">
           <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>
         </h4>
       </div>
-      <p style="margin: 3px 0; font-size: ${fontSize};"><strong>${translatedStadium}</strong></p>
-      <p style="margin: 3px 0; font-size: ${fontSize};">${translatedLocation}</p>
-      <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
-      <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
+      <p style="margin: 5px 0; font-size: ${fontSize}; font-weight: 600;"><strong>${translatedStadium}</strong></p>
+      <p style="margin: 5px 0; font-size: ${fontSize};">${translatedLocation}</p>
+      <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
+      <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
     </div>
   `;
 
@@ -751,8 +751,8 @@ export function focusOnTeam(teamName) {
         
         // Create and bind popup content (same as in addMLBMarker)
         const isMobileInfo = window.innerWidth <= 480;
-        const minWidth = isMobileInfo ? '150px' : '200px';
-        const fontSize = isMobileInfo ? '11px' : '12px';
+        const minWidth = isMobileInfo ? '200px' : '300px';
+        const fontSize = isMobileInfo ? '13px' : '15px';
 
         const translatedTeamName = translateTeamName(team.name);
         const translatedStadium = translateStadiumName(team.stadium);
@@ -763,17 +763,17 @@ export function focusOnTeam(teamName) {
         const logoImg = createLogoImg(logoUrl, translatedTeamName, 'small');
 
         const infoContent = `
-          <div style="text-align: center; min-width: ${minWidth};">
-            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
+          <div style="text-align: center; min-width: ${minWidth}; padding: 10px;">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
               ${logoImg}
-              <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
+              <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '16px' : '18px'}; font-weight: 600;">
                 <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>
               </h4>
             </div>
-            <p style="margin: 3px 0; font-size: ${fontSize};"><strong>${translatedStadium}</strong></p>
-            <p style="margin: 3px 0; font-size: ${fontSize};">${translatedLocation}</p>
-            <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
-            <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
+            <p style="margin: 5px 0; font-size: ${fontSize}; font-weight: 600;"><strong>${translatedStadium}</strong></p>
+            <p style="margin: 5px 0; font-size: ${fontSize};">${translatedLocation}</p>
+            <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
+            <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
           </div>
         `;
         
