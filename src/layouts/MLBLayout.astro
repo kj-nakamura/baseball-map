@@ -28,29 +28,71 @@ const common = translations.common;
         <h1>{t.title}</h1>
         <div class="language-switcher">
           <span class="language-label">{common.languageSwitch}:</span>
-          <a href={getRelativeLocaleUrl('en', 'mlb')} class={locale === 'en' ? 'active' : ''}>🇺🇸 EN</a>
-          <a href={getRelativeLocaleUrl('ja', 'mlb')} class={locale === 'ja' ? 'active' : ''}>🇯🇵 JP</a>
+          <a
+            href={getRelativeLocaleUrl('en', 'mlb')}
+            class={locale === 'en' ? 'active' : ''}>🇺🇸 EN</a
+          >
+          <a
+            href={getRelativeLocaleUrl('ja', 'mlb')}
+            class={locale === 'ja' ? 'active' : ''}>🇯🇵 JP</a
+          >
         </div>
       </div>
       <p>{t.subtitle}</p>
     </div>
 
     <div class="league-toggle">
-      <button class="league-btn active" onclick="showAllMLBTeams()" data-i18n="allTeams">{t.buttons.allTeams}</button>
-      <button class="league-btn american" onclick="showAmericanLeague()" data-i18n="americanLeague">{t.buttons.americanLeague}</button>
-      <button class="league-btn national" onclick="showNationalLeague()" data-i18n="nationalLeague">{t.buttons.nationalLeague}</button>
+      <button
+        class="league-btn active"
+        onclick="showAllMLBTeams()"
+        data-i18n="allTeams">{t.buttons.allTeams}</button
+      >
+      <button
+        class="league-btn american"
+        onclick="showAmericanLeague()"
+        data-i18n="americanLeague">{t.buttons.americanLeague}</button
+      >
+      <button
+        class="league-btn national"
+        onclick="showNationalLeague()"
+        data-i18n="nationalLeague">{t.buttons.nationalLeague}</button
+      >
     </div>
-    
+
     <div class="league-toggle">
-      <button class="league-btn al-east" onclick="showALEast()" data-i18n="alEast">{t.buttons.alEast}</button>
-      <button class="league-btn al-central" onclick="showALCentral()" data-i18n="alCentral">{t.buttons.alCentral}</button>
-      <button class="league-btn al-west" onclick="showALWest()" data-i18n="alWest">{t.buttons.alWest}</button>
+      <button
+        class="league-btn al-east"
+        onclick="showALEast()"
+        data-i18n="alEast">{t.buttons.alEast}</button
+      >
+      <button
+        class="league-btn al-central"
+        onclick="showALCentral()"
+        data-i18n="alCentral">{t.buttons.alCentral}</button
+      >
+      <button
+        class="league-btn al-west"
+        onclick="showALWest()"
+        data-i18n="alWest">{t.buttons.alWest}</button
+      >
     </div>
-    
+
     <div class="league-toggle">
-      <button class="league-btn nl-east" onclick="showNLEast()" data-i18n="nlEast">{t.buttons.nlEast}</button>
-      <button class="league-btn nl-central" onclick="showNLCentral()" data-i18n="nlCentral">{t.buttons.nlCentral}</button>
-      <button class="league-btn nl-west" onclick="showNLWest()" data-i18n="nlWest">{t.buttons.nlWest}</button>
+      <button
+        class="league-btn nl-east"
+        onclick="showNLEast()"
+        data-i18n="nlEast">{t.buttons.nlEast}</button
+      >
+      <button
+        class="league-btn nl-central"
+        onclick="showNLCentral()"
+        data-i18n="nlCentral">{t.buttons.nlCentral}</button
+      >
+      <button
+        class="league-btn nl-west"
+        onclick="showNLWest()"
+        data-i18n="nlWest">{t.buttons.nlWest}</button
+      >
     </div>
 
     <div id="map"></div>
@@ -61,16 +103,25 @@ const common = translations.common;
 
     <div id="team-info" style="display: none;">
       <h2 id="team-name"></h2>
-      <p><strong data-i18n="stadium">{t.teamInfo.stadium}:</strong> <span id="stadium-name"></span></p>
-      <p><strong data-i18n="location">{t.teamInfo.location}:</strong> <span id="location"></span></p>
-      <p><strong data-i18n="league">{t.teamInfo.league}:</strong> <span id="league"></span></p>
+      <p>
+        <strong data-i18n="stadium">{t.teamInfo.stadium}:</strong>
+        <span id="stadium-name"></span>
+      </p>
+      <p>
+        <strong data-i18n="location">{t.teamInfo.location}:</strong>
+        <span id="location"></span>
+      </p>
+      <p>
+        <strong data-i18n="league">{t.teamInfo.league}:</strong>
+        <span id="league"></span>
+      </p>
     </div>
 
     <script type="module" define:vars={{ locale, translations }}>
       // Set global locale and translations for JavaScript
       window.mlbLocale = locale;
       window.mlbTranslations = translations;
-      
+
       // Initialize Leaflet map on page load
       document.addEventListener('DOMContentLoaded', () => {
         // Wait for Leaflet to load
@@ -88,7 +139,10 @@ const common = translations.common;
 </BaseLayout>
 
 <!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
 <!-- Leaflet JavaScript -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -165,15 +219,15 @@ const common = translations.common;
 
   /* MLB-specific button colors */
   .league-btn.american {
-    background-color: #0066CC;
+    background-color: #0066cc;
   }
 
   .league-btn.national {
-    background-color: #CC0000;
+    background-color: #cc0000;
   }
 
   .league-btn.al-east {
-    background-color: #FF6600;
+    background-color: #ff6600;
   }
 
   .league-btn.al-central {
@@ -181,15 +235,15 @@ const common = translations.common;
   }
 
   .league-btn.al-west {
-    background-color: #9900CC;
+    background-color: #9900cc;
   }
 
   .league-btn.nl-east {
-    background-color: #FF0066;
+    background-color: #ff0066;
   }
 
   .league-btn.nl-central {
-    background-color: #FF9900;
+    background-color: #ff9900;
   }
 
   .league-btn.nl-west {
@@ -224,150 +278,116 @@ const common = translations.common;
   }
 
   .table-container {
-    max-height: 400px;
-    overflow-y: auto;
     border-radius: 8px;
     border: 2px solid #dee2e6;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .team-list .teams-table {
-    width: 100% !important;
-    border-collapse: collapse !important;
+  /* Basic table structure - detailed styling handled by JavaScript */
+  .teams-table {
+    width: 100%;
     font-size: 14px;
-    border: 2px solid #333 !important;
-    background-color: white;
-  }
-
-  .teams-table thead {
-    background-color: #f1f3f4;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    border-bottom: 3px solid #dee2e6;
-  }
-
-  .team-list .teams-table th {
-    padding: 12px 8px !important;
-    text-align: left;
-    font-weight: 600;
-    color: #2c3e50;
-    border-bottom: 3px solid #333 !important;
-    border-right: 2px solid #333 !important;
-    background-color: #e9ecef !important;
-  }
-
-  .team-list .teams-table th:last-child {
-    border-right: none !important;
-  }
-
-  .teams-table th:first-child {
-    width: 50px;
-    text-align: center;
-  }
-
-  .teams-table th:nth-child(2) {
-    width: 30%;
-  }
-
-  .teams-table th:nth-child(3) {
-    width: 35%;
-  }
-
-  .teams-table th:nth-child(4) {
-    width: 25%;
   }
 
   .team-row {
     cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-
-  .team-row:hover {
-    background-color: #e3f2fd;
-  }
-
-  /* 交互行の色分け（ストライプ効果） */
-  .team-row:nth-child(even) {
-    background-color: #f8f9fa;
-  }
-
-  .team-row:nth-child(even):hover {
-    background-color: #e3f2fd;
   }
 
   .team-row.american-league {
-    border-left: 4px solid #0066CC;
+    border-left: 4px solid #0066cc;
   }
 
   .team-row.national-league {
-    border-left: 4px solid #CC0000;
+    border-left: 4px solid #cc0000;
   }
 
-  .team-list .teams-table td {
-    padding: 10px 8px !important;
-    border-bottom: 1px solid #333 !important;
-    border-right: 1px solid #333 !important;
-    vertical-align: middle;
+  /* Logo and cell styling handled by JavaScript for better control */
+
+  /* Map Team Info Overlay */
+  .map-team-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 300px;
+    min-width: 250px;
+    border: 2px solid #dee2e6;
   }
 
-  .team-list .teams-table td:last-child {
-    border-right: none !important;
+  .map-info-content {
+    padding: 16px;
+    position: relative;
   }
 
-  .logo-cell {
-    text-align: center;
-    width: 50px;
-    padding: 8px !important;
-    vertical-align: middle;
-    overflow: hidden;
+  .map-info-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
   }
 
-  .team-logo-table {
-    width: 28px !important;
-    height: 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
+  .map-info-close:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+
+  .map-info-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-right: 30px;
+  }
+
+  .map-info-header img {
+    width: 48px;
+    height: 48px;
     object-fit: contain;
-    object-position: center;
-    border-radius: 4px;
-    display: block;
-    margin: 0 auto;
-    box-sizing: border-box;
-    transform: scale(1);
-    overflow: hidden;
+    margin-right: 12px;
+    border-radius: 6px;
   }
 
-  /* Extra specific selector to override any inline styles */
-  .teams-table .logo-cell .team-logo-table[src] {
-    width: 28px !important;
-    height: 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
+  .map-info-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    line-height: 1.2;
   }
 
-  /* Force container size */
-  .teams-table .logo-cell {
-    width: 50px !important;
-    max-width: 50px !important;
-    min-width: 50px !important;
-    box-sizing: border-box;
+  .map-info-details {
+    font-size: 14px;
+    line-height: 1.4;
   }
 
-  .team-name-cell {
+  .map-info-details > div {
+    margin-bottom: 6px;
+    color: #495057;
+  }
+
+  .map-info-details > div:first-child {
     font-weight: 600;
     color: #2c3e50;
   }
 
-  .stadium-cell {
-    color: #495057;
-  }
-
-  .location-cell {
-    color: #6c757d;
+  .map-info-details > div:last-child {
+    margin-bottom: 0;
     font-size: 13px;
+    color: #6c757d;
   }
 
   @media (max-width: 768px) {
@@ -375,79 +395,29 @@ const common = translations.common;
       padding: 10px;
     }
 
-    .table-container {
-      max-height: 300px;
-      border: 1px solid #dee2e6;
+    /* Map Info Mobile Styles */
+    .map-team-info {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      max-width: none;
+      min-width: 0;
     }
 
-    .teams-table {
-      font-size: 12px;
+    .map-info-header h3 {
+      font-size: 16px;
     }
 
-    .teams-table th {
-      padding: 8px 6px;
-      font-size: 12px;
-      border-right: 1px solid #dee2e6;
+    .map-info-details {
+      font-size: 13px;
     }
 
-    .teams-table th:last-child {
-      border-right: none;
-    }
-
-    .teams-table td {
-      padding: 8px 6px;
-      border-right: 1px solid #dee2e6;
-    }
-
-    .teams-table td:last-child {
-      border-right: none;
-    }
-
-    .team-logo-table {
-      width: 24px !important;
-      height: 24px !important;
-      max-width: 24px !important;
-      max-height: 24px !important;
-      min-width: 24px !important;
-      min-height: 24px !important;
-    }
-
-    /* Force mobile logo size with inline style override */
-    .teams-table .logo-cell .team-logo-table[src] {
-      width: 24px !important;
-      height: 24px !important;
-      max-width: 24px !important;
-      max-height: 24px !important;
-    }
-
-    .teams-table th:first-child {
+    .map-info-header img {
       width: 40px;
+      height: 40px;
     }
 
-    .logo-cell {
-      width: 40px;
-      padding: 6px !important;
-    }
-
-    .location-cell {
-      font-size: 11px;
-    }
-
-    /* Hide location column on very small screens */
-    @media (max-width: 480px) {
-      .teams-table th:nth-child(4),
-      .teams-table td:nth-child(4) {
-        display: none;
-      }
-
-      .teams-table th:nth-child(2) {
-        width: 45%;
-      }
-
-      .teams-table th:nth-child(3) {
-        width: 45%;
-      }
-    }
+    /* Mobile responsive styling handled by JavaScript */
   }
 </style>
 

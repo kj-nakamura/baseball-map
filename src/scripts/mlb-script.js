@@ -350,24 +350,32 @@ export const mlbTeams = [
   },
 ];
 
-let map;
+export let map;
 export const markers = [];
+// eslint-disable-next-line no-unused-vars
+let selectedMarker = null;
+const defaultCenter = [39.8283, -98.5795];
+let defaultZoom = 4;
+
+// For testing purposes
+export function setMap(mapInstance) {
+  map = mapInstance;
+}
 
 // Initialize Leaflet map
 export function initMLBMap() {
-  const usCenter = [39.8283, -98.5795];
-
   const isMobile = window.innerWidth <= 480;
   const isTablet = window.innerWidth <= 768;
-  let initialZoom = 4;
 
   if (isMobile) {
-    initialZoom = 3;
+    defaultZoom = 3;
   } else if (isTablet) {
-    initialZoom = 3.5;
+    defaultZoom = 3.5;
+  } else {
+    defaultZoom = 4;
   }
 
-  map = L.map('map').setView(usCenter, initialZoom);
+  map = L.map('map').setView(defaultCenter, defaultZoom);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
@@ -377,14 +385,18 @@ export function initMLBMap() {
   showAllMLBTeams();
 
   window.addEventListener('resize', () => {
-    map.invalidateSize();
+    if (map && map.invalidateSize) {
+      map.invalidateSize();
+    }
   });
 }
 
 // Clear markers
 export function clearMLBMarkers() {
   markers.forEach(marker => {
-    map.removeLayer(marker);
+    if (map && map.removeLayer) {
+      map.removeLayer(marker);
+    }
   });
   markers.length = 0;
 }
@@ -427,12 +439,12 @@ function translateLocation(location) {
   return translations.mlb.locations?.[location] || location;
 }
 
-function getTeamLogoUrl(teamName) {
+export function getTeamLogoUrl(teamName) {
   const translations = window.mlbTranslations || { mlb: { logos: {} } };
   return translations.mlb.logos?.[teamName] || '';
 }
 
-function createLogoImg(logoUrl, teamName, size = 'medium') {
+export function createLogoImg(logoUrl, teamName, size = 'medium') {
   const sizeMap = {
     small: '32px',
     medium: '48px',
@@ -471,11 +483,12 @@ export function addMLBMarker(team) {
   const marker = L.marker(position, {
     icon: markerIcon,
     teamData: team, // Store team data for later reference
+    originalIcon: markerIcon, // Store original icon for reset
   }).addTo(map);
 
   const isMobileInfo = window.innerWidth <= 480;
-  const minWidth = isMobileInfo ? '150px' : '200px';
-  const fontSize = isMobileInfo ? '11px' : '12px';
+  const minWidth = isMobileInfo ? '200px' : '300px';
+  const fontSize = isMobileInfo ? '13px' : '15px';
 
   const translatedTeamName = translateTeamName(team.name);
   const translatedStadium = translateStadiumName(team.stadium);
@@ -486,23 +499,22 @@ export function addMLBMarker(team) {
   const logoImg = createLogoImg(logoUrl, translatedTeamName, 'small');
 
   const infoContent = `
-    <div style="text-align: center; min-width: ${minWidth};">
-      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
+    <div style="text-align: center; min-width: ${minWidth}; padding: 10px;">
+      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
         ${logoImg}
-        <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
+        <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '16px' : '18px'}; font-weight: 600;">
           <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>
         </h4>
       </div>
-      <p style="margin: 3px 0; font-size: ${fontSize};"><strong>${translatedStadium}</strong></p>
-      <p style="margin: 3px 0; font-size: ${fontSize};">${translatedLocation}</p>
-      <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
-      <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
+      <p style="margin: 5px 0; font-size: ${fontSize}; font-weight: 600;"><strong>${translatedStadium}</strong></p>
+      <p style="margin: 5px 0; font-size: ${fontSize};">${translatedLocation}</p>
+      <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
+      <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
     </div>
   `;
 
   marker.on('click', () => {
     marker.bindPopup(infoContent).openPopup();
-    showMLBTeamInfo(team);
   });
 
   markers.push(marker);
@@ -569,13 +581,19 @@ export function renderTeamList(teams) {
   teamListElement.innerHTML = html;
 
   // Apply table styling after render
-  setTimeout(() => {
-    applyTableStyles(teamListElement);
-  }, 100);
+  if (typeof window !== 'undefined') {
+    setTimeout(() => {
+      applyTableStyles(teamListElement);
+    }, 100);
+  }
 }
 
 // Apply comprehensive table styling
 function applyTableStyles(teamListElement) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  
   const isMobile = window.innerWidth <= 768;
   const isSmallMobile = window.innerWidth <= 480;
 
@@ -584,8 +602,6 @@ function applyTableStyles(teamListElement) {
   if (container) {
     container.style.border = '2px solid #dee2e6';
     container.style.borderRadius = '8px';
-    container.style.overflow = 'auto';
-    container.style.maxHeight = isMobile ? '300px' : '400px';
     container.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
   }
 
@@ -602,9 +618,6 @@ function applyTableStyles(teamListElement) {
   const thead = teamListElement.querySelector('.teams-table thead');
   if (thead) {
     thead.style.backgroundColor = '#f1f3f4';
-    thead.style.position = 'sticky';
-    thead.style.top = '0';
-    thead.style.zIndex = '10';
   }
 
   const headers = teamListElement.querySelectorAll('.teams-table th');
@@ -700,24 +713,102 @@ function applyTableStyles(teamListElement) {
   });
 }
 
+// Reset all markers to default state
+function resetMarkerSelection() {
+  markers.forEach(marker => {
+    const originalIcon = marker.options.originalIcon;
+    if (originalIcon) {
+      marker.setIcon(originalIcon);
+    }
+    marker.setOpacity(1);
+  });
+  selectedMarker = null;
+}
+
+// Highlight selected marker
+function highlightMarker(marker) {
+  const team = marker.options.teamData;
+  if (!team) {
+    return;
+  }
+
+  const isMobileDevice = window.innerWidth <= 480;
+  const sizeMultiplier = isMobileDevice ? 0.8 : 1;
+  const highlightSize = 28 * sizeMultiplier;
+
+  const highlightIcon = L.divIcon({
+    html: `<div style="width: ${highlightSize}px; height: ${highlightSize}px; 
+                       background: ${team.color}; border: 4px solid white; 
+                       border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>`,
+    className: 'custom-marker highlighted',
+    iconSize: [highlightSize, highlightSize],
+    iconAnchor: [highlightSize / 2, highlightSize / 2],
+  });
+
+  marker.setIcon(highlightIcon);
+  marker.setOpacity(1);
+}
+
+
 // Focus on specific team when clicked from list
 export function focusOnTeam(teamName) {
   const team = mlbTeams.find(t => t.name === teamName);
-  if (team && map) {
-    map.setView([team.lat, team.lng], 10);
-    // Find and open popup for this team
+  if (team && map && map.setView) {
+    // Reset to default zoom and center
+    map.setView(defaultCenter, defaultZoom);
+
+    // Reset all markers
+    resetMarkerSelection();
+
+    // Find and highlight the selected team marker
     markers.forEach(marker => {
       const markerTeam = marker.options.teamData;
       if (markerTeam && markerTeam.name === teamName) {
-        marker.openPopup();
+        selectedMarker = marker;
+        highlightMarker(marker);
+        
+        // Create and bind popup content (same as in addMLBMarker)
+        const isMobileInfo = window.innerWidth <= 480;
+        const minWidth = isMobileInfo ? '200px' : '300px';
+        const fontSize = isMobileInfo ? '13px' : '15px';
+
+        const translatedTeamName = translateTeamName(team.name);
+        const translatedStadium = translateStadiumName(team.stadium);
+        const translatedLocation = translateLocation(team.location);
+        const translatedLeague = translateLeague(team.league);
+        const translatedDivision = translateDivision(team.division);
+        const logoUrl = getTeamLogoUrl(team.name);
+        const logoImg = createLogoImg(logoUrl, translatedTeamName, 'small');
+
+        const infoContent = `
+          <div style="text-align: center; min-width: ${minWidth}; padding: 10px;">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+              ${logoImg}
+              <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '16px' : '18px'}; font-weight: 600;">
+                <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>
+              </h4>
+            </div>
+            <p style="margin: 5px 0; font-size: ${fontSize}; font-weight: 600;"><strong>${translatedStadium}</strong></p>
+            <p style="margin: 5px 0; font-size: ${fontSize};">${translatedLocation}</p>
+            <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
+            <p style="margin: 5px 0; font-size: ${fontSize}; color: #666;">${translatedDivision}</p>
+          </div>
+        `;
+        
+        marker.bindPopup(infoContent).openPopup();
+      } else {
+        // Make other markers semi-transparent
+        marker.setOpacity(0.6);
       }
     });
+
   }
 }
 
 // Show all teams
 export function showAllMLBTeams() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   mlbTeams.forEach(team => {
     addMLBMarker(team);
   });
@@ -728,6 +819,7 @@ export function showAllMLBTeams() {
 // Show American League
 export function showAmericanLeague() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const alTeams = mlbTeams.filter(team => team.league === 'American League');
   alTeams.forEach(team => {
     addMLBMarker(team);
@@ -739,6 +831,7 @@ export function showAmericanLeague() {
 // Show National League
 export function showNationalLeague() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const nlTeams = mlbTeams.filter(team => team.league === 'National League');
   nlTeams.forEach(team => {
     addMLBMarker(team);
@@ -750,6 +843,7 @@ export function showNationalLeague() {
 // Show AL East
 export function showALEast() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const alEastTeams = mlbTeams.filter(team => team.division === 'AL East');
   alEastTeams.forEach(team => {
     addMLBMarker(team);
@@ -761,6 +855,7 @@ export function showALEast() {
 // Show AL Central
 export function showALCentral() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const alCentralTeams = mlbTeams.filter(
     team => team.division === 'AL Central'
   );
@@ -774,6 +869,7 @@ export function showALCentral() {
 // Show AL West
 export function showALWest() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const alWestTeams = mlbTeams.filter(team => team.division === 'AL West');
   alWestTeams.forEach(team => {
     addMLBMarker(team);
@@ -785,6 +881,7 @@ export function showALWest() {
 // Show NL East
 export function showNLEast() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const nlEastTeams = mlbTeams.filter(team => team.division === 'NL East');
   nlEastTeams.forEach(team => {
     addMLBMarker(team);
@@ -796,6 +893,7 @@ export function showNLEast() {
 // Show NL Central
 export function showNLCentral() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const nlCentralTeams = mlbTeams.filter(
     team => team.division === 'NL Central'
   );
@@ -809,6 +907,7 @@ export function showNLCentral() {
 // Show NL West
 export function showNLWest() {
   clearMLBMarkers();
+  selectedMarker = null; // Reset selection
   const nlWestTeams = mlbTeams.filter(team => team.division === 'NL West');
   nlWestTeams.forEach(team => {
     addMLBMarker(team);
