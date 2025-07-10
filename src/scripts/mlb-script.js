@@ -302,7 +302,7 @@ export const mlbTeams = [
     lat: 34.0739,
     lng: -118.24,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/dodgers',
+    detailUrl: '/mlb/dodgers',
   },
   {
     name: 'San Diego Padres',

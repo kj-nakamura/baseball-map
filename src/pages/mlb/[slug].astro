@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const mlbEntries = await getCollection('mlb');
+  return mlbEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <main class="mlb-detail">
+    <div class="container">
+      <!-- Hero Section -->
+      <header class="hero">
+        <div class="hero__content">
+          <h1 class="hero__title">{entry.data.team}</h1>
+          <h2 class="hero__subtitle">{entry.data.stadium}</h2>
+          <div class="hero__meta">
+            <span class="meta-item"
+              >{entry.data.location}, {entry.data.state}</span
+            >
+            <span class="meta-item"
+              >{entry.data.league} • {entry.data.division}</span
+            >
+            <span class="meta-item"
+              >収容人数: {entry.data.capacity?.toLocaleString()}人</span
+            >
+            <span class="meta-item">開場: {entry.data.opened}年</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- 基本情報 -->
+      <section class="quick-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>球場名</h3>
+            <p>{entry.data.stadium}</p>
+          </div>
+          <div class="stat-card">
+            <h3>リーグ</h3>
+            <p>{entry.data.league}</p>
+          </div>
+          <div class="stat-card">
+            <h3>地区</h3>
+            <p>{entry.data.division}</p>
+          </div>
+          <div class="stat-card">
+            <h3>収容人数</h3>
+            <p>{entry.data.capacity?.toLocaleString()}人</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <article class="content">
+        <Content />
+        
+        {entry.data.amazonLink && (
+          <div class="amazon-affiliate">
+            <a href={entry.data.amazonLink} target="_blank" rel="noopener noreferrer" class="amazon-button">
+              <span class="button-text">Amazonで関連商品を見る</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        )}
+      </article>
+    </div>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  @import '/src/styles/design-tokens.css';
+  @import './_slug.css';
+</style>

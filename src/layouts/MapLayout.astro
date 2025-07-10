@@ -18,6 +18,11 @@ if (!OPENWEATHER_API_KEY) {
 ---
 
 <BaseLayout title={title} description={description}>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" slot="head" />
+  
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" slot="head"></script>
   <div class="map-container">
     <div class="header">
     <h1>プロ野球12球団本拠地マップ</h1>
@@ -39,6 +44,9 @@ if (!OPENWEATHER_API_KEY) {
   </div>
 
   <div id="map"></div>
+  
+  <!-- 球団一覧テーブル -->
+  <div id="team-list" class="team-list"></div>
 
   <!-- リンクセクション -->
   <section class="section section--gradient section--rainbow-border">
@@ -158,11 +166,6 @@ if (!OPENWEATHER_API_KEY) {
   </div>
 </MapLayout>
 
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-<!-- Leaflet JavaScript -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
   @import '/src/styles/design-tokens.css';
@@ -172,7 +175,7 @@ if (!OPENWEATHER_API_KEY) {
   @import '/src/styles/weather.css';
 
   .map-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -183,9 +186,136 @@ if (!OPENWEATHER_API_KEY) {
     border: none !important;
   }
 
+  /* Team list styling (similar to MLB) */
+  .team-list {
+    margin-top: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .team-list h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .table-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .teams-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 14px;
+  }
+
+  .teams-table thead {
+    background: #f1f3f4;
+  }
+
+  .teams-table th {
+    padding: 12px 8px;
+    text-align: left;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  .teams-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+  }
+
+  .team-row {
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .team-row:hover {
+    background-color: #e3f2fd;
+  }
+
+  .team-row:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .team-row:nth-child(even):hover {
+    background-color: #e3f2fd;
+  }
+
+  .logo-cell {
+    text-align: center;
+    width: 50px;
+  }
+
+  .team-logo-table {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+  }
+
+  .team-name-cell {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .stadium-cell {
+    color: #495057;
+  }
+
+  .location-cell {
+    color: #6c757d;
+  }
+
+  .central-league-row {
+    border-left: 4px solid #e74c3c;
+  }
+
+  .pacific-league-row {
+    border-left: 4px solid #3498db;
+  }
+
   @media (max-width: 768px) {
     .map-container {
       padding: 10px;
+    }
+    
+    .team-list {
+      padding: 15px;
+    }
+    
+    .teams-table {
+      font-size: 12px;
+    }
+    
+    .teams-table th,
+    .teams-table td {
+      padding: 8px 6px;
+    }
+    
+    .team-logo-table {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .location-cell {
+      display: none;
+    }
+    
+    .teams-table th:nth-child(4) {
+      display: none;
     }
   }
 </style>

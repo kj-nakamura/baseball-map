@@ -656,7 +656,10 @@ export function addMarker(team) {
     });
   }
 
-  const marker = L.marker(position, { icon: markerIcon }).addTo(map);
+  const marker = L.marker(position, { 
+    icon: markerIcon,
+    teamData: team // チームデータを追加
+  }).addTo(map);
 
   // InfoWindow のコンテンツ
   let teamType = '';
@@ -739,6 +742,7 @@ export function showAllTeams() {
     addMarker(team);
   });
   updateActiveButton(0);
+  renderTeamList(baseballTeams);
 }
 
 // セ・リーグのみ表示
@@ -751,6 +755,7 @@ export function showCentralLeague() {
     addMarker(team);
   });
   updateActiveButton(4);
+  renderTeamList(centralTeams);
 }
 
 // パ・リーグのみ表示
@@ -763,6 +768,7 @@ export function showPacificLeague() {
     addMarker(team);
   });
   updateActiveButton(5);
+  renderTeamList(pacificTeams);
 }
 
 // イースタン・リーグのみ表示
@@ -775,6 +781,7 @@ export function showEasternLeague() {
     addMarker(team);
   });
   updateActiveButton(6);
+  renderTeamList(easternTeams);
 }
 
 // ウエスタン・リーグのみ表示
@@ -787,6 +794,7 @@ export function showWesternLeague() {
     addMarker(team);
   });
   updateActiveButton(7);
+  renderTeamList(westernTeams);
 }
 
 // 1軍のみ表示
@@ -799,6 +807,7 @@ export function showMainTeams() {
     addMarker(team);
   });
   updateActiveButton(1);
+  renderTeamList(mainTeams);
 }
 
 // ファーム（2軍）のみ表示
@@ -809,6 +818,7 @@ export function showFarmTeams() {
     addMarker(team);
   });
   updateActiveButton(2);
+  renderTeamList(farmTeams);
 }
 
 // 地方開催球場のみ表示
@@ -819,6 +829,7 @@ export function showRegionalStadiums() {
     addMarker(team);
   });
   updateActiveButton(3);
+  renderTeamList(regionalTeams);
 }
 
 // アクティブなボタンを更新
@@ -833,6 +844,68 @@ export function updateActiveButton(activeIndex) {
   });
 }
 
+// チーム一覧テーブルを表示
+export function renderTeamList(teams) {
+  const teamListElement = document.getElementById('team-list');
+  if (!teamListElement) {
+    return;
+  }
+
+  let html = `
+    <h3>球団一覧 (${teams.length})</h3>
+    <div class="table-container">
+      <table class="teams-table">
+        <thead>
+          <tr>
+            <th>球団名</th>
+            <th>球場名</th>
+            <th>所在地</th>
+            <th>リーグ</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  teams.forEach(team => {
+    const leagueClass = team.league === 'セントラル・リーグ' ? 'central-league-row' : 
+                       team.league === 'パシフィック・リーグ' ? 'pacific-league-row' : '';
+
+    html += `
+      <tr class="team-row ${leagueClass}" onclick="focusOnTeam('${team.name}')">
+        <td class="team-name-cell">${team.name}</td>
+        <td class="stadium-cell">${team.stadium}</td>
+        <td class="location-cell">${team.location}</td>
+        <td class="league-cell">${team.league}</td>
+      </tr>
+    `;
+  });
+
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+  teamListElement.innerHTML = html;
+}
+
+// 特定の球団にフォーカス
+export function focusOnTeam(teamName) {
+  const team = baseballTeams.find(t => t.name === teamName);
+  if (team && map) {
+    // 球団の位置にズーム
+    map.setView([team.lat, team.lng], 12);
+    
+    // 球団情報を表示
+    showTeamInfo(team);
+    
+    // 該当するマーカーをクリック
+    const marker = markers.find(m => m.options.teamData && m.options.teamData.name === teamName);
+    if (marker) {
+      marker.fire('click');
+    }
+  }
+}
+
 if (typeof window !== 'undefined') {
   window.initMap = initMap;
   window.showAllTeams = showAllTeams;
@@ -844,5 +917,7 @@ if (typeof window !== 'undefined') {
   window.showFarmTeams = showFarmTeams;
   window.showRegionalStadiums = showRegionalStadiums;
   window.updateActiveButton = updateActiveButton;
+  window.renderTeamList = renderTeamList;
+  window.focusOnTeam = focusOnTeam;
   window.baseballTeams = baseballTeams;
 }
