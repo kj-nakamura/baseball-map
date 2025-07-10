@@ -429,12 +429,12 @@ function translateLocation(location) {
   return translations.mlb.locations?.[location] || location;
 }
 
-function getTeamLogoUrl(teamName) {
+export function getTeamLogoUrl(teamName) {
   const translations = window.mlbTranslations || { mlb: { logos: {} } };
   return translations.mlb.logos?.[teamName] || '';
 }
 
-function createLogoImg(logoUrl, teamName, size = 'medium') {
+export function createLogoImg(logoUrl, teamName, size = 'medium') {
   const sizeMap = {
     small: '32px',
     medium: '48px',

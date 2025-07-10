@@ -312,6 +312,11 @@
   color: var(--color-text-light);
 }
 
+.badge--accent {
+  background: var(--color-accent-red);
+  color: white;
+}
+
 /* ===============================================
    アクションリンク
    =============================================== */
