@@ -554,40 +554,11 @@ export const baseballTeams = [
 
 let map;
 export const markers = [];
-let infoWindow;
 
-// Google Maps用のカスタムスタイル（日本風）
-export const japaneseMapStyle = [
-  {
-    featureType: 'all',
-    stylers: [{ saturation: -20 }],
-  },
-  {
-    featureType: 'water',
-    stylers: [{ color: '#a4d4e6' }],
-  },
-  {
-    featureType: 'landscape',
-    stylers: [{ color: '#f0f8e8' }],
-  },
-  {
-    featureType: 'road',
-    stylers: [{ visibility: 'simplified' }],
-  },
-  {
-    featureType: 'poi',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'transit',
-    stylers: [{ visibility: 'off' }],
-  },
-];
-
-// 地図を初期化
+// Leaflet地図を初期化
 export function initMap() {
   // 関東圏の中心座標（東京周辺）
-  const kantoCenter = { lat: 35.6762, lng: 139.6503 };
+  const kantoCenter = [35.6762, 139.6503];
 
   // レスポンシブ対応: デバイスサイズに応じて初期ズームレベルを調整
   const isMobile = window.innerWidth <= 480;
@@ -600,35 +571,28 @@ export function initMap() {
     initialZoom = 7;
   }
 
-  // Google Map を初期化
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: initialZoom,
-    center: kantoCenter,
-    styles: japaneseMapStyle,
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: !isMobile, // モバイルではフルスクリーンボタンを非表示
-    zoomControl: true,
-    gestureHandling: isMobile ? 'greedy' : 'cooperative', // モバイルでは単指操作を有効
-  });
+  // Leaflet Map を初期化
+  map = L.map('map').setView(kantoCenter, initialZoom);
 
-  // InfoWindow を初期化
-  infoWindow = new google.maps.InfoWindow();
+  // OpenStreetMapタイルレイヤーを追加
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 18,
+  }).addTo(map);
 
   // 1軍のみ表示（デフォルト）
   showMainTeams();
 
   // ウィンドウリサイズ時に地図を再描画
   window.addEventListener('resize', () => {
-    google.maps.event.trigger(map, 'resize');
-    map.setCenter(kantoCenter);
+    map.invalidateSize();
   });
 }
 
 // マーカーをクリアする
 export function clearMarkers() {
   markers.forEach(marker => {
-    marker.setMap(null);
+    map.removeLayer(marker);
   });
   markers.length = 0;
 }
@@ -648,9 +612,9 @@ export function showTeamInfo(team) {
   }
 }
 
-// Google Maps用のマーカーを作成
+// Leaflet用のマーカーを作成
 export function addMarker(team) {
-  const position = { lat: team.lat, lng: team.lng };
+  const position = [team.lat, team.lng];
 
   // レスポンシブ対応: デバイスサイズに応じてマーカーサイズを調整
   const isMobileDevice = window.innerWidth <= 480;
@@ -660,43 +624,39 @@ export function addMarker(team) {
   let markerIcon;
   if (team.type === 'regional') {
     // 地方開催球場用ダイヤモンドマーカー
-    markerIcon = {
-      path: 'M 0,-10 L 7,0 L 0,10 L -7,0 Z', // ダイヤモンド形状
-      scale: 1.2 * sizeMultiplier,
-      fillColor: team.color,
-      fillOpacity: 0.8,
-      strokeColor: '#ffffff',
-      strokeWeight: isMobileDevice ? 1.5 : 2,
-    };
+    markerIcon = L.divIcon({
+      html: `<div style="width: ${18 * sizeMultiplier}px; height: ${18 * sizeMultiplier}px; 
+                         background: ${team.color}; border: 2px solid white; 
+                         transform: rotate(45deg); border-radius: 3px;"></div>`,
+      className: 'custom-marker',
+      iconSize: [18 * sizeMultiplier, 18 * sizeMultiplier],
+      iconAnchor: [9 * sizeMultiplier, 9 * sizeMultiplier],
+    });
   } else if (team.type === 'farm') {
     // ファーム球場用矢印マーカー
-    markerIcon = {
-      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-      scale: 10 * sizeMultiplier,
-      fillColor: team.color,
-      fillOpacity: 0.6,
-      strokeColor: '#ffffff',
-      strokeWeight: isMobileDevice ? 2 : 3,
-    };
+    markerIcon = L.divIcon({
+      html: `<div style="width: 0; height: 0; 
+                         border-left: ${8 * sizeMultiplier}px solid transparent; 
+                         border-right: ${8 * sizeMultiplier}px solid transparent; 
+                         border-bottom: ${16 * sizeMultiplier}px solid ${team.color}; 
+                         border: 2px solid white;"></div>`,
+      className: 'custom-marker',
+      iconSize: [16 * sizeMultiplier, 16 * sizeMultiplier],
+      iconAnchor: [8 * sizeMultiplier, 16 * sizeMultiplier],
+    });
   } else {
     // 1軍本拠地用円マーカー
-    markerIcon = {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 12 * sizeMultiplier,
-      fillColor: team.color,
-      fillOpacity: 0.8,
-      strokeColor: '#ffffff',
-      strokeWeight: isMobileDevice ? 2 : 3,
-    };
+    markerIcon = L.divIcon({
+      html: `<div style="width: ${20 * sizeMultiplier}px; height: ${20 * sizeMultiplier}px; 
+                         background: ${team.color}; border: 3px solid white; 
+                         border-radius: 50%;"></div>`,
+      className: 'custom-marker',
+      iconSize: [20 * sizeMultiplier, 20 * sizeMultiplier],
+      iconAnchor: [10 * sizeMultiplier, 10 * sizeMultiplier],
+    });
   }
 
-  const marker = new google.maps.Marker({
-    position: position,
-    map: map,
-    title: team.name,
-    icon: markerIcon,
-    animation: google.maps.Animation.DROP,
-  });
+  const marker = L.marker(position, { icon: markerIcon }).addTo(map);
 
   // InfoWindow のコンテンツ
   let teamType = '';
@@ -739,8 +699,8 @@ export function addMarker(team) {
     `;
 
   // クリックイベントを追加
-  marker.addListener('click', async () => {
-    // 天気情報を取得してInfoWindowに追加
+  marker.on('click', async () => {
+    // 天気情報を取得してポップアップに追加
     try {
       const { createMapWeatherInfo } = await import('./weather-ui.js');
       const weatherInfo = await createMapWeatherInfo(team);
@@ -760,20 +720,13 @@ export function addMarker(team) {
         </div>
       `;
 
-      infoWindow.setContent(contentWithWeather);
+      marker.bindPopup(contentWithWeather).openPopup();
     } catch (error) {
       console.error('Weather info loading error:', error);
-      infoWindow.setContent(infoContent);
+      marker.bindPopup(infoContent).openPopup();
     }
 
-    infoWindow.open(map, marker);
     showTeamInfo(team);
-
-    // マーカーをバウンスアニメーション
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(() => {
-      marker.setAnimation(null);
-    }, 2000);
   });
 
   markers.push(marker);

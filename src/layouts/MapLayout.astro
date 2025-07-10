@@ -9,13 +9,9 @@ export interface Props {
 const { title, description } = Astro.props;
 
 // サーバーサイドで環境変数を取得
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 // API キーの検証
-if (!GOOGLE_MAPS_API_KEY) {
-  console.warn('Google Maps API key is not configured');
-}
 if (!OPENWEATHER_API_KEY) {
   console.warn('OpenWeather API key is not configured');
 }
@@ -93,29 +89,22 @@ if (!OPENWEATHER_API_KEY) {
     </div>
   </div>
 
-  <script type="module" define:vars={{ GOOGLE_MAPS_API_KEY, OPENWEATHER_API_KEY }}>
+  <script type="module" define:vars={{ OPENWEATHER_API_KEY }}>
     // サーバーから環境変数を受け取り
     // グローバルに設定してweather.jsからも利用可能にする
-    window.GOOGLE_MAPS_API_KEY = GOOGLE_MAPS_API_KEY;
     window.OPENWEATHER_API_KEY = OPENWEATHER_API_KEY;
 
-    // Google Maps APIを動的に読み込み
-    function loadGoogleMapsAPI() {
-      if (!GOOGLE_MAPS_API_KEY) {
-        console.error('Google Maps API キーが設定されていません');
-        return;
-      }
-      
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap&language=ja&region=JP`;
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    }
-
-    // ページ読み込み時にGoogle Maps APIを読み込み
+    // ページ読み込み時にLeafletマップを初期化
     document.addEventListener('DOMContentLoaded', () => {
-      loadGoogleMapsAPI();
+      // Leafletが読み込まれるまで待つ
+      const checkLeaflet = () => {
+        if (typeof L !== 'undefined') {
+          initMap();
+        } else {
+          setTimeout(checkLeaflet, 100);
+        }
+      };
+      checkLeaflet();
     });
     
     // 天気情報統合用のグローバル関数
@@ -155,6 +144,12 @@ if (!OPENWEATHER_API_KEY) {
   </div>
 </MapLayout>
 
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
   @import '/src/styles/design-tokens.css';
   @import '/src/styles/components.css';
@@ -166,6 +161,12 @@ if (!OPENWEATHER_API_KEY) {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+  }
+
+  /* Custom marker styles */
+  .custom-marker {
+    background: transparent !important;
+    border: none !important;
   }
 
   @media (max-width: 768px) {
