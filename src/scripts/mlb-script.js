@@ -586,8 +586,6 @@ function applyTableStyles(teamListElement) {
   if (container) {
     container.style.border = '2px solid #dee2e6';
     container.style.borderRadius = '8px';
-    container.style.overflow = 'auto';
-    container.style.maxHeight = isMobile ? '300px' : '400px';
     container.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
   }
 
@@ -604,9 +602,6 @@ function applyTableStyles(teamListElement) {
   const thead = teamListElement.querySelector('.teams-table thead');
   if (thead) {
     thead.style.backgroundColor = '#f1f3f4';
-    thead.style.position = 'sticky';
-    thead.style.top = '0';
-    thead.style.zIndex = '10';
   }
 
   const headers = teamListElement.querySelectorAll('.teams-table th');
