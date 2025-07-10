@@ -45,49 +45,42 @@ describe('スクリプトの機能テスト', () => {
     // script.jsでエクスポートされた変数をグローバルスコープに設定
     window.baseballTeams = script.baseballTeams;
 
-    // Google Maps APIのモック
-    global.google = {
-      maps: {
-        Map: vi.fn(() => ({
-          setCenter: vi.fn(),
-          setZoom: vi.fn(),
-          fitBounds: vi.fn(),
-          addListener: vi.fn(),
-        })),
-        Marker: vi.fn(() => ({
-          setMap: vi.fn(),
-          addListener: vi.fn(),
-          setAnimation: vi.fn(),
-        })),
-        InfoWindow: vi.fn(() => ({
-          setContent: vi.fn(),
-          open: vi.fn(),
-          close: vi.fn(),
-        })),
-        LatLngBounds: vi.fn(),
-        LatLng: vi.fn(),
-        event: {
-          trigger: vi.fn(),
-        },
-        Animation: {
-          DROP: 'DROP',
-          BOUNCE: 'BOUNCE',
-        },
-        SymbolPath: {
-          CIRCLE: 'CIRCLE',
-          FORWARD_CLOSED_ARROW: 'FORWARD_CLOSED_ARROW',
-        },
-      },
+    // Leaflet APIのモック
+    const mockMap = {
+      setView: vi.fn(() => mockMap),
+      addTo: vi.fn(() => mockMap),
+      removeLayer: vi.fn(),
+      invalidateSize: vi.fn(),
+      setCenter: vi.fn(),
+      setZoom: vi.fn(),
+      fitBounds: vi.fn(),
+      on: vi.fn(),
+    };
+
+    const mockMarker = {
+      addTo: vi.fn(() => mockMarker),
+      on: vi.fn(),
+      bindPopup: vi.fn(() => ({
+        openPopup: vi.fn(),
+      })),
+      openPopup: vi.fn(),
+    };
+
+    global.L = {
+      map: vi.fn(() => mockMap),
+      tileLayer: vi.fn(() => ({
+        addTo: vi.fn(),
+      })),
+      marker: vi.fn(() => mockMarker),
+      divIcon: vi.fn(() => ({})),
     };
   });
 
   it('initMapが地図を正しく初期化する', () => {
     script.initMap();
-    expect(google.maps.Map).toHaveBeenCalledOnce();
-    expect(google.maps.Map).toHaveBeenCalledWith(
-      document.getElementById('map'),
-      expect.any(Object)
-    );
+    expect(L.map).toHaveBeenCalledOnce();
+    expect(L.map).toHaveBeenCalledWith('map');
+    expect(L.tileLayer).toHaveBeenCalledOnce();
   });
 
   it('clearMarkersがすべてのマーカーを削除する', () => {
