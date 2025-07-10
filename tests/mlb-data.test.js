@@ -103,4 +103,76 @@ describe('MLB Teams Data Tests', () => {
     expect(teamNames).toContain('Chicago Cubs');
     expect(teamNames).toContain('San Francisco Giants');
   });
+
+  it('should have valid team colors', () => {
+    mlbTeams.forEach(team => {
+      expect(team.color).toBeDefined();
+      expect(typeof team.color).toBe('string');
+      expect(team.color).toMatch(/^#[0-9A-Fa-f]{6}$/);
+    });
+  });
+
+  it('should have valid logo functions', async () => {
+    // Import the module
+    const module = await import('../src/scripts/mlb-script.js');
+    const { createLogoImg, getTeamLogoUrl } = module;
+
+    // Mock global translations
+    global.window = {
+      mlbTranslations: {
+        mlb: {
+          logos: {
+            'New York Yankees': 'https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png'
+          }
+        }
+      }
+    };
+
+    // Test getTeamLogoUrl function
+    const logoUrl = getTeamLogoUrl('New York Yankees');
+    expect(logoUrl).toBe('https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png');
+
+    // Test createLogoImg function
+    const logoImg = createLogoImg(logoUrl, 'New York Yankees', 'medium');
+    expect(logoImg).toContain('width: 48px');
+    expect(logoImg).toContain('height: 48px');
+    expect(logoImg).toContain('object-fit: contain');
+    expect(logoImg).toContain('New York Yankees logo');
+  });
+
+  it('should handle different logo sizes', async () => {
+    const module = await import('../src/scripts/mlb-script.js');
+    const { createLogoImg } = module;
+
+    const logoUrl = 'https://example.com/logo.png';
+    const teamName = 'Test Team';
+
+    // Test small size
+    const smallLogo = createLogoImg(logoUrl, teamName, 'small');
+    expect(smallLogo).toContain('width: 32px');
+    expect(smallLogo).toContain('height: 32px');
+
+    // Test medium size (default)
+    const mediumLogo = createLogoImg(logoUrl, teamName, 'medium');
+    expect(mediumLogo).toContain('width: 48px');
+    expect(mediumLogo).toContain('height: 48px');
+
+    // Test large size
+    const largeLogo = createLogoImg(logoUrl, teamName, 'large');
+    expect(largeLogo).toContain('width: 64px');
+    expect(largeLogo).toContain('height: 64px');
+  });
+
+  it('should handle missing logo URL', async () => {
+    const module = await import('../src/scripts/mlb-script.js');
+    const { createLogoImg } = module;
+
+    // Test with empty logo URL
+    const emptyLogo = createLogoImg('', 'Test Team', 'medium');
+    expect(emptyLogo).toBe('');
+
+    // Test with null logo URL
+    const nullLogo = createLogoImg(null, 'Test Team', 'medium');
+    expect(nullLogo).toBe('');
+  });
 });
