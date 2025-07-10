@@ -63,7 +63,7 @@ export const mlbTeams = [
     location: 'Baltimore, MD',
     league: 'American League',
     division: 'AL East',
-    lat: 39.2840,
+    lat: 39.284,
     lng: -76.6216,
     color: mlbLeagueColors['American League'],
     detailUrl: 'https://www.mlb.com/orioles',
@@ -108,7 +108,7 @@ export const mlbTeams = [
     location: 'Detroit, MI',
     league: 'American League',
     division: 'AL Central',
-    lat: 42.3390,
+    lat: 42.339,
     lng: -83.0485,
     color: mlbLeagueColors['American League'],
     detailUrl: 'https://www.mlb.com/tigers',
@@ -119,7 +119,7 @@ export const mlbTeams = [
     location: 'Chicago, IL',
     league: 'American League',
     division: 'AL Central',
-    lat: 41.8300,
+    lat: 41.83,
     lng: -87.6338,
     color: mlbLeagueColors['American League'],
     detailUrl: 'https://www.mlb.com/whitesox',
@@ -131,7 +131,7 @@ export const mlbTeams = [
     location: 'Houston, TX',
     league: 'American League',
     division: 'AL West',
-    lat: 29.7570,
+    lat: 29.757,
     lng: -95.3551,
     color: mlbLeagueColors['American League'],
     detailUrl: 'https://www.mlb.com/astros',
@@ -231,7 +231,7 @@ export const mlbTeams = [
     location: 'Washington, DC',
     league: 'National League',
     division: 'NL East',
-    lat: 38.8730,
+    lat: 38.873,
     lng: -77.0074,
     color: mlbLeagueColors['National League'],
     detailUrl: 'https://www.mlb.com/nationals',
@@ -243,7 +243,7 @@ export const mlbTeams = [
     location: 'Milwaukee, WI',
     league: 'National League',
     division: 'NL Central',
-    lat: 43.0280,
+    lat: 43.028,
     lng: -87.9712,
     color: mlbLeagueColors['National League'],
     detailUrl: 'https://www.mlb.com/brewers',
@@ -300,7 +300,7 @@ export const mlbTeams = [
     league: 'National League',
     division: 'NL West',
     lat: 34.0739,
-    lng: -118.2400,
+    lng: -118.24,
     color: mlbLeagueColors['National League'],
     detailUrl: 'https://www.mlb.com/dodgers',
   },
@@ -389,7 +389,6 @@ export function clearMLBMarkers() {
   markers.length = 0;
 }
 
-
 function translateLeague(league) {
   const translations = window.mlbTranslations || { mlb: { leagues: {} } };
   if (league === 'American League') {
@@ -437,26 +436,20 @@ function createLogoImg(logoUrl, teamName, size = 'medium') {
   const sizeMap = {
     small: '32px',
     medium: '48px',
-    large: '64px'
+    large: '64px',
   };
-  
+
   const imgSize = sizeMap[size] || sizeMap.medium;
-  
+
   if (!logoUrl) {
     return '';
   }
-  
+
   return `<img src="${logoUrl}" 
                alt="${teamName} logo" 
                style="width: ${imgSize}; height: ${imgSize}; object-fit: contain; border-radius: 4px; margin-right: 8px;" 
                onerror="this.style.display='none'"
                loading="lazy" />`;
-}
-
-// Show team info (currently hidden, kept for compatibility)
-export function showMLBTeamInfo(team) {
-  // Team info panel is now hidden, this function is kept for compatibility
-  // but doesn't display anything
 }
 
 // Add marker
@@ -475,9 +468,9 @@ export function addMLBMarker(team) {
     iconAnchor: [10 * sizeMultiplier, 10 * sizeMultiplier],
   });
 
-  const marker = L.marker(position, { 
+  const marker = L.marker(position, {
     icon: markerIcon,
-    teamData: team // Store team data for later reference
+    teamData: team, // Store team data for later reference
   }).addTo(map);
 
   const isMobileInfo = window.innerWidth <= 480;
@@ -491,7 +484,7 @@ export function addMLBMarker(team) {
   const translatedDivision = translateDivision(team.division);
   const logoUrl = getTeamLogoUrl(team.name);
   const logoImg = createLogoImg(logoUrl, translatedTeamName, 'small');
-  
+
   const infoContent = `
     <div style="text-align: center; min-width: ${minWidth};">
       <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
@@ -518,7 +511,9 @@ export function addMLBMarker(team) {
 // Render team list
 export function renderTeamList(teams) {
   const teamListElement = document.getElementById('team-list');
-  if (!teamListElement) return;
+  if (!teamListElement) {
+    return;
+  }
 
   const translations = window.mlbTranslations || { mlb: { teamInfo: {} } };
   const listTitle = translations.mlb.teamInfo?.teams || 'Teams';
@@ -539,15 +534,16 @@ export function renderTeamList(teams) {
         </thead>
         <tbody>
   `;
-  
+
   teams.forEach(team => {
     const translatedTeamName = translateTeamName(team.name);
     const translatedStadium = translateStadiumName(team.stadium);
     const translatedLocation = translateLocation(team.location);
     const logoUrl = getTeamLogoUrl(team.name);
-    
-    const leagueClass = team.league === 'American League' ? 'american-league' : 'national-league';
-    
+
+    const leagueClass =
+      team.league === 'American League' ? 'american-league' : 'national-league';
+
     html += `
       <tr class="team-row ${leagueClass}" onclick="focusOnTeam('${team.name}')">
         <td class="logo-cell">
@@ -564,106 +560,144 @@ export function renderTeamList(teams) {
       </tr>
     `;
   });
-  
+
   html += `
         </tbody>
       </table>
     </div>
   `;
   teamListElement.innerHTML = html;
-  
-  // Force table styling and logo size after render
+
+  // Apply table styling after render
   setTimeout(() => {
-    // Apply table container styles
-    const container = teamListElement.querySelector('.table-container');
-    if (container) {
-      container.style.border = '2px solid #333';
-      container.style.borderRadius = '8px';
-      container.style.overflow = 'auto';
-      container.style.maxHeight = '400px';
-      container.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
-    }
-
-    // Apply table border styles
-    const table = teamListElement.querySelector('.teams-table');
-    if (table) {
-      table.style.borderCollapse = 'collapse';
-      table.style.border = '2px solid #333';
-      table.style.width = '100%';
-      table.style.backgroundColor = 'white';
-      table.style.fontSize = '14px';
-    }
-
-    // Apply header styles
-    const thead = teamListElement.querySelector('.teams-table thead');
-    if (thead) {
-      thead.style.backgroundColor = '#e9ecef';
-      thead.style.position = 'sticky';
-      thead.style.top = '0';
-      thead.style.zIndex = '10';
-    }
-
-    const headers = teamListElement.querySelectorAll('.teams-table th');
-    headers.forEach((header, index) => {
-      header.style.borderBottom = '3px solid #333';
-      header.style.borderRight = index < headers.length - 1 ? '2px solid #333' : 'none';
-      header.style.backgroundColor = '#e9ecef';
-      header.style.padding = '12px 8px';
-      header.style.fontWeight = '600';
-      header.style.color = '#2c3e50';
-      header.style.textAlign = index === 0 ? 'center' : 'left';
-    });
-
-    // Apply cell styles  
-    const cells = teamListElement.querySelectorAll('.teams-table td');
-    cells.forEach((cell, index) => {
-      const row = cell.parentElement;
-      const cellsInRow = row.querySelectorAll('td');
-      const cellIndex = Array.from(cellsInRow).indexOf(cell);
-      
-      cell.style.borderBottom = '1px solid #333';
-      cell.style.borderRight = cellIndex < cellsInRow.length - 1 ? '1px solid #333' : 'none';
-      cell.style.padding = '10px 8px';
-      cell.style.verticalAlign = 'middle';
-    });
-
-    // Apply striped rows
-    const rows = teamListElement.querySelectorAll('.team-row');
-    rows.forEach((row, index) => {
-      if (index % 2 === 1) { // Even index (0-based) = odd row visually
-        row.style.backgroundColor = '#f8f9fa';
-      }
-      
-      // Add hover effect
-      row.addEventListener('mouseenter', () => {
-        row.style.backgroundColor = '#e3f2fd';
-      });
-      
-      row.addEventListener('mouseleave', () => {
-        if (index % 2 === 1) {
-          row.style.backgroundColor = '#f8f9fa';
-        } else {
-          row.style.backgroundColor = '';
-        }
-      });
-    });
-
-    // Force logo size
-    const logos = teamListElement.querySelectorAll('.team-logo-table');
-    logos.forEach(logo => {
-      const isMobile = window.innerWidth <= 768;
-      const size = isMobile ? '24px' : '28px';
-      logo.style.width = size;
-      logo.style.height = size;
-      logo.style.maxWidth = size;
-      logo.style.maxHeight = size;
-      logo.style.minWidth = size;
-      logo.style.minHeight = size;
-      logo.style.objectFit = 'contain';
-      logo.style.display = 'block';
-      logo.style.margin = '0 auto';
-    });
+    applyTableStyles(teamListElement);
   }, 100);
+}
+
+// Apply comprehensive table styling
+function applyTableStyles(teamListElement) {
+  const isMobile = window.innerWidth <= 768;
+  const isSmallMobile = window.innerWidth <= 480;
+
+  // Table container styles
+  const container = teamListElement.querySelector('.table-container');
+  if (container) {
+    container.style.border = '2px solid #dee2e6';
+    container.style.borderRadius = '8px';
+    container.style.overflow = 'auto';
+    container.style.maxHeight = isMobile ? '300px' : '400px';
+    container.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+  }
+
+  // Table styles
+  const table = teamListElement.querySelector('.teams-table');
+  if (table) {
+    table.style.borderCollapse = 'collapse';
+    table.style.width = '100%';
+    table.style.backgroundColor = 'white';
+    table.style.fontSize = isMobile ? '12px' : '14px';
+  }
+
+  // Header styles
+  const thead = teamListElement.querySelector('.teams-table thead');
+  if (thead) {
+    thead.style.backgroundColor = '#f1f3f4';
+    thead.style.position = 'sticky';
+    thead.style.top = '0';
+    thead.style.zIndex = '10';
+  }
+
+  const headers = teamListElement.querySelectorAll('.teams-table th');
+  headers.forEach((header, index) => {
+    header.style.borderBottom = '2px solid #dee2e6';
+    header.style.borderRight =
+      index < headers.length - 1 ? '1px solid #dee2e6' : 'none';
+    header.style.backgroundColor = '#f1f3f4';
+    header.style.padding = isMobile ? '8px 6px' : '12px 8px';
+    header.style.fontWeight = '600';
+    header.style.color = '#2c3e50';
+    header.style.textAlign = index === 0 ? 'center' : 'left';
+    header.style.fontSize = isMobile ? '12px' : '14px';
+
+    // Hide location column on small mobile
+    if (isSmallMobile && index === 3) {
+      header.style.display = 'none';
+    }
+  });
+
+  // Cell styles and responsive columns
+  const cells = teamListElement.querySelectorAll('.teams-table td');
+  cells.forEach(cell => {
+    const row = cell.parentElement;
+    const cellsInRow = row.querySelectorAll('td');
+    const cellIndex = Array.from(cellsInRow).indexOf(cell);
+
+    cell.style.borderBottom = '1px solid #dee2e6';
+    cell.style.borderRight =
+      cellIndex < cellsInRow.length - 1 ? '1px solid #dee2e6' : 'none';
+    cell.style.padding = isMobile ? '8px 6px' : '10px 8px';
+    cell.style.verticalAlign = 'middle';
+
+    // Style specific cell types
+    if (cellIndex === 0) {
+      // Logo cell
+      cell.style.textAlign = 'center';
+      cell.style.width = isMobile ? '40px' : '50px';
+    } else if (cellIndex === 1) {
+      // Team name
+      cell.style.fontWeight = '600';
+      cell.style.color = '#2c3e50';
+    } else if (cellIndex === 2) {
+      // Stadium
+      cell.style.color = '#495057';
+    } else if (cellIndex === 3) {
+      // Location
+      cell.style.color = '#6c757d';
+      cell.style.fontSize = isMobile ? '11px' : '13px';
+
+      // Hide location column on small mobile
+      if (isSmallMobile) {
+        cell.style.display = 'none';
+      }
+    }
+  });
+
+  // Striped rows and hover effects
+  const rows = teamListElement.querySelectorAll('.team-row');
+  rows.forEach((row, index) => {
+    if (index % 2 === 1) {
+      row.style.backgroundColor = '#f8f9fa';
+    }
+
+    // Add hover effect
+    row.addEventListener('mouseenter', () => {
+      row.style.backgroundColor = '#e3f2fd';
+    });
+
+    row.addEventListener('mouseleave', () => {
+      if (index % 2 === 1) {
+        row.style.backgroundColor = '#f8f9fa';
+      } else {
+        row.style.backgroundColor = '';
+      }
+    });
+  });
+
+  // Logo sizing
+  const logos = teamListElement.querySelectorAll('.team-logo-table');
+  logos.forEach(logo => {
+    const size = isMobile ? '24px' : '28px';
+    logo.style.width = size;
+    logo.style.height = size;
+    logo.style.maxWidth = size;
+    logo.style.maxHeight = size;
+    logo.style.minWidth = size;
+    logo.style.minHeight = size;
+    logo.style.objectFit = 'contain';
+    logo.style.display = 'block';
+    logo.style.margin = '0 auto';
+    logo.style.borderRadius = '4px';
+  });
 }
 
 // Focus on specific team when clicked from list
@@ -727,7 +761,9 @@ export function showALEast() {
 // Show AL Central
 export function showALCentral() {
   clearMLBMarkers();
-  const alCentralTeams = mlbTeams.filter(team => team.division === 'AL Central');
+  const alCentralTeams = mlbTeams.filter(
+    team => team.division === 'AL Central'
+  );
   alCentralTeams.forEach(team => {
     addMLBMarker(team);
   });
@@ -760,7 +796,9 @@ export function showNLEast() {
 // Show NL Central
 export function showNLCentral() {
   clearMLBMarkers();
-  const nlCentralTeams = mlbTeams.filter(team => team.division === 'NL Central');
+  const nlCentralTeams = mlbTeams.filter(
+    team => team.division === 'NL Central'
+  );
   nlCentralTeams.forEach(team => {
     addMLBMarker(team);
   });
