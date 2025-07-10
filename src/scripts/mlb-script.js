@@ -428,14 +428,46 @@ function translateLocation(location) {
   return translations.mlb.locations?.[location] || location;
 }
 
+function getTeamLogoUrl(teamName) {
+  const translations = window.mlbTranslations || { mlb: { logos: {} } };
+  return translations.mlb.logos?.[teamName] || '';
+}
+
+function createLogoImg(logoUrl, teamName, size = 'medium') {
+  const sizeMap = {
+    small: '32px',
+    medium: '48px',
+    large: '64px'
+  };
+  
+  const imgSize = sizeMap[size] || sizeMap.medium;
+  
+  if (!logoUrl) {
+    return '';
+  }
+  
+  return `<img src="${logoUrl}" 
+               alt="${teamName} logo" 
+               style="width: ${imgSize}; height: ${imgSize}; object-fit: contain; border-radius: 4px; margin-right: 8px;" 
+               onerror="this.style.display='none'"
+               loading="lazy" />`;
+}
+
 // Show team info
 export function showMLBTeamInfo(team) {
   const translatedTeamName = translateTeamName(team.name);
   const translatedStadium = translateStadiumName(team.stadium);
   const translatedLocation = translateLocation(team.location);
+  const logoUrl = getTeamLogoUrl(team.name);
+  const logoImg = createLogoImg(logoUrl, translatedTeamName, 'large');
   
   const teamNameElement = document.getElementById('team-name');
-  teamNameElement.innerHTML = `<a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>`;
+  teamNameElement.innerHTML = `
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+      ${logoImg}
+      <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none; font-size: 1.2em;">${translatedTeamName}</a>
+    </div>
+  `;
   document.getElementById('stadium-name').textContent = translatedStadium;
   document.getElementById('location').textContent = translatedLocation;
   
@@ -472,12 +504,17 @@ export function addMLBMarker(team) {
   const translatedLocation = translateLocation(team.location);
   const translatedLeague = translateLeague(team.league);
   const translatedDivision = translateDivision(team.division);
+  const logoUrl = getTeamLogoUrl(team.name);
+  const logoImg = createLogoImg(logoUrl, translatedTeamName, 'small');
   
   const infoContent = `
     <div style="text-align: center; min-width: ${minWidth};">
-      <h4 style="margin: 5px 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
-        <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>
-      </h4>
+      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
+        ${logoImg}
+        <h4 style="margin: 0; color: ${team.color}; font-size: ${isMobileInfo ? '12px' : '14px'};">
+          <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none;">${translatedTeamName}</a>
+        </h4>
+      </div>
       <p style="margin: 3px 0; font-size: ${fontSize};"><strong>${translatedStadium}</strong></p>
       <p style="margin: 3px 0; font-size: ${fontSize};">${translatedLocation}</p>
       <p style="margin: 3px 0; font-size: ${fontSize}; color: #666;">${translatedLeague}</p>
