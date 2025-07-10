@@ -350,11 +350,17 @@ export const mlbTeams = [
   },
 ];
 
-let map;
+export let map;
 export const markers = [];
+// eslint-disable-next-line no-unused-vars
 let selectedMarker = null;
-let defaultCenter = [39.8283, -98.5795];
+const defaultCenter = [39.8283, -98.5795];
 let defaultZoom = 4;
+
+// For testing purposes
+export function setMap(mapInstance) {
+  map = mapInstance;
+}
 
 // Initialize Leaflet map
 export function initMLBMap() {
@@ -379,14 +385,18 @@ export function initMLBMap() {
   showAllMLBTeams();
 
   window.addEventListener('resize', () => {
-    map.invalidateSize();
+    if (map && map.invalidateSize) {
+      map.invalidateSize();
+    }
   });
 }
 
 // Clear markers
 export function clearMLBMarkers() {
   markers.forEach(marker => {
-    map.removeLayer(marker);
+    if (map && map.removeLayer) {
+      map.removeLayer(marker);
+    }
   });
   markers.length = 0;
 }
@@ -571,13 +581,19 @@ export function renderTeamList(teams) {
   teamListElement.innerHTML = html;
 
   // Apply table styling after render
-  setTimeout(() => {
-    applyTableStyles(teamListElement);
-  }, 100);
+  if (typeof window !== 'undefined') {
+    setTimeout(() => {
+      applyTableStyles(teamListElement);
+    }, 100);
+  }
 }
 
 // Apply comprehensive table styling
 function applyTableStyles(teamListElement) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  
   const isMobile = window.innerWidth <= 768;
   const isSmallMobile = window.innerWidth <= 480;
 
@@ -712,7 +728,9 @@ function resetMarkerSelection() {
 // Highlight selected marker
 function highlightMarker(marker) {
   const team = marker.options.teamData;
-  if (!team) return;
+  if (!team) {
+    return;
+  }
 
   const isMobileDevice = window.innerWidth <= 480;
   const sizeMultiplier = isMobileDevice ? 0.8 : 1;
@@ -735,7 +753,7 @@ function highlightMarker(marker) {
 // Focus on specific team when clicked from list
 export function focusOnTeam(teamName) {
   const team = mlbTeams.find(t => t.name === teamName);
-  if (team && map) {
+  if (team && map && map.setView) {
     // Reset to default zoom and center
     map.setView(defaultCenter, defaultZoom);
 

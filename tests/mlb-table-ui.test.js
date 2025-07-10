@@ -66,6 +66,10 @@ describe('MLB Table UI Tests', () => {
           team: 'Team',
           stadium: 'Stadium',
           location: 'Location'
+        },
+        logos: {
+          'New York Yankees': 'https://example.com/logo/New_York_Yankees.png',
+          'Los Angeles Dodgers': 'https://example.com/logo/Los_Angeles_Dodgers.png'
         }
       }
     };
@@ -74,7 +78,12 @@ describe('MLB Table UI Tests', () => {
     global.translateTeamName = (name) => name;
     global.translateStadiumName = (stadium) => stadium;
     global.translateLocation = (location) => location;
-    global.getTeamLogoUrl = (teamName) => `https://example.com/logo/${teamName.replace(/\s+/g, '_')}.png`;
+    global.getTeamLogoUrl = (teamName) => {
+      return window.mlbTranslations?.mlb?.logos?.[teamName] || `https://example.com/logo/${teamName.replace(/\s+/g, '_')}.png`;
+    };
+    
+    // Mock focusOnTeam function
+    global.focusOnTeam = vi.fn();
 
     // Import the function to test
     const module = await import('../src/scripts/mlb-script.js');
@@ -157,14 +166,13 @@ describe('MLB Table UI Tests', () => {
   });
 
   it('should add click handlers to team rows', () => {
-    // Mock focusOnTeam function
-    global.focusOnTeam = vi.fn();
-    
     renderTeamList(mockMLBTeams);
     
     const rows = document.querySelectorAll('.team-row');
-    expect(rows[0].onclick).toBeTruthy();
-    expect(rows[1].onclick).toBeTruthy();
+    expect(rows[0]).toBeTruthy();
+    expect(rows[0].getAttribute('onclick')).toContain('focusOnTeam');
+    expect(rows[1]).toBeTruthy();
+    expect(rows[1].getAttribute('onclick')).toContain('focusOnTeam');
   });
 
   it('should handle mobile responsive layout', () => {

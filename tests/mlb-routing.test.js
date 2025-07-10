@@ -55,7 +55,7 @@ describe('MLB Routing and Path Tests', () => {
         '/ja/mlb/'
       ];
 
-      const mlbPathRegex = /^\/(en|ja\/)?mlb\/?$/;
+      const mlbPathRegex = /^\/(en|ja)?\/mlb\/?$|^\/mlb\/?$/;
       
       validPaths.forEach(path => {
         expect(path).toMatch(mlbPathRegex);
@@ -72,7 +72,7 @@ describe('MLB Routing and Path Tests', () => {
         '/mlb/en'
       ];
 
-      const mlbPathRegex = /^\/(en|ja\/)?mlb\/?$/;
+      const mlbPathRegex = /^\/(en|ja)?\/mlb\/?$|^\/mlb\/?$/;
       
       invalidPaths.forEach(path => {
         expect(path).not.toMatch(mlbPathRegex);
