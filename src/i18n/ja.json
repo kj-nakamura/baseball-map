@@ -17,7 +17,9 @@
     "teamInfo": {
       "stadium": "スタジアム",
       "location": "所在地",
-      "league": "リーグ"
+      "league": "リーグ",
+      "teams": "チーム一覧",
+      "team": "チーム"
     },
     "leagues": {
       "americanLeague": "アメリカンリーグ",

@@ -17,7 +17,9 @@
     "teamInfo": {
       "stadium": "Stadium",
       "location": "Location",
-      "league": "League"
+      "league": "League",
+      "teams": "Teams",
+      "team": "Team"
     },
     "leagues": {
       "americanLeague": "American League",

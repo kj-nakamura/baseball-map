@@ -55,6 +55,10 @@ const common = translations.common;
 
     <div id="map"></div>
 
+    <div id="team-list" class="team-list">
+      <!-- チームリストがここに動的に表示される -->
+    </div>
+
     <div id="team-info" style="display: none;">
       <h2 id="team-name"></h2>
       <p><strong data-i18n="stadium">{t.teamInfo.stadium}:</strong> <span id="stadium-name"></span></p>
@@ -203,9 +207,246 @@ const common = translations.common;
     background-color: #2c3e50;
   }
 
+  /* Team List Styles */
+  .team-list {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .team-list h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-size: 1.5em;
+  }
+
+  .table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .team-list .teams-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 14px;
+    border: 2px solid #333 !important;
+    background-color: white;
+  }
+
+  .teams-table thead {
+    background-color: #f1f3f4;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 3px solid #dee2e6;
+  }
+
+  .team-list .teams-table th {
+    padding: 12px 8px !important;
+    text-align: left;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 3px solid #333 !important;
+    border-right: 2px solid #333 !important;
+    background-color: #e9ecef !important;
+  }
+
+  .team-list .teams-table th:last-child {
+    border-right: none !important;
+  }
+
+  .teams-table th:first-child {
+    width: 50px;
+    text-align: center;
+  }
+
+  .teams-table th:nth-child(2) {
+    width: 30%;
+  }
+
+  .teams-table th:nth-child(3) {
+    width: 35%;
+  }
+
+  .teams-table th:nth-child(4) {
+    width: 25%;
+  }
+
+  .team-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .team-row:hover {
+    background-color: #e3f2fd;
+  }
+
+  /* 交互行の色分け（ストライプ効果） */
+  .team-row:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .team-row:nth-child(even):hover {
+    background-color: #e3f2fd;
+  }
+
+  .team-row.american-league {
+    border-left: 4px solid #0066CC;
+  }
+
+  .team-row.national-league {
+    border-left: 4px solid #CC0000;
+  }
+
+  .team-list .teams-table td {
+    padding: 10px 8px !important;
+    border-bottom: 1px solid #333 !important;
+    border-right: 1px solid #333 !important;
+    vertical-align: middle;
+  }
+
+  .team-list .teams-table td:last-child {
+    border-right: none !important;
+  }
+
+  .logo-cell {
+    text-align: center;
+    width: 50px;
+    padding: 8px !important;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+
+  .team-logo-table {
+    width: 28px !important;
+    height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+    box-sizing: border-box;
+    transform: scale(1);
+    overflow: hidden;
+  }
+
+  /* Extra specific selector to override any inline styles */
+  .teams-table .logo-cell .team-logo-table[src] {
+    width: 28px !important;
+    height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+  }
+
+  /* Force container size */
+  .teams-table .logo-cell {
+    width: 50px !important;
+    max-width: 50px !important;
+    min-width: 50px !important;
+    box-sizing: border-box;
+  }
+
+  .team-name-cell {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .stadium-cell {
+    color: #495057;
+  }
+
+  .location-cell {
+    color: #6c757d;
+    font-size: 13px;
+  }
+
   @media (max-width: 768px) {
     .map-container {
       padding: 10px;
+    }
+
+    .table-container {
+      max-height: 300px;
+      border: 1px solid #dee2e6;
+    }
+
+    .teams-table {
+      font-size: 12px;
+    }
+
+    .teams-table th {
+      padding: 8px 6px;
+      font-size: 12px;
+      border-right: 1px solid #dee2e6;
+    }
+
+    .teams-table th:last-child {
+      border-right: none;
+    }
+
+    .teams-table td {
+      padding: 8px 6px;
+      border-right: 1px solid #dee2e6;
+    }
+
+    .teams-table td:last-child {
+      border-right: none;
+    }
+
+    .team-logo-table {
+      width: 24px !important;
+      height: 24px !important;
+      max-width: 24px !important;
+      max-height: 24px !important;
+      min-width: 24px !important;
+      min-height: 24px !important;
+    }
+
+    /* Force mobile logo size with inline style override */
+    .teams-table .logo-cell .team-logo-table[src] {
+      width: 24px !important;
+      height: 24px !important;
+      max-width: 24px !important;
+      max-height: 24px !important;
+    }
+
+    .teams-table th:first-child {
+      width: 40px;
+    }
+
+    .logo-cell {
+      width: 40px;
+      padding: 6px !important;
+    }
+
+    .location-cell {
+      font-size: 11px;
+    }
+
+    /* Hide location column on very small screens */
+    @media (max-width: 480px) {
+      .teams-table th:nth-child(4),
+      .teams-table td:nth-child(4) {
+        display: none;
+      }
+
+      .teams-table th:nth-child(2) {
+        width: 45%;
+      }
+
+      .teams-table th:nth-child(3) {
+        width: 45%;
+      }
     }
   }
 </style>

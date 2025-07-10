@@ -453,28 +453,10 @@ function createLogoImg(logoUrl, teamName, size = 'medium') {
                loading="lazy" />`;
 }
 
-// Show team info
+// Show team info (currently hidden, kept for compatibility)
 export function showMLBTeamInfo(team) {
-  const translatedTeamName = translateTeamName(team.name);
-  const translatedStadium = translateStadiumName(team.stadium);
-  const translatedLocation = translateLocation(team.location);
-  const logoUrl = getTeamLogoUrl(team.name);
-  const logoImg = createLogoImg(logoUrl, translatedTeamName, 'large');
-  
-  const teamNameElement = document.getElementById('team-name');
-  teamNameElement.innerHTML = `
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-      ${logoImg}
-      <a href="${team.detailUrl}" target="_blank" style="color: ${team.color}; text-decoration: none; font-size: 1.2em;">${translatedTeamName}</a>
-    </div>
-  `;
-  document.getElementById('stadium-name').textContent = translatedStadium;
-  document.getElementById('location').textContent = translatedLocation;
-  
-  const translatedLeague = translateLeague(team.league);
-  const translatedDivision = translateDivision(team.division);
-  document.getElementById('league').textContent = `${translatedLeague} - ${translatedDivision}`;
-  document.getElementById('team-info').style.display = 'block';
+  // Team info panel is now hidden, this function is kept for compatibility
+  // but doesn't display anything
 }
 
 // Add marker
@@ -493,7 +475,10 @@ export function addMLBMarker(team) {
     iconAnchor: [10 * sizeMultiplier, 10 * sizeMultiplier],
   });
 
-  const marker = L.marker(position, { icon: markerIcon }).addTo(map);
+  const marker = L.marker(position, { 
+    icon: markerIcon,
+    teamData: team // Store team data for later reference
+  }).addTo(map);
 
   const isMobileInfo = window.innerWidth <= 480;
   const minWidth = isMobileInfo ? '150px' : '200px';
@@ -530,6 +515,172 @@ export function addMLBMarker(team) {
   markers.push(marker);
 }
 
+// Render team list
+export function renderTeamList(teams) {
+  const teamListElement = document.getElementById('team-list');
+  if (!teamListElement) return;
+
+  const translations = window.mlbTranslations || { mlb: { teamInfo: {} } };
+  const listTitle = translations.mlb.teamInfo?.teams || 'Teams';
+  const teamLabel = translations.mlb.teamInfo?.stadium || 'Stadium';
+  const locationLabel = translations.mlb.teamInfo?.location || 'Location';
+
+  let html = `
+    <h3>${listTitle} (${teams.length})</h3>
+    <div class="table-container">
+      <table class="teams-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>${translations.mlb.teamInfo?.team || 'Team'}</th>
+            <th>${teamLabel}</th>
+            <th>${locationLabel}</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+  
+  teams.forEach(team => {
+    const translatedTeamName = translateTeamName(team.name);
+    const translatedStadium = translateStadiumName(team.stadium);
+    const translatedLocation = translateLocation(team.location);
+    const logoUrl = getTeamLogoUrl(team.name);
+    
+    const leagueClass = team.league === 'American League' ? 'american-league' : 'national-league';
+    
+    html += `
+      <tr class="team-row ${leagueClass}" onclick="focusOnTeam('${team.name}')">
+        <td class="logo-cell">
+          <img src="${logoUrl}" 
+               alt="${translatedTeamName} logo" 
+               class="team-logo-table" 
+               style="width: 28px !important; height: 28px !important; max-width: 28px !important; max-height: 28px !important; min-width: 28px !important; min-height: 28px !important; object-fit: contain; display: block; margin: 0 auto; box-sizing: border-box;"
+               onerror="this.style.display='none'" 
+               loading="lazy" />
+        </td>
+        <td class="team-name-cell">${translatedTeamName}</td>
+        <td class="stadium-cell">${translatedStadium}</td>
+        <td class="location-cell">${translatedLocation}</td>
+      </tr>
+    `;
+  });
+  
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+  teamListElement.innerHTML = html;
+  
+  // Force table styling and logo size after render
+  setTimeout(() => {
+    // Apply table container styles
+    const container = teamListElement.querySelector('.table-container');
+    if (container) {
+      container.style.border = '2px solid #333';
+      container.style.borderRadius = '8px';
+      container.style.overflow = 'auto';
+      container.style.maxHeight = '400px';
+      container.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+    }
+
+    // Apply table border styles
+    const table = teamListElement.querySelector('.teams-table');
+    if (table) {
+      table.style.borderCollapse = 'collapse';
+      table.style.border = '2px solid #333';
+      table.style.width = '100%';
+      table.style.backgroundColor = 'white';
+      table.style.fontSize = '14px';
+    }
+
+    // Apply header styles
+    const thead = teamListElement.querySelector('.teams-table thead');
+    if (thead) {
+      thead.style.backgroundColor = '#e9ecef';
+      thead.style.position = 'sticky';
+      thead.style.top = '0';
+      thead.style.zIndex = '10';
+    }
+
+    const headers = teamListElement.querySelectorAll('.teams-table th');
+    headers.forEach((header, index) => {
+      header.style.borderBottom = '3px solid #333';
+      header.style.borderRight = index < headers.length - 1 ? '2px solid #333' : 'none';
+      header.style.backgroundColor = '#e9ecef';
+      header.style.padding = '12px 8px';
+      header.style.fontWeight = '600';
+      header.style.color = '#2c3e50';
+      header.style.textAlign = index === 0 ? 'center' : 'left';
+    });
+
+    // Apply cell styles  
+    const cells = teamListElement.querySelectorAll('.teams-table td');
+    cells.forEach((cell, index) => {
+      const row = cell.parentElement;
+      const cellsInRow = row.querySelectorAll('td');
+      const cellIndex = Array.from(cellsInRow).indexOf(cell);
+      
+      cell.style.borderBottom = '1px solid #333';
+      cell.style.borderRight = cellIndex < cellsInRow.length - 1 ? '1px solid #333' : 'none';
+      cell.style.padding = '10px 8px';
+      cell.style.verticalAlign = 'middle';
+    });
+
+    // Apply striped rows
+    const rows = teamListElement.querySelectorAll('.team-row');
+    rows.forEach((row, index) => {
+      if (index % 2 === 1) { // Even index (0-based) = odd row visually
+        row.style.backgroundColor = '#f8f9fa';
+      }
+      
+      // Add hover effect
+      row.addEventListener('mouseenter', () => {
+        row.style.backgroundColor = '#e3f2fd';
+      });
+      
+      row.addEventListener('mouseleave', () => {
+        if (index % 2 === 1) {
+          row.style.backgroundColor = '#f8f9fa';
+        } else {
+          row.style.backgroundColor = '';
+        }
+      });
+    });
+
+    // Force logo size
+    const logos = teamListElement.querySelectorAll('.team-logo-table');
+    logos.forEach(logo => {
+      const isMobile = window.innerWidth <= 768;
+      const size = isMobile ? '24px' : '28px';
+      logo.style.width = size;
+      logo.style.height = size;
+      logo.style.maxWidth = size;
+      logo.style.maxHeight = size;
+      logo.style.minWidth = size;
+      logo.style.minHeight = size;
+      logo.style.objectFit = 'contain';
+      logo.style.display = 'block';
+      logo.style.margin = '0 auto';
+    });
+  }, 100);
+}
+
+// Focus on specific team when clicked from list
+export function focusOnTeam(teamName) {
+  const team = mlbTeams.find(t => t.name === teamName);
+  if (team && map) {
+    map.setView([team.lat, team.lng], 10);
+    // Find and open popup for this team
+    markers.forEach(marker => {
+      const markerTeam = marker.options.teamData;
+      if (markerTeam && markerTeam.name === teamName) {
+        marker.openPopup();
+      }
+    });
+  }
+}
+
 // Show all teams
 export function showAllMLBTeams() {
   clearMLBMarkers();
@@ -537,6 +688,7 @@ export function showAllMLBTeams() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(0);
+  renderTeamList(mlbTeams);
 }
 
 // Show American League
@@ -547,6 +699,7 @@ export function showAmericanLeague() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(1);
+  renderTeamList(alTeams);
 }
 
 // Show National League
@@ -557,6 +710,7 @@ export function showNationalLeague() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(2);
+  renderTeamList(nlTeams);
 }
 
 // Show AL East
@@ -567,6 +721,7 @@ export function showALEast() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(3);
+  renderTeamList(alEastTeams);
 }
 
 // Show AL Central
@@ -577,6 +732,7 @@ export function showALCentral() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(4);
+  renderTeamList(alCentralTeams);
 }
 
 // Show AL West
@@ -587,6 +743,7 @@ export function showALWest() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(5);
+  renderTeamList(alWestTeams);
 }
 
 // Show NL East
@@ -597,6 +754,7 @@ export function showNLEast() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(6);
+  renderTeamList(nlEastTeams);
 }
 
 // Show NL Central
@@ -607,6 +765,7 @@ export function showNLCentral() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(7);
+  renderTeamList(nlCentralTeams);
 }
 
 // Show NL West
@@ -617,6 +776,7 @@ export function showNLWest() {
     addMLBMarker(team);
   });
   updateMLBActiveButton(8);
+  renderTeamList(nlWestTeams);
 }
 
 // Update active button
@@ -643,5 +803,7 @@ if (typeof window !== 'undefined') {
   window.showNLCentral = showNLCentral;
   window.showNLWest = showNLWest;
   window.updateMLBActiveButton = updateMLBActiveButton;
+  window.focusOnTeam = focusOnTeam;
+  window.renderTeamList = renderTeamList;
   window.mlbTeams = mlbTeams;
 }
