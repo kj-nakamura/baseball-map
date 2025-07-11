@@ -10,7 +10,7 @@ description: "ニューヨーク・メッツに在籍した日本人選手の歴
 capacity: 41922
 opened: 2009
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

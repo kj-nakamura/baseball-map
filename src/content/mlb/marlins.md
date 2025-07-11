@@ -10,7 +10,7 @@ description: "マイアミ・マーリンズに在籍した日本人選手の歴
 capacity: 37442
 opened: 2012
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

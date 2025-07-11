@@ -10,7 +10,7 @@ description: "オークランド・アスレチックスの球団情報"
 capacity: 46765
 opened: 1968
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

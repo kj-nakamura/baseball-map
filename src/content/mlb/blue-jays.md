@@ -10,7 +10,7 @@ description: "トロント・ブルージェイズに在籍した日本人選手
 capacity: 49282
 opened: 1989
 surface: "人工芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

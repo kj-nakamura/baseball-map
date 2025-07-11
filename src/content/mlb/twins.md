@@ -10,7 +10,7 @@ description: "ミネソタ・ツインズの球団情報"
 capacity: 38544
 opened: 2010
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

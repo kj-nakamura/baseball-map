@@ -10,7 +10,7 @@ description: "アリゾナ・ダイヤモンドバックスの球団情報"
 capacity: 48519
 opened: 1998
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

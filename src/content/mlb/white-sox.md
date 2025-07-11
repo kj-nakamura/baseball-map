@@ -10,7 +10,7 @@ description: "シカゴ・ホワイトソックスの球団情報"
 capacity: 40615
 opened: 1991
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

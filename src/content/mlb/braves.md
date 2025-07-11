@@ -10,7 +10,7 @@ description: "アトランタ・ブレーブスの球団情報"
 capacity: 41149
 opened: 2017
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

@@ -10,7 +10,7 @@ description: "シカゴ・カブスに在籍した日本人選手の歴史と球
 capacity: 41649
 opened: 1914
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

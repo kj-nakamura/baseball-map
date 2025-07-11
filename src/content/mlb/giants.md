@@ -10,7 +10,7 @@ description: "サンフランシスコ・ジャイアンツに在籍した日本
 capacity: 41915
 opened: 2000
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

@@ -10,7 +10,7 @@ description: "ワシントン・ナショナルズの球団情報"
 capacity: 41313
 opened: 2008
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

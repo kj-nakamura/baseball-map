@@ -10,7 +10,7 @@ description: "タンパベイ・レイズの球団情報"
 capacity: 25000
 opened: 1990
 surface: "人工芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

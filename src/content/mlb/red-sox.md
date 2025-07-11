@@ -10,7 +10,7 @@ description: "ボストン・レッドソックスに在籍した日本人選手
 capacity: 37755
 opened: 1912
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 

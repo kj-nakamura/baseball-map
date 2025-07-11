@@ -10,7 +10,7 @@ description: "テキサス・レンジャーズに在籍した日本人選手の
 capacity: 40300
 opened: 2020
 surface: "天然芝"
-amazonLink: "https://amzn.to/3vHg4jK"
+amazonLink: ""
 publishDate: 2025-01-10
 ---
 
