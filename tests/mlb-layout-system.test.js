@@ -231,6 +231,33 @@ describe('MLB Layout System Tests', () => {
       expect(content).toContain('amazon-button');
       expect(content).toContain('amazon-affiliate');
     });
+
+    it('should have table scrolling handled by JavaScript', () => {
+      const scriptPath = join(process.cwd(), 'src/scripts/mlb-script.js');
+      const content = readFileSync(scriptPath, 'utf-8');
+      
+      expect(content).toContain('applyScrollStyles');
+      expect(content).toContain('maxHeight');
+      expect(content).toContain('overflowY: \'auto\'');
+      expect(content).toContain('position: \'sticky\'');
+    });
+
+    it('should have responsive table styling in JavaScript', () => {
+      const scriptPath = join(process.cwd(), 'src/scripts/mlb-script.js');
+      const content = readFileSync(scriptPath, 'utf-8');
+      
+      expect(content).toContain('300px'); // Mobile
+      expect(content).toContain('350px'); // Tablet
+      expect(content).toContain('400px'); // Desktop
+    });
+
+    it('should have CSS cleanup comments', () => {
+      const mapLayoutPath = join(process.cwd(), 'src/layouts/mlb/MapLayout.astro');
+      const content = readFileSync(mapLayoutPath, 'utf-8');
+      
+      expect(content).toContain('Table container and styling handled by JavaScript');
+      expect(content).toContain('Mobile table scrolling handled by JavaScript');
+    });
   });
 
   describe('Error Handling', () => {

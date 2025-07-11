@@ -95,7 +95,7 @@ publishDate: 2025-01-10
       <tr class="decade-header">
         <td colspan="5"><strong>2000年代</strong></td>
       </tr>
-      <tr class="record-row highlight">
+      <tr class="record-row">
         <td><strong>2001</strong></td>
         <td>116勝46敗</td>
         <td>地区1位</td>
@@ -116,7 +116,7 @@ publishDate: 2025-01-10
         <td>-</td>
         <td>イチロー 212安打</td>
       </tr>
-      <tr class="record-row highlight">
+      <tr class="record-row">
         <td><strong>2004</strong></td>
         <td>63勝99敗</td>
         <td>地区3位</td>

@@ -32,7 +32,7 @@ publishDate: 2025-01-10
       </tr>
     </thead>
     <tbody>
-      <tr class="player-row highlight">
+      <tr class="player-row">
         <td class="player-name">松井秀喜<br><small>（まつい ひでき）</small></td>
         <td>2003-2009</td>
         <td>外野手・指名打者</td>

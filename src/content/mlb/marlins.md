@@ -71,7 +71,7 @@ publishDate: 2025-01-10
         <td>-</td>
         <td>イチロー 加入</td>
       </tr>
-      <tr class="record-row highlight">
+      <tr class="record-row">
         <td><strong>2016</strong></td>
         <td>79勝82敗</td>
         <td>地区5位</td>

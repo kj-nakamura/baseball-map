@@ -106,14 +106,14 @@ publishDate: 2025-01-10
         <td>-</td>
         <td>大谷翔平 復帰</td>
       </tr>
-      <tr class="record-row highlight">
+      <tr class="record-row">
         <td><strong>2021</strong></td>
         <td>77勝85敗</td>
         <td>地区4位</td>
         <td>-</td>
         <td>大谷翔平 AL MVP（46本塁打、9勝）</td>
       </tr>
-      <tr class="record-row highlight">
+      <tr class="record-row">
         <td><strong>2022</strong></td>
         <td>73勝89敗</td>
         <td>地区4位</td>
