@@ -62,9 +62,9 @@ describe('MLB Teams Data Tests', () => {
     });
   });
 
-  it('should have valid MLB.com URLs', () => {
+  it('should have valid internal URLs', () => {
     mlbTeams.forEach(team => {
-      expect(team.detailUrl).toMatch(/^https:\/\/www\.mlb\.com\/\w+$/);
+      expect(team.detailUrl).toMatch(/^\/mlb\/[\w-]+$/);
     });
   });
 

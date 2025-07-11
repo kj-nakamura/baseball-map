@@ -1,5 +1,5 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from '../BaseLayout.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
 export interface Props {
@@ -11,9 +11,9 @@ export interface Props {
 const { title, description, locale = 'en' } = Astro.props;
 
 // Import translations
-import enTranslations from '../i18n/en.json';
-import jaTranslations from '../i18n/ja.json';
-import MLBHeader from '../components/MLBHeader.astro';
+import enTranslations from '../../i18n/en.json';
+import jaTranslations from '../../i18n/ja.json';
+import MLBHeader from '../../components/MLBHeader.astro';
 
 const translations = locale === 'ja' ? jaTranslations : enTranslations;
 const t = translations.mlb;
