@@ -584,6 +584,7 @@ export function renderTeamList(teams) {
   if (typeof window !== 'undefined') {
     setTimeout(() => {
       applyTableStyles(teamListElement);
+      applyScrollStyles(teamListElement);
     }, 100);
   }
 }
@@ -926,6 +927,89 @@ export function updateMLBActiveButton(activeIndex) {
       btn.classList.remove('active');
     }
   });
+}
+
+// Apply scroll styles to table container
+function applyScrollStyles(teamListElement) {
+  const tableContainer = teamListElement.querySelector('.table-container');
+  if (!tableContainer) {return;}
+
+  const table = tableContainer.querySelector('.teams-table');
+  const thead = table?.querySelector('thead');
+  const tbody = table?.querySelector('tbody');
+  
+  // Set responsive dimensions
+  const width = window.innerWidth;
+  const maxHeight = width <= 480 ? '300px' : width <= 768 ? '350px' : '400px';
+  const fontSize = width <= 480 ? '12px' : width <= 768 ? '13px' : '14px';
+  const headerPadding = width <= 480 ? '8px 4px' : width <= 768 ? '10px 6px' : '12px 8px';
+  const cellPadding = width <= 480 ? '6px 4px' : width <= 768 ? '8px 6px' : '10px 8px';
+
+  // Apply container styles
+  Object.assign(tableContainer.style, {
+    maxHeight,
+    overflowY: 'auto',
+    position: 'relative',
+    borderRadius: '8px',
+    border: '2px solid #dee2e6',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+  });
+
+  // Apply table styles
+  if (table) {
+    Object.assign(table.style, {
+      width: '100%',
+      fontSize,
+      borderCollapse: 'collapse'
+    });
+
+    // Apply sticky header
+    if (thead) {
+      Object.assign(thead.style, {
+        position: 'sticky',
+        top: '0',
+        backgroundColor: '#f8f9fa',
+        zIndex: '10'
+      });
+
+      thead.querySelectorAll('th').forEach(th => {
+        Object.assign(th.style, {
+          padding: headerPadding,
+          textAlign: 'left',
+          fontWeight: '600',
+          color: '#495057',
+          borderBottom: '2px solid #dee2e6',
+          fontSize: width <= 480 ? '11px' : width <= 768 ? '12px' : '13px'
+        });
+      });
+    }
+
+    // Apply body styles
+    if (tbody) {
+      const rows = tbody.querySelectorAll('tr');
+      rows.forEach((row, index) => {
+        row.style.borderBottom = index === rows.length - 1 ? 'none' : '1px solid #e9ecef';
+        row.style.cursor = 'pointer';
+        
+        // Add hover effect
+        row.addEventListener('mouseenter', () => row.style.backgroundColor = '#f8f9fa');
+        row.addEventListener('mouseleave', () => row.style.backgroundColor = '');
+
+        // Style cells
+        row.querySelectorAll('td').forEach(td => {
+          Object.assign(td.style, {
+            padding: cellPadding,
+            verticalAlign: 'middle'
+          });
+        });
+      });
+    }
+  }
+
+  // Update on resize
+  const resizeHandler = () => applyScrollStyles(teamListElement);
+  window.removeEventListener('resize', resizeHandler);
+  window.addEventListener('resize', resizeHandler);
 }
 
 if (typeof window !== 'undefined') {

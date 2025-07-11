@@ -32,7 +32,7 @@ publishDate: 2025-01-10
       </tr>
     </thead>
     <tbody>
-      <tr class="player-row highlight">
+      <tr class="player-row">
         <td class="player-name">松坂大輔<br><small>（まつざか だいすけ）</small></td>
         <td>2007-2012</td>
         <td>投手</td>
@@ -43,7 +43,7 @@ publishDate: 2025-01-10
         </td>
         <td>56勝43敗<br>防御率4.45<br>720奪三振</td>
       </tr>
-      <tr class="player-row highlight">
+      <tr class="player-row">
         <td class="player-name">上原浩治<br><small>（うえはら こうじ）</small></td>
         <td>2013-2016</td>
         <td>投手<br>（クローザー）</td>
