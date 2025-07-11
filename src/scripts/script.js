@@ -868,7 +868,7 @@ export function renderTeamList(teams) {
 
   teams.forEach(team => {
     const leagueClass = team.league === 'セントラル・リーグ' ? 'central-league-row' : 
-                       team.league === 'パシフィック・リーグ' ? 'pacific-league-row' : '';
+      team.league === 'パシフィック・リーグ' ? 'pacific-league-row' : '';
 
     html += `
       <tr class="team-row ${leagueClass}" onclick="focusOnTeam('${team.name}')">
