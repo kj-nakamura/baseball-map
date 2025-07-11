@@ -13,6 +13,7 @@ const { title, description, locale = 'en' } = Astro.props;
 // Import translations
 import enTranslations from '../i18n/en.json';
 import jaTranslations from '../i18n/ja.json';
+import MLBHeader from '../components/MLBHeader.astro';
 
 const translations = locale === 'ja' ? jaTranslations : enTranslations;
 const t = translations.mlb;
@@ -22,6 +23,7 @@ const common = translations.common;
 ---
 
 <BaseLayout title={title} description={description}>
+  <MLBHeader />
   <div class="map-container">
     <div class="header">
       <div class="title-row">

@@ -22,7 +22,7 @@ export const mlbTeams = [
     lat: 40.8296,
     lng: -73.9262,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/yankees',
+    detailUrl: '/mlb/yankees',
   },
   {
     name: 'Boston Red Sox',
@@ -33,7 +33,7 @@ export const mlbTeams = [
     lat: 42.3467,
     lng: -71.0972,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/redsox',
+    detailUrl: '/mlb/red-sox',
   },
   {
     name: 'Tampa Bay Rays',
@@ -44,7 +44,7 @@ export const mlbTeams = [
     lat: 27.7682,
     lng: -82.6534,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/rays',
+    detailUrl: '/mlb/rays',
   },
   {
     name: 'Toronto Blue Jays',
@@ -55,7 +55,7 @@ export const mlbTeams = [
     lat: 43.6414,
     lng: -79.3894,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/bluejays',
+    detailUrl: '/mlb/blue-jays',
   },
   {
     name: 'Baltimore Orioles',
@@ -66,7 +66,7 @@ export const mlbTeams = [
     lat: 39.284,
     lng: -76.6216,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/orioles',
+    detailUrl: '/mlb/orioles',
   },
   // American League Central
   {
@@ -78,7 +78,7 @@ export const mlbTeams = [
     lat: 41.4962,
     lng: -81.6852,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/guardians',
+    detailUrl: '/mlb/guardians',
   },
   {
     name: 'Minnesota Twins',
@@ -89,7 +89,7 @@ export const mlbTeams = [
     lat: 44.9817,
     lng: -93.2777,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/twins',
+    detailUrl: '/mlb/twins',
   },
   {
     name: 'Kansas City Royals',
@@ -100,7 +100,7 @@ export const mlbTeams = [
     lat: 39.0517,
     lng: -94.4803,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/royals',
+    detailUrl: '/mlb/royals',
   },
   {
     name: 'Detroit Tigers',
@@ -111,7 +111,7 @@ export const mlbTeams = [
     lat: 42.339,
     lng: -83.0485,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/tigers',
+    detailUrl: '/mlb/tigers',
   },
   {
     name: 'Chicago White Sox',
@@ -122,7 +122,7 @@ export const mlbTeams = [
     lat: 41.83,
     lng: -87.6338,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/whitesox',
+    detailUrl: '/mlb/white-sox',
   },
   // American League West
   {
@@ -134,7 +134,7 @@ export const mlbTeams = [
     lat: 29.757,
     lng: -95.3551,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/astros',
+    detailUrl: '/mlb/astros',
   },
   {
     name: 'Seattle Mariners',
@@ -145,7 +145,7 @@ export const mlbTeams = [
     lat: 47.5914,
     lng: -122.3326,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/mariners',
+    detailUrl: '/mlb/mariners',
   },
   {
     name: 'Texas Rangers',
@@ -156,7 +156,7 @@ export const mlbTeams = [
     lat: 32.7473,
     lng: -97.0836,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/rangers',
+    detailUrl: '/mlb/rangers',
   },
   {
     name: 'Oakland Athletics',
@@ -167,7 +167,7 @@ export const mlbTeams = [
     lat: 37.7516,
     lng: -122.2008,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/athletics',
+    detailUrl: '/mlb/athletics',
   },
   {
     name: 'Los Angeles Angels',
@@ -178,7 +178,7 @@ export const mlbTeams = [
     lat: 33.8003,
     lng: -117.8827,
     color: mlbLeagueColors['American League'],
-    detailUrl: 'https://www.mlb.com/angels',
+    detailUrl: '/mlb/angels',
   },
   // National League East
   {
@@ -190,7 +190,7 @@ export const mlbTeams = [
     lat: 33.8902,
     lng: -84.4677,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/braves',
+    detailUrl: '/mlb/braves',
   },
   {
     name: 'Philadelphia Phillies',
@@ -201,7 +201,7 @@ export const mlbTeams = [
     lat: 39.906,
     lng: -75.1665,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/phillies',
+    detailUrl: '/mlb/phillies',
   },
   {
     name: 'New York Mets',
@@ -212,7 +212,7 @@ export const mlbTeams = [
     lat: 40.7571,
     lng: -73.8458,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/mets',
+    detailUrl: '/mlb/mets',
   },
   {
     name: 'Miami Marlins',
@@ -223,7 +223,7 @@ export const mlbTeams = [
     lat: 25.7781,
     lng: -80.2197,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/marlins',
+    detailUrl: '/mlb/marlins',
   },
   {
     name: 'Washington Nationals',
@@ -234,7 +234,7 @@ export const mlbTeams = [
     lat: 38.873,
     lng: -77.0074,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/nationals',
+    detailUrl: '/mlb/nationals',
   },
   // National League Central
   {
@@ -246,7 +246,7 @@ export const mlbTeams = [
     lat: 43.028,
     lng: -87.9712,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/brewers',
+    detailUrl: '/mlb/brewers',
   },
   {
     name: 'St. Louis Cardinals',
@@ -257,7 +257,7 @@ export const mlbTeams = [
     lat: 38.6226,
     lng: -90.1928,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/cardinals',
+    detailUrl: '/mlb/cardinals',
   },
   {
     name: 'Chicago Cubs',
@@ -268,7 +268,7 @@ export const mlbTeams = [
     lat: 41.9484,
     lng: -87.6553,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/cubs',
+    detailUrl: '/mlb/cubs',
   },
   {
     name: 'Cincinnati Reds',
@@ -279,7 +279,7 @@ export const mlbTeams = [
     lat: 39.0974,
     lng: -84.5067,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/reds',
+    detailUrl: '/mlb/reds',
   },
   {
     name: 'Pittsburgh Pirates',
@@ -290,7 +290,7 @@ export const mlbTeams = [
     lat: 40.4469,
     lng: -80.0057,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/pirates',
+    detailUrl: '/mlb/pirates',
   },
   // National League West
   {
@@ -313,7 +313,7 @@ export const mlbTeams = [
     lat: 32.7073,
     lng: -117.1566,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/padres',
+    detailUrl: '/mlb/padres',
   },
   {
     name: 'San Francisco Giants',
@@ -324,7 +324,7 @@ export const mlbTeams = [
     lat: 37.7786,
     lng: -122.3893,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/giants',
+    detailUrl: '/mlb/giants',
   },
   {
     name: 'Arizona Diamondbacks',
@@ -335,7 +335,7 @@ export const mlbTeams = [
     lat: 33.4453,
     lng: -112.0667,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/dbacks',
+    detailUrl: '/mlb/diamondbacks',
   },
   {
     name: 'Colorado Rockies',
@@ -346,7 +346,7 @@ export const mlbTeams = [
     lat: 39.7559,
     lng: -104.9942,
     color: mlbLeagueColors['National League'],
-    detailUrl: 'https://www.mlb.com/rockies',
+    detailUrl: '/mlb/rockies',
   },
 ];
 
