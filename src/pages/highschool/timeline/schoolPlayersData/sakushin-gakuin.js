@@ -8,7 +8,6 @@ export const sakushinGakuinPlayers = [
   {
     name: '岡田幸文',
     graduationYear: 2003,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
@@ -20,13 +19,11 @@ export const sakushinGakuinPlayers = [
   {
     name: '石井一成',
     graduationYear: 2013,
-    achievements: '甲子園出場',
     currentTeam: '北海道日本ハムファイターズ',
   },
   {
     name: '横川凱',
     graduationYear: 2019,
-    achievements: '甲子園出場',
     currentTeam: '読売ジャイアンツ',
   },
 ];

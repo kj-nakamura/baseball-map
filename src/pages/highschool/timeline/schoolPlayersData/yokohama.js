@@ -8,13 +8,11 @@ export const yokohamaPlayers = [
   {
     name: '鈴木尚典',
     graduationYear: 1991,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
     name: '多村仁志',
     graduationYear: 1996,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
@@ -26,55 +24,46 @@ export const yokohamaPlayers = [
   {
     name: '涌井秀章',
     graduationYear: 2005,
-    achievements: '甲子園出場',
     currentTeam: '中日ドラゴンズ',
   },
   {
     name: '筒香嘉智',
     graduationYear: 2009,
-    achievements: '甲子園出場',
     currentTeam: '横浜DeNAベイスターズ',
   },
   {
     name: '近藤健介',
     graduationYear: 2012,
-    achievements: '甲子園出場',
     currentTeam: '福岡ソフトバンクホークス',
   },
   {
     name: '浅間大基',
     graduationYear: 2015,
-    achievements: '甲子園出場',
     currentTeam: '北海道日本ハムファイターズ',
   },
   {
     name: '藤平尚真',
     graduationYear: 2017,
-    achievements: '甲子園出場',
     currentTeam: '東北楽天ゴールデンイーグルス',
   },
   {
     name: '増田珠',
     graduationYear: 2018,
-    achievements: '甲子園出場',
     currentTeam: '東京ヤクルトスワローズ',
   },
   {
     name: '万波中正',
     graduationYear: 2019,
-    achievements: '甲子園出場',
     currentTeam: '北海道日本ハムファイターズ',
   },
   {
     name: '及川雅貴',
     graduationYear: 2020,
-    achievements: '甲子園出場',
     currentTeam: '阪神タイガース',
   },
   {
     name: '度会隆輝',
     graduationYear: 2021,
-    achievements: '甲子園出場',
     currentTeam: '横浜DeNAベイスターズ',
   },
 ];

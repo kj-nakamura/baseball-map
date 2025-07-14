@@ -2,7 +2,6 @@ export const seiryoPlayers = [
   {
     name: '小松辰雄',
     graduationYear: 1978,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
@@ -20,13 +19,11 @@ export const seiryoPlayers = [
   {
     name: '島内宏明',
     graduationYear: 2008,
-    achievements: '甲子園出場',
     currentTeam: '東北楽天ゴールデンイーグルス',
   },
   {
     name: '岩下大輝',
     graduationYear: 2015,
-    achievements: '甲子園出場',
     currentTeam: '千葉ロッテマリーンズ',
   },
   {
@@ -44,7 +41,6 @@ export const seiryoPlayers = [
   {
     name: '内山壮真',
     graduationYear: 2021,
-    achievements: '甲子園出場',
     currentTeam: '東京ヤクルトスワローズ',
   },
 ];

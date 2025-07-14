@@ -8,25 +8,21 @@ export const chibenWakayamaPlayers = [
   {
     name: '武内晋一',
     graduationYear: 2002,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
     name: '岡田俊哉',
     graduationYear: 2010,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
     name: '西川遥輝',
     graduationYear: 2011,
-    achievements: '甲子園出場',
     currentTeam: '東京ヤクルトスワローズ',
   },
   {
     name: '東妻純平',
     graduationYear: 2019,
-    achievements: '甲子園出場',
     currentTeam: '横浜DeNAベイスターズ',
   },
   {

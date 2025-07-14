@@ -2,13 +2,11 @@ export const osakaToinPlayers = [
   {
     name: '西岡剛',
     graduationYear: 2003,
-    achievements: '甲子園出場',
     currentTeam: '元メジャーリーガー',
   },
   {
     name: '中村剛也',
     graduationYear: 2002,
-    achievements: '甲子園出場',
     currentTeam: '埼玉西武ライオンズ',
   },
   {
@@ -20,7 +18,6 @@ export const osakaToinPlayers = [
   {
     name: '中田翔',
     graduationYear: 2008,
-    achievements: '甲子園出場',
     currentTeam: '中日ドラゴンズ',
   },
   {

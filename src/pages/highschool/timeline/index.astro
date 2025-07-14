@@ -41,6 +41,46 @@ import Header from '../../../components/Header.astro';
             <option value="riseisha">履正社高校</option>
             <option value="kendai-takasaki">健大高崎高校</option>
             <option value="hanasaki-tokuharu">花咲徳栄高校</option>
+            <option value="meitoku-gijuku">明徳義塾高校</option>
+            <option value="tenri">天理高校</option>
+            <option value="aikodai-meiden">愛工大名電高校</option>
+            <option value="kyushu-kokusai-daifu">九州国際大付高校</option>
+            <option value="aomori-yamada">青森山田高校</option>
+            <option value="kanto-daiichi">関東第一高校</option>
+            <option value="kobe-kokusai-daifu">神戸国際大附高校</option>
+            <option value="okinawa-shogaku">沖縄尚学高校</option>
+            <option value="hokkai">北海高校</option>
+            <option value="tohoku-gakuin">東北学院高校</option>
+            <option value="nihon-bunri">日本文理高校</option>
+            <option value="shizuoka">静岡高校</option>
+            <option value="ichinoseki-gakuin">一関学院高校</option>
+            <option value="meio">明桜高校</option>
+            <option value="haguro">羽黒高校</option>
+            <option value="gakuho-ishikawa">学法石川高校</option>
+            <option value="kisarazu-sogo">木更津総合高校</option>
+            <option value="nishogakusha-daifu">二松學舍大附高校</option>
+            <option value="hokuriku">北陸高校</option>
+            <option value="takaoka-sho">高岡商高校</option>
+            <option value="saku-chosei">佐久長聖高校</option>
+            <option value="shigakukan">至学館高校</option>
+            <option value="gifu-sho">岐阜商高校</option>
+            <option value="mie">三重高校</option>
+            <option value="kyoto-kokusai">京都国際高校</option>
+            <option value="kansai-soka">関西創価高校</option>
+            <option value="omi">近江高校</option>
+            <option value="soshi-gakuen">創志学園高校</option>
+            <option value="ube-kojyo">宇部鴻城高校</option>
+            <option value="tottori-sho">鳥取商高校</option>
+            <option value="iwami-chisui-kan">石見智翠館高校</option>
+            <option value="takamatsu-sho">高松商高校</option>
+            <option value="teikyo-daiichi">帝京第五高校</option>
+            <option value="naruto">鳴門高校</option>
+            <option value="arita-ko">有田工高校</option>
+            <option value="soseikan">創成館高校</option>
+            <option value="kyushu-gakuin">九州学院高校</option>
+            <option value="meiho">明豊高校</option>
+            <option value="nobeoka-gakuen">延岡学園高校</option>
+            <option value="kamimura-gakuen">神村学園高校</option>
           </select>
         </div>
 
@@ -63,9 +103,8 @@ import Header from '../../../components/Header.astro';
             <tr>
               <th>卒業年</th>
               <th>選手名</th>
-              <th>ポジション</th>
               <th>現在の所属</th>
-              <th>甲子園での成績</th>
+              <th>成績</th>
             </tr>
           </thead>
           <tbody id="playersTableBody"> </tbody>
@@ -139,13 +178,6 @@ import Header from '../../../components/Header.astro';
             playerName.textContent = player.name;
             nameCell.appendChild(playerName);
 
-            // ポジションセル
-            const positionCell = document.createElement('td');
-            const positionSpan = document.createElement('span');
-            positionSpan.className = 'position';
-            positionSpan.textContent = player.position;
-            positionCell.appendChild(positionSpan);
-
             // 現在の所属セル
             const teamCell = document.createElement('td');
             const teamSpan = document.createElement('span');
@@ -163,7 +195,6 @@ import Header from '../../../components/Header.astro';
             // 行に全てのセルを追加
             row.appendChild(yearCell);
             row.appendChild(nameCell);
-            row.appendChild(positionCell);
             row.appendChild(teamCell);
             row.appendChild(achievementCell);
 
@@ -189,26 +220,35 @@ import Header from '../../../components/Header.astro';
       }
 
       // 初期化関数
-      function initializeTimeline() {
+      async function initializeTimeline() {
+        // URLから高校名を取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const schoolFromUrl = urlParams.get('school');
+
+        const schoolSelect = document.getElementById('schoolSelect');
+        const yearFilter = document.getElementById('yearFilter');
+
         // イベントリスナー
-        document
-          .getElementById('schoolSelect')
-          .addEventListener('change', async function () {
-            const schoolName = this.value;
-            const yearFilter = document.getElementById('yearFilter').value;
-            await displayPlayersTable(schoolName, yearFilter);
-          });
+        schoolSelect.addEventListener('change', async function () {
+          const schoolName = this.value;
+          const currentYearFilter = yearFilter.value;
+          await displayPlayersTable(schoolName, currentYearFilter);
+        });
 
-        document
-          .getElementById('yearFilter')
-          .addEventListener('change', async function () {
-            const schoolName = document.getElementById('schoolSelect').value;
-            const yearFilter = this.value;
-            await displayPlayersTable(schoolName, yearFilter);
-          });
+        yearFilter.addEventListener('change', async function () {
+          const schoolName = schoolSelect.value;
+          const currentYearFilter = this.value;
+          await displayPlayersTable(schoolName, currentYearFilter);
+        });
 
-        // 初期表示
-        displayPlayersTable();
+        // URLに高校名があれば、それを選択して表示
+        if (schoolFromUrl) {
+          schoolSelect.value = schoolFromUrl;
+          await displayPlayersTable(schoolFromUrl, yearFilter.value);
+        } else {
+          // 初期表示
+          displayPlayersTable(schoolSelect.value);
+        }
       }
 
       // DOM読み込み完了後に初期化

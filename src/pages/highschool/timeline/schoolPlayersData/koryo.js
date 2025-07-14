@@ -2,19 +2,16 @@ export const koryoPlayers = [
   {
     name: '金本知憲',
     graduationYear: 1987,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手/元監督',
   },
   {
     name: '二岡智宏',
     graduationYear: 1995,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手/コーチ',
   },
   {
     name: '福原忍',
     graduationYear: 1995,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手/コーチ',
   },
   {
@@ -26,7 +23,6 @@ export const koryoPlayers = [
   {
     name: '吉川光夫',
     graduationYear: 2007,
-    achievements: '甲子園出場',
     currentTeam: '元プロ野球選手',
   },
   {
@@ -44,7 +40,6 @@ export const koryoPlayers = [
   {
     name: '有原航平',
     graduationYear: 2011,
-    achievements: '甲子園出場',
     currentTeam: '福岡ソフトバンクホークス',
   },
   {
@@ -52,5 +47,15 @@ export const koryoPlayers = [
     graduationYear: 2018,
     achievements: '甲子園準優勝/大会記録6本塁打',
     currentTeam: '広島東洋カープ',
+  },
+  {
+    name: '宗山塁',
+    graduationYear: 2022,
+    currentTeam: '明治大学',
+  },
+  {
+    name: '渡部健人',
+    graduationYear: 2020,
+    currentTeam: '埼玉西武ライオンズ',
   },
 ];

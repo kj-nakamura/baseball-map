@@ -56,7 +56,59 @@ import { koushienSchools } from './2024_koushienSchools.js';
     </div>
 
     <script define:vars={{ koushienSchools }}>
-      let currentFilter = null;
+      const schoolNameToRomaji = {
+        '北海': 'hokkai',
+        '青森山田': 'aomori-yamada',
+        '一関学院': 'ichinoseki-gakuin',
+        '東北学院': 'tohoku-gakuin',
+        '明桜': 'meio',
+        '羽黒': 'haguro',
+        '学法石川': 'gakuho-ishikawa',
+        '作新学院': 'sakushin-gakuin',
+        '健大高崎': 'kendai-takasaki',
+        '花咲徳栄': 'hanasaki-tokuharu',
+        '木更津総合': 'kisarazu-sogo',
+        '関東第一': 'kanto-daiichi',
+        '二松學舍大附': 'nishogakusha-daifu',
+        '横浜': 'yokohama',
+        '慶應義塾': 'keio',
+        '日本文理': 'nihon-bunri',
+        '北陸': 'hokuriku',
+        '高岡商': 'takaoka-sho',
+        '星稜': 'seiryo',
+        '佐久長聖': 'saku-chosei',
+        '愛工大名電': 'aikodai-meiden',
+        '至学館': 'shigakukan',
+        '静岡': 'shizuoka',
+        '岐阜商': 'gifu-sho',
+        '三重': 'mie',
+        '京都国際': 'kyoto-kokusai',
+        '履正社': 'riseisha',
+        '関西創価': 'kansai-soka',
+        '大阪桐蔭': 'osaka-toin',
+        '神戸国際大附': 'kobe-kokusai-daifu',
+        '天理': 'tenri',
+        '智弁和歌山': 'chiben-wakayama',
+        '近江': 'omi',
+        '創志学園': 'soshi-gakuen',
+        '広陵': 'koryo',
+        '宇部鴻城': 'ube-kojyo',
+        '鳥取商': 'tottori-sho',
+        '石見智翠館': 'iwami-chisui-kan',
+        '高松商': 'takamatsu-sho',
+        '帝京第五': 'teikyo-daiichi',
+        '明徳義塾': 'meitoku-gijuku',
+        '鳴門': 'naruto',
+        '九産大九州': 'kyushu-kokusai-daifu',
+        '九州国際大付': 'kyushu-kokusai-daifu',
+        '有田工': 'arita-ko',
+        '創成館': 'soseikan',
+        '九州学院': 'kyushu-gakuin',
+        '明豊': 'meiho',
+        '延岡学園': 'nobeoka-gakuen',
+        '神村学園': 'kamimura-gakuen',
+        '沖縄尚学': 'okinawa-shogaku',
+      };
 
       // テーブルにデータを表示
       function displaySchools(schools) {
@@ -65,31 +117,53 @@ import { koushienSchools } from './2024_koushienSchools.js';
 
         schools.forEach(school => {
           const row = document.createElement('tr');
-          row.innerHTML = `
-                    <td class="school-name">${school.name}</td>
-                    <td class="prefecture">${school.prefecture}</td>
-                    <td class="description">${school.description}</td>
-                `;
+          const schoolNameCell = document.createElement('td');
+          schoolNameCell.className = 'school-name';
+          schoolNameCell.textContent = school.name;
+          schoolNameCell.style.cursor = 'pointer'; // カーソルをポインターに
+          schoolNameCell.style.textDecoration = 'underline'; // 下線を追加
+          schoolNameCell.addEventListener('click', () => {
+            const romajiName = schoolNameToRomaji[school.name];
+            if (romajiName) {
+              window.location.href = `/highschool/timeline/?school=${romajiName}`;
+            } else {
+              console.warn(`Romaji name not found for ${school.name}`);
+            }
+          });
+
+          const prefectureCell = document.createElement('td');
+          prefectureCell.className = 'prefecture';
+          prefectureCell.textContent = school.prefecture;
+
+          const descriptionCell = document.createElement('td');
+          descriptionCell.className = 'description';
+          descriptionCell.textContent = school.description;
+
+          row.appendChild(schoolNameCell);
+          row.appendChild(prefectureCell);
+          row.appendChild(descriptionCell);
           tableBody.appendChild(row);
         });
       }
 
-      // ボタンのアクティブ状態を更新
+      // ボタンのアクティブ状態を更新 (この関数は現在使用されていませんが、残しておきます)
       function updateActiveButton(activeButton) {
         document.querySelectorAll('.btn').forEach(btn => {
           btn.classList.remove('active');
         });
-        activeButton.classList.add('active');
+        if (activeButton) {
+          activeButton.classList.add('active');
+        }
       }
 
-      // すべての学校を表示
+      // すべての学校を表示 (この関数は現在使用されていませんが、残しておきます)
       function showAllSchools(event) {
         displaySchools(koushienSchools);
         currentFilter = null;
         updateActiveButton(event.target);
       }
 
-      // グローバルに関数を公開
+      // グローバルに関数を公開 (現在使用されていませんが、残しておきます)
       window.showAllSchools = showAllSchools;
 
       // 初期表示
