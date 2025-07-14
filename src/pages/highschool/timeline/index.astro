@@ -113,6 +113,60 @@ import Header from '../../../components/Header.astro';
     </div>
 
     <script>
+      // 学校名と都道府県のマッピング
+      const schoolToPrefecture = {
+        'yokohama': 'kanagawa',
+        'osaka-toin': 'osaka',
+        'chiben-wakayama': 'wakayama',
+        'sakushin-gakuin': 'tochigi',
+        'keio': 'kanagawa',
+        'seiryo': 'ishikawa',
+        'koryo': 'hiroshima',
+        'riseisha': 'osaka',
+        'kendai-takasaki': 'gunma',
+        'hanasaki-tokuharu': 'saitama',
+        'meitoku-gijuku': 'kochi',
+        'tenri': 'nara',
+        'aikodai-meiden': 'aichi',
+        'kyushu-kokusai-daifu': 'fukuoka',
+        'aomori-yamada': 'aomori',
+        'kanto-daiichi': 'tokyo',
+        'kobe-kokusai-daifu': 'hyogo',
+        'okinawa-shogaku': 'okinawa',
+        'hokkai': 'hokkaido',
+        'tohoku-gakuin': 'miyagi',
+        'nihon-bunri': 'niigata',
+        'shizuoka': 'shizuoka',
+        'ichinoseki-gakuin': 'iwate',
+        'meio': 'akita',
+        'haguro': 'yamagata',
+        'gakuho-ishikawa': 'fukushima',
+        'kisarazu-sogo': 'chiba',
+        'nishogakusha-daifu': 'tokyo',
+        'hokuriku': 'fukui',
+        'takaoka-sho': 'toyama',
+        'saku-chosei': 'nagano',
+        'shigakukan': 'aichi',
+        'gifu-sho': 'gifu',
+        'mie': 'mie',
+        'kyoto-kokusai': 'kyoto',
+        'kansai-soka': 'osaka',
+        'omi': 'shiga',
+        'soshi-gakuen': 'okayama',
+        'ube-kojyo': 'yamaguchi',
+        'tottori-sho': 'tottori',
+        'iwami-chisui-kan': 'shimane',
+        'takamatsu-sho': 'kagawa',
+        'teikyo-daiichi': 'ehime',
+        'naruto': 'tokushima',
+        'arita-ko': 'saga',
+        'soseikan': 'nagasaki',
+        'kyushu-gakuin': 'kumamoto',
+        'meiho': 'oita',
+        'nobeoka-gakuen': 'miyazaki',
+        'kamimura-gakuen': 'kagoshima'
+      };
+
       // 年代フィルター関数
       function filterByDecade(players, decade) {
         if (!decade) return players;
@@ -144,7 +198,11 @@ import Header from '../../../components/Header.astro';
         }
 
         try {
-          const module = await import(`./schoolPlayersData/${schoolName}.js`);
+          const prefecture = schoolToPrefecture[schoolName];
+          if (!prefecture) {
+            throw new Error(`Prefecture not found for school: ${schoolName}`);
+          }
+          const module = await import(`./schoolPlayersData/${prefecture}/${schoolName}.js`);
           const schoolPlayers = Object.values(module)[0];
 
           noData.style.display = 'none';
