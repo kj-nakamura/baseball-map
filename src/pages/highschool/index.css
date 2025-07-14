@@ -22,6 +22,37 @@ body {
   font-weight: 700;
 }
 
+.year-selector {
+  margin: 15px 0;
+}
+
+.year-selector label {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.year-selector select {
+  background: white;
+  color: #333;
+  border: 2px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 8px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.year-selector select:hover {
+  border-color: #4ecdc4;
+}
+
+.year-selector select:focus {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
 .header p {
   margin: 5px 0 0;
   font-size: 1.1rem;
