@@ -1,0 +1,123 @@
+---
+// Global header component for all pages
+---
+
+<header class="header">
+  <div class="header__container">
+    <a href="/" class="header__logo">
+      <div class="header__logo-text">
+        <span class="header__logo-title">⚾ 野球マップ</span>
+      </div>
+    </a>
+    <nav class="header__nav">
+      <a href="/" class="header__nav-link">NPB</a>
+      <a href="/ja/mlb/" class="header__nav-link">MLB</a>
+      <a href="/highschool/" class="header__nav-link">高校野球</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .header__logo:hover {
+    opacity: 0.8;
+  }
+
+  .header__logo-text {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__logo-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .header__nav-link {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .header__nav-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .header__nav-link:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .header__container {
+      padding: 0 15px;
+      height: 50px;
+    }
+
+    .header__logo-title {
+      font-size: 1.2rem;
+    }
+
+    .header__nav {
+      gap: 15px;
+    }
+
+    .header__nav-link {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header__nav {
+      gap: 10px;
+    }
+
+    .header__nav-link {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+    }
+  }
+</style>

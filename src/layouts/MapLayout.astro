@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
 
 export interface Props {
   title: string;
@@ -18,6 +19,7 @@ if (!OPENWEATHER_API_KEY) {
 ---
 
 <BaseLayout title={title} description={description}>
+  <Header />
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" slot="head" />
   

@@ -1,0 +1,101 @@
+---
+title: '高校野球 甲子園出場校リスト';
+description: '2024年夏の甲子園出場校一覧';
+import Header from '../../components/Header.astro';
+import { koushienSchools } from './2024_koushienSchools.js';
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高校野球 甲子園出場校リスト</title>
+    <style>
+      @import './index.css';
+    </style>
+  </head>
+  <body>
+    <Header />
+    <div class="header">
+      <h1>⚾ 高校野球 甲子園出場校リスト</h1>
+      <p>2024年夏の甲子園大会出場校（49校）</p>
+    </div>
+
+    <div class="container">
+      <div class="navigation" style="margin-bottom: 20px;">
+        <a
+          href="/highschool/timeline/"
+          style="
+                display: inline-block;
+                background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+                color: white;
+                text-decoration: none;
+                padding: 12px 24px;
+                border-radius: 25px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(78, 205, 196, 0.3);
+            "
+          >📅 選手在籍年表を見る</a
+        >
+      </div>
+
+      <div class="school-table">
+        <table id="schoolTable">
+          <thead>
+            <tr>
+              <th>学校名</th>
+              <th>都道府県</th>
+              <th>説明</th>
+            </tr>
+          </thead>
+          <tbody id="schoolTableBody"> </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script define:vars={{ koushienSchools }}>
+      let currentFilter = null;
+
+      // テーブルにデータを表示
+      function displaySchools(schools) {
+        const tableBody = document.getElementById('schoolTableBody');
+        tableBody.innerHTML = '';
+
+        schools.forEach(school => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+                    <td class="school-name">${school.name}</td>
+                    <td class="prefecture">${school.prefecture}</td>
+                    <td class="description">${school.description}</td>
+                `;
+          tableBody.appendChild(row);
+        });
+      }
+
+      // ボタンのアクティブ状態を更新
+      function updateActiveButton(activeButton) {
+        document.querySelectorAll('.btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        activeButton.classList.add('active');
+      }
+
+      // すべての学校を表示
+      function showAllSchools(event) {
+        displaySchools(koushienSchools);
+        currentFilter = null;
+        updateActiveButton(event.target);
+      }
+
+      // グローバルに関数を公開
+      window.showAllSchools = showAllSchools;
+
+      // 初期表示
+      document.addEventListener('DOMContentLoaded', function () {
+        displaySchools(koushienSchools);
+      });
+    </script>
+  </body>
+</html>

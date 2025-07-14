@@ -1,0 +1,219 @@
+---
+title: '高校野球 在籍年表';
+description: '高校野球常連校の選手在籍年表と先輩後輩関係';
+import Header from '../../../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高校野球 在籍年表</title>
+    <style>
+      @import './index.css';
+    </style>
+  </head>
+  <body>
+    <Header />
+    <div class="header">
+      <h1>📅 高校野球 在籍年表</h1>
+      <p>常連校の選手在籍年表と先輩後輩関係</p>
+    </div>
+
+    <div class="container">
+      <div class="navigation">
+        <a href="/highschool/" class="nav-link">← 甲子園出場校リストに戻る</a>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="schoolSelect">学校選択:</label>
+          <select id="schoolSelect">
+            <option value="">学校を選択してください</option>
+            <option value="yokohama">横浜高校</option>
+            <option value="osaka-toin">大阪桐蔭高校</option>
+            <option value="chiben-wakayama">智弁和歌山高校</option>
+            <option value="sakushin-gakuin">作新学院高校</option>
+            <option value="keio">慶應義塾高校</option>
+            <option value="seiryo">星稜高校</option>
+            <option value="koryo">広陵高校</option>
+            <option value="riseisha">履正社高校</option>
+            <option value="kendai-takasaki">健大高崎高校</option>
+            <option value="hanasaki-tokuharu">花咲徳栄高校</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="yearFilter">年代フィルター:</label>
+          <select id="yearFilter">
+            <option value="">全ての年代</option>
+            <option value="1990s">1990年代</option>
+            <option value="2000s">2000年代</option>
+            <option value="2010s">2010年代</option>
+            <option value="2020s">2020年代</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="players-table-container">
+        <div class="no-data" id="noData">学校を選択してください</div>
+        <table class="players-table" id="playersTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>卒業年</th>
+              <th>選手名</th>
+              <th>ポジション</th>
+              <th>現在の所属</th>
+              <th>甲子園での成績</th>
+            </tr>
+          </thead>
+          <tbody id="playersTableBody"> </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // 年代フィルター関数
+      function filterByDecade(players, decade) {
+        if (!decade) return players;
+
+        const decadeRanges = {
+          '1990s': [1990, 1999],
+          '2000s': [2000, 2009],
+          '2010s': [2010, 2019],
+          '2020s': [2020, 2029],
+        };
+
+        const [start, end] = decadeRanges[decade];
+        return players.filter(
+          player =>
+            player.graduationYear >= start && player.graduationYear <= end
+        );
+      }
+
+      // テーブル表示
+      async function displayPlayersTable(schoolName, yearFilter = null) {
+        const playersTable = document.getElementById('playersTable');
+        const playersTableBody = document.getElementById('playersTableBody');
+        const noData = document.getElementById('noData');
+
+        if (!schoolName) {
+          playersTable.style.display = 'none';
+          noData.style.display = 'block';
+          return;
+        }
+
+        try {
+          const module = await import(`./schoolPlayersData/${schoolName}.js`);
+          const schoolPlayers = Object.values(module)[0];
+
+          noData.style.display = 'none';
+          playersTable.style.display = 'table';
+
+          let players = schoolPlayers;
+          if (yearFilter) {
+            players = filterByDecade(players, yearFilter);
+          }
+
+          // 卒業年でソート
+          players.sort((a, b) => b.graduationYear - a.graduationYear);
+
+          // テーブルボディをクリア
+          playersTableBody.innerHTML = '';
+
+          players.forEach((player, index) => {
+            const row = document.createElement('tr');
+
+            // 卒業年セル
+            const yearCell = document.createElement('td');
+            const yearBadge = document.createElement('span');
+            yearBadge.className = 'year-badge';
+            yearBadge.textContent = player.graduationYear;
+            yearCell.appendChild(yearBadge);
+
+            // 選手名セル
+            const nameCell = document.createElement('td');
+            const playerName = document.createElement('div');
+            playerName.className = 'player-name';
+            playerName.textContent = player.name;
+            nameCell.appendChild(playerName);
+
+            // ポジションセル
+            const positionCell = document.createElement('td');
+            const positionSpan = document.createElement('span');
+            positionSpan.className = 'position';
+            positionSpan.textContent = player.position;
+            positionCell.appendChild(positionSpan);
+
+            // 現在の所属セル
+            const teamCell = document.createElement('td');
+            const teamSpan = document.createElement('span');
+            teamSpan.className = 'current-team';
+            teamSpan.textContent = player.currentTeam;
+            teamCell.appendChild(teamSpan);
+
+            // 成績セル
+            const achievementCell = document.createElement('td');
+            const achievementSpan = document.createElement('span');
+            achievementSpan.className = 'achievement';
+            achievementSpan.textContent = player.achievements;
+            achievementCell.appendChild(achievementSpan);
+
+            // 行に全てのセルを追加
+            row.appendChild(yearCell);
+            row.appendChild(nameCell);
+            row.appendChild(positionCell);
+            row.appendChild(teamCell);
+            row.appendChild(achievementCell);
+
+            // 遅延レンダリングでアニメーション効果
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+
+            playersTableBody.appendChild(row);
+
+            // 遅延してアニメーションを実行
+            setTimeout(() => {
+              row.style.transition = 'all 0.5s ease';
+              row.style.opacity = '1';
+              row.style.transform = 'translateY(0)';
+            }, index * 100);
+          });
+        } catch (error) {
+          console.error('Error loading school players data:', error);
+          playersTable.style.display = 'none';
+          noData.style.display = 'block';
+          noData.textContent = 'データの読み込みに失敗しました。';
+        }
+      }
+
+      // 初期化関数
+      function initializeTimeline() {
+        // イベントリスナー
+        document
+          .getElementById('schoolSelect')
+          .addEventListener('change', async function () {
+            const schoolName = this.value;
+            const yearFilter = document.getElementById('yearFilter').value;
+            await displayPlayersTable(schoolName, yearFilter);
+          });
+
+        document
+          .getElementById('yearFilter')
+          .addEventListener('change', async function () {
+            const schoolName = document.getElementById('schoolSelect').value;
+            const yearFilter = this.value;
+            await displayPlayersTable(schoolName, yearFilter);
+          });
+
+        // 初期表示
+        displayPlayersTable();
+      }
+
+      // DOM読み込み完了後に初期化
+      document.addEventListener('DOMContentLoaded', initializeTimeline);
+    </script>
+  </body>
+</html>
+
