@@ -17,83 +17,19 @@ import Header from '../../../components/Header.astro';
   <body>
     <Header />
     <div class="header">
-      <h1>📅 高校野球 在籍年表</h1>
-      <p>常連校の選手在籍年表と先輩後輩関係</p>
+      <h1>高校野球 在籍年表</h1>
+      <p>※ 情報には間違いがある可能性があります</p>
     </div>
 
     <div class="container">
       <div class="navigation">
-        <a href="/highschool/" class="nav-link">← 甲子園出場校リストに戻る</a>
+        <a href="/highschool/" class="nav-link" id="backLink"
+          >← 甲子園出場校リストに戻る</a
+        >
       </div>
 
-      <div class="controls">
-        <div class="control-group">
-          <label for="schoolSelect">学校選択:</label>
-          <select id="schoolSelect">
-            <option value="">学校を選択してください</option>
-            <option value="yokohama">横浜高校</option>
-            <option value="osaka-toin">大阪桐蔭高校</option>
-            <option value="chiben-wakayama">智弁和歌山高校</option>
-            <option value="sakushin-gakuin">作新学院高校</option>
-            <option value="keio">慶應義塾高校</option>
-            <option value="seiryo">星稜高校</option>
-            <option value="koryo">広陵高校</option>
-            <option value="riseisha">履正社高校</option>
-            <option value="kendai-takasaki">健大高崎高校</option>
-            <option value="hanasaki-tokuharu">花咲徳栄高校</option>
-            <option value="meitoku-gijuku">明徳義塾高校</option>
-            <option value="tenri">天理高校</option>
-            <option value="aikodai-meiden">愛工大名電高校</option>
-            <option value="kyushu-kokusai-daifu">九州国際大付高校</option>
-            <option value="aomori-yamada">青森山田高校</option>
-            <option value="kanto-daiichi">関東第一高校</option>
-            <option value="kobe-kokusai-daifu">神戸国際大附高校</option>
-            <option value="okinawa-shogaku">沖縄尚学高校</option>
-            <option value="hokkai">北海高校</option>
-            <option value="tohoku-gakuin">東北学院高校</option>
-            <option value="nihon-bunri">日本文理高校</option>
-            <option value="shizuoka">静岡高校</option>
-            <option value="ichinoseki-gakuin">一関学院高校</option>
-            <option value="meio">明桜高校</option>
-            <option value="haguro">羽黒高校</option>
-            <option value="gakuho-ishikawa">学法石川高校</option>
-            <option value="kisarazu-sogo">木更津総合高校</option>
-            <option value="nishogakusha-daifu">二松學舍大附高校</option>
-            <option value="hokuriku">北陸高校</option>
-            <option value="takaoka-sho">高岡商高校</option>
-            <option value="saku-chosei">佐久長聖高校</option>
-            <option value="shigakukan">至学館高校</option>
-            <option value="gifu-sho">岐阜商高校</option>
-            <option value="mie">三重高校</option>
-            <option value="kyoto-kokusai">京都国際高校</option>
-            <option value="kansai-soka">関西創価高校</option>
-            <option value="omi">近江高校</option>
-            <option value="soshi-gakuen">創志学園高校</option>
-            <option value="ube-kojyo">宇部鴻城高校</option>
-            <option value="tottori-sho">鳥取商高校</option>
-            <option value="iwami-chisui-kan">石見智翠館高校</option>
-            <option value="takamatsu-sho">高松商高校</option>
-            <option value="teikyo-daiichi">帝京第五高校</option>
-            <option value="naruto">鳴門高校</option>
-            <option value="arita-ko">有田工高校</option>
-            <option value="soseikan">創成館高校</option>
-            <option value="kyushu-gakuin">九州学院高校</option>
-            <option value="meiho">明豊高校</option>
-            <option value="nobeoka-gakuen">延岡学園高校</option>
-            <option value="kamimura-gakuen">神村学園高校</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="yearFilter">年代フィルター:</label>
-          <select id="yearFilter">
-            <option value="">全ての年代</option>
-            <option value="1990s">1990年代</option>
-            <option value="2000s">2000年代</option>
-            <option value="2010s">2010年代</option>
-            <option value="2020s">2020年代</option>
-          </select>
-        </div>
+      <div class="school-info">
+        <h2 id="currentSchoolName">学校情報を読み込み中...</h2>
       </div>
 
       <div class="players-table-container">
@@ -104,7 +40,6 @@ import Header from '../../../components/Header.astro';
               <th>卒業年</th>
               <th>選手名</th>
               <th>現在の所属</th>
-              <th>成績</th>
             </tr>
           </thead>
           <tbody id="playersTableBody"> </tbody>
@@ -113,80 +48,173 @@ import Header from '../../../components/Header.astro';
     </div>
 
     <script>
+      // 学校名マッピング（ローマ字 → 日本語）
+      const schoolNames = {
+        'yokohama': '横浜高校',
+        'osaka-toin': '大阪桐蔭高校',
+        'chiben-wakayama': '智弁和歌山高校',
+        'sakushin-gakuin': '作新学院高校',
+        'keio': '慶應義塾高校',
+        'seiryo': '星稜高校',
+        'koryo': '広陵高校',
+        'riseisha': '履正社高校',
+        'kendai-takasaki': '健大高崎高校',
+        'hanasaki-tokuharu': '花咲徳栄高校',
+        'meitoku-gijuku': '明徳義塾高校',
+        'tenri': '天理高校',
+        'aikodai-meiden': '愛工大名電高校',
+        'kyushu-kokusai-daifu': '九州国際大付高校',
+        'aomori-yamada': '青森山田高校',
+        'kanto-daiichi': '関東第一高校',
+        'kobe-kokusai-daifu': '神戸国際大附高校',
+        'okinawa-shogaku': '沖縄尚学高校',
+        'hokkai': '北海高校',
+        'tohoku-gakuin': '東北学院高校',
+        'nihon-bunri': '日本文理高校',
+        'shizuoka': '静岡高校',
+        'ichinoseki-gakuin': '一関学院高校',
+        'meio': '明桜高校',
+        'haguro': '羽黒高校',
+        'gakuho-ishikawa': '学法石川高校',
+        'kisarazu-sogo': '木更津総合高校',
+        'nishogakusha-daifu': '二松學舍大附高校',
+        'hokuriku': '北陸高校',
+        'takaoka-sho': '高岡商高校',
+        'saku-chosei': '佐久長聖高校',
+        'shigakukan': '至学館高校',
+        'gifu-sho': '岐阜商高校',
+        'mie': '三重高校',
+        'kyoto-kokusai': '京都国際高校',
+        'kansai-soka': '関西創価高校',
+        'omi': '近江高校',
+        'soshi-gakuen': '創志学園高校',
+        'ube-kojyo': '宇部鴻城高校',
+        'tottori-sho': '鳥取商高校',
+        'iwami-chisui-kan': '石見智翠館高校',
+        'takamatsu-sho': '高松商高校',
+        'teikyo-daiichi': '帝京第五高校',
+        'naruto': '鳴門高校',
+        'arita-ko': '有田工高校',
+        'soseikan': '創成館高校',
+        'kyushu-gakuin': '九州学院高校',
+        'meiho': '明豊高校',
+        'nobeoka-gakuen': '延岡学園高校',
+        'kamimura-gakuen': '神村学園高校',
+        // 2023年追加分
+        'hachinohe-gakuin-kosei': '八戸学院光星高校',
+        'morioka-dafu': '盛岡大附高校',
+        'sendai-ikuei': '仙台育英高校',
+        'noshiro-shoyo': '能代松陽高校',
+        'tsuruoka-higashi': '鶴岡東高校',
+        'seiko-gakuin': '聖光学院高校',
+        'maebashi-sho': '前橋商高校',
+        'shohei': '昌平高校',
+        'sendai-matsudo': '専大松戸高校',
+        'chuetsu': '中越高校',
+        'tsuruga-kehi': '敦賀気比高校',
+        'ueda-nishi': '上田西高校',
+        'kyoei': '享栄高校',
+        'hamamatsu-kaiseikan': '浜松開誠館高校',
+        'toki-sho': '土岐商高校',
+        'kyoto-gaidai-nishi': '京都外大西高校',
+        'okayama-sanyo': 'おかやま山陽高校',
+        'chiben-gakuen': '智弁学園高校',
+        'shimonoseki-kokusai': '下関国際高校',
+        'saibi': '済美高校',
+        'anan-hikari': '阿南光高校',
+        'fukuoka-dai-ohori': '福岡大大濠高校',
+        'karatsu-sho': '唐津商高校',
+        'nagasaki-nichidai': '長崎日大高校',
+        'kumamoto-kokufu': '熊本国府高校',
+        'kitsuki': '杵築高校',
+        'shonan': '樟南高校'
+      };
+
       // 学校名と都道府県のマッピング
       const schoolToPrefecture = {
-        'yokohama': 'kanagawa',
+        yokohama: 'kanagawa',
         'osaka-toin': 'osaka',
         'chiben-wakayama': 'wakayama',
         'sakushin-gakuin': 'tochigi',
-        'keio': 'kanagawa',
-        'seiryo': 'ishikawa',
-        'koryo': 'hiroshima',
-        'riseisha': 'osaka',
+        keio: 'kanagawa',
+        seiryo: 'ishikawa',
+        koryo: 'hiroshima',
+        riseisha: 'osaka',
         'kendai-takasaki': 'gunma',
         'hanasaki-tokuharu': 'saitama',
         'meitoku-gijuku': 'kochi',
-        'tenri': 'nara',
+        tenri: 'nara',
         'aikodai-meiden': 'aichi',
         'kyushu-kokusai-daifu': 'fukuoka',
         'aomori-yamada': 'aomori',
         'kanto-daiichi': 'tokyo',
         'kobe-kokusai-daifu': 'hyogo',
         'okinawa-shogaku': 'okinawa',
-        'hokkai': 'hokkaido',
+        hokkai: 'hokkaido',
         'tohoku-gakuin': 'miyagi',
         'nihon-bunri': 'niigata',
-        'shizuoka': 'shizuoka',
+        shizuoka: 'shizuoka',
         'ichinoseki-gakuin': 'iwate',
-        'meio': 'akita',
-        'haguro': 'yamagata',
+        meio: 'akita',
+        haguro: 'yamagata',
         'gakuho-ishikawa': 'fukushima',
         'kisarazu-sogo': 'chiba',
         'nishogakusha-daifu': 'tokyo',
-        'hokuriku': 'fukui',
+        hokuriku: 'fukui',
         'takaoka-sho': 'toyama',
         'saku-chosei': 'nagano',
-        'shigakukan': 'aichi',
+        shigakukan: 'aichi',
         'gifu-sho': 'gifu',
-        'mie': 'mie',
+        mie: 'mie',
         'kyoto-kokusai': 'kyoto',
         'kansai-soka': 'osaka',
-        'omi': 'shiga',
+        omi: 'shiga',
         'soshi-gakuen': 'okayama',
         'ube-kojyo': 'yamaguchi',
         'tottori-sho': 'tottori',
         'iwami-chisui-kan': 'shimane',
         'takamatsu-sho': 'kagawa',
         'teikyo-daiichi': 'ehime',
-        'naruto': 'tokushima',
+        naruto: 'tokushima',
         'arita-ko': 'saga',
-        'soseikan': 'nagasaki',
+        soseikan: 'nagasaki',
         'kyushu-gakuin': 'kumamoto',
-        'meiho': 'oita',
+        meiho: 'oita',
         'nobeoka-gakuen': 'miyazaki',
-        'kamimura-gakuen': 'kagoshima'
+        'kamimura-gakuen': 'kagoshima',
+        // 2023年追加分
+        'hachinohe-gakuin-kosei': 'aomori',
+        'morioka-dafu': 'iwate',
+        'sendai-ikuei': 'miyagi',
+        'noshiro-shoyo': 'akita',
+        'tsuruoka-higashi': 'yamagata',
+        'seiko-gakuin': 'fukushima',
+        'maebashi-sho': 'gunma',
+        'shohei': 'saitama',
+        'sendai-matsudo': 'chiba',
+        'chuetsu': 'niigata',
+        'tsuruga-kehi': 'fukui',
+        'ueda-nishi': 'nagano',
+        'kyoei': 'aichi',
+        'hamamatsu-kaiseikan': 'shizuoka',
+        'toki-sho': 'gifu',
+        'kyoto-gaidai-nishi': 'kyoto',
+        'okayama-sanyo': 'osaka',
+        'chiben-gakuen': 'nara',
+        'shimonoseki-kokusai': 'yamaguchi',
+        'saibi': 'ehime',
+        'anan-hikari': 'tokushima',
+        'fukuoka-dai-ohori': 'fukuoka',
+        'karatsu-sho': 'saga',
+        'nagasaki-nichidai': 'nagasaki',
+        'kumamoto-kokufu': 'kumamoto',
+        'kitsuki': 'oita',
+        'shonan': 'kagoshima',
       };
 
-      // 年代フィルター関数
-      function filterByDecade(players, decade) {
-        if (!decade) return players;
-
-        const decadeRanges = {
-          '1990s': [1990, 1999],
-          '2000s': [2000, 2009],
-          '2010s': [2010, 2019],
-          '2020s': [2020, 2029],
-        };
-
-        const [start, end] = decadeRanges[decade];
-        return players.filter(
-          player =>
-            player.graduationYear >= start && player.graduationYear <= end
-        );
-      }
 
       // テーブル表示
-      async function displayPlayersTable(schoolName, yearFilter = null) {
+      async function displayPlayersTable(schoolName) {
         const playersTable = document.getElementById('playersTable');
         const playersTableBody = document.getElementById('playersTableBody');
         const noData = document.getElementById('noData');
@@ -202,16 +230,15 @@ import Header from '../../../components/Header.astro';
           if (!prefecture) {
             throw new Error(`Prefecture not found for school: ${schoolName}`);
           }
-          const module = await import(`./schoolPlayersData/${prefecture}/${schoolName}.js`);
+          const module = await import(
+            `./schoolPlayersData/${prefecture}/${schoolName}.js`
+          );
           const schoolPlayers = Object.values(module)[0];
 
           noData.style.display = 'none';
           playersTable.style.display = 'table';
 
           let players = schoolPlayers;
-          if (yearFilter) {
-            players = filterByDecade(players, yearFilter);
-          }
 
           // 卒業年でソート
           players.sort((a, b) => b.graduationYear - a.graduationYear);
@@ -243,18 +270,10 @@ import Header from '../../../components/Header.astro';
             teamSpan.textContent = player.currentTeam;
             teamCell.appendChild(teamSpan);
 
-            // 成績セル
-            const achievementCell = document.createElement('td');
-            const achievementSpan = document.createElement('span');
-            achievementSpan.className = 'achievement';
-            achievementSpan.textContent = player.achievements;
-            achievementCell.appendChild(achievementSpan);
-
             // 行に全てのセルを追加
             row.appendChild(yearCell);
             row.appendChild(nameCell);
             row.appendChild(teamCell);
-            row.appendChild(achievementCell);
 
             // 遅延レンダリングでアニメーション効果
             row.style.opacity = '0';
@@ -279,33 +298,26 @@ import Header from '../../../components/Header.astro';
 
       // 初期化関数
       async function initializeTimeline() {
-        // URLから高校名を取得
+        // URLから高校名と年度を取得
         const urlParams = new URLSearchParams(window.location.search);
         const schoolFromUrl = urlParams.get('school');
+        const yearFromUrl = urlParams.get('year');
 
-        const schoolSelect = document.getElementById('schoolSelect');
-        const yearFilter = document.getElementById('yearFilter');
+        // 戻るリンクに年度パラメータを追加
+        const backLink = document.getElementById('backLink');
+        if (yearFromUrl) {
+          backLink.href = `/highschool/?year=${yearFromUrl}`;
+        }
 
-        // イベントリスナー
-        schoolSelect.addEventListener('change', async function () {
-          const schoolName = this.value;
-          const currentYearFilter = yearFilter.value;
-          await displayPlayersTable(schoolName, currentYearFilter);
-        });
-
-        yearFilter.addEventListener('change', async function () {
-          const schoolName = schoolSelect.value;
-          const currentYearFilter = this.value;
-          await displayPlayersTable(schoolName, currentYearFilter);
-        });
-
-        // URLに高校名があれば、それを選択して表示
+        // 学校名を表示
+        const schoolNameElement = document.getElementById('currentSchoolName');
         if (schoolFromUrl) {
-          schoolSelect.value = schoolFromUrl;
-          await displayPlayersTable(schoolFromUrl, yearFilter.value);
+          const japaneseSchoolName = schoolNames[schoolFromUrl] || schoolFromUrl;
+          schoolNameElement.textContent = `${japaneseSchoolName} 在籍年表`;
+          await displayPlayersTable(schoolFromUrl);
         } else {
-          // 初期表示
-          displayPlayersTable(schoolSelect.value);
+          schoolNameElement.textContent = '学校が指定されていません';
+          document.getElementById('noData').textContent = '学校パラメータが指定されていません。甲子園出場校リストから学校を選択してください。';
         }
       }
 
@@ -314,4 +326,3 @@ import Header from '../../../components/Header.astro';
     </script>
   </body>
 </html>
-

@@ -21,6 +21,11 @@ export const chibenWakayamaPlayers = [
     currentTeam: '東京ヤクルトスワローズ',
   },
   {
+    name: '細川凌平',
+    graduationYear: 2021,
+    currentTeam: '北海道日本ハムファイターズ',
+  },
+  {
     name: '東妻純平',
     graduationYear: 2019,
     currentTeam: '横浜DeNAベイスターズ',
