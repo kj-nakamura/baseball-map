@@ -22,6 +22,37 @@ body {
   font-weight: 700;
 }
 
+.year-selector {
+  margin: 15px 0;
+}
+
+.year-selector label {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.year-selector select {
+  background: white;
+  color: #333;
+  border: 2px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 8px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.year-selector select:hover {
+  border-color: #4ecdc4;
+}
+
+.year-selector select:focus {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
 .header p {
   margin: 5px 0 0;
   font-size: 1.1rem;
@@ -132,6 +163,26 @@ tr:hover {
   color: #333;
 }
 
+.school-name.has-timeline {
+  color: #4ecdc4;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+}
+
+.school-name.has-timeline:hover {
+  color: #45b7d1;
+  background-color: rgba(78, 205, 196, 0.1);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.school-name.no-timeline {
+  color: #666;
+  cursor: default;
+  text-decoration: none;
+}
+
 .prefecture {
   color: #666;
 }
@@ -139,6 +190,78 @@ tr:hover {
 .description {
   color: #888;
   font-size: 0.9rem;
+}
+
+/* モーダルスタイル */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50px);
+  transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-content h3 {
+  color: #ff6b6b;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.modal-content p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.modal-content p:last-of-type {
+  margin-bottom: 0;
+}
+
+#schoolNameInModal {
+  font-weight: 600;
+  color: #4ecdc4;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+  color: #ff6b6b;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {

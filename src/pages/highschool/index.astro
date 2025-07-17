@@ -1,8 +1,9 @@
 ---
 title: '高校野球 甲子園出場校リスト';
-description: '2024年夏の甲子園出場校一覧';
+description: '高校野球甲子園出場校一覧';
 import Header from '../../components/Header.astro';
-import { koushienSchools } from './2024_koushienSchools.js';
+import { koushienSchools as koushienSchools2024 } from './2024_koushienSchools.js';
+import { koushienSchools as koushienSchools2023 } from './2023_koushienSchools.js';
 ---
 
 <!doctype html>
@@ -19,28 +20,17 @@ import { koushienSchools } from './2024_koushienSchools.js';
     <Header />
     <div class="header">
       <h1>⚾ 高校野球 甲子園出場校リスト</h1>
-      <p>2024年夏の甲子園大会出場校（49校）</p>
+      <div class="year-selector">
+        <label for="yearSelect">年度:</label>
+        <select id="yearSelect">
+          <option value="2024">2024年</option>
+          <option value="2023">2023年</option>
+        </select>
+      </div>
+      <p id="description">2024年夏の甲子園大会出場校（49校）</p>
     </div>
 
     <div class="container">
-      <div class="navigation" style="margin-bottom: 20px;">
-        <a
-          href="/highschool/timeline/"
-          style="
-                display: inline-block;
-                background: linear-gradient(135deg, #4ecdc4, #45b7d1);
-                color: white;
-                text-decoration: none;
-                padding: 12px 24px;
-                border-radius: 25px;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 10px rgba(78, 205, 196, 0.3);
-            "
-          >📅 選手在籍年表を見る</a
-        >
-      </div>
-
       <div class="school-table">
         <table id="schoolTable">
           <thead>
@@ -55,81 +45,80 @@ import { koushienSchools } from './2024_koushienSchools.js';
       </div>
     </div>
 
-    <script define:vars={{ koushienSchools }}>
-      const schoolNameToRomaji = {
-        '北海': 'hokkai',
-        '青森山田': 'aomori-yamada',
-        '一関学院': 'ichinoseki-gakuin',
-        '東北学院': 'tohoku-gakuin',
-        '明桜': 'meio',
-        '羽黒': 'haguro',
-        '学法石川': 'gakuho-ishikawa',
-        '作新学院': 'sakushin-gakuin',
-        '健大高崎': 'kendai-takasaki',
-        '花咲徳栄': 'hanasaki-tokuharu',
-        '木更津総合': 'kisarazu-sogo',
-        '関東第一': 'kanto-daiichi',
-        '二松學舍大附': 'nishogakusha-daifu',
-        '横浜': 'yokohama',
-        '慶應義塾': 'keio',
-        '日本文理': 'nihon-bunri',
-        '北陸': 'hokuriku',
-        '高岡商': 'takaoka-sho',
-        '星稜': 'seiryo',
-        '佐久長聖': 'saku-chosei',
-        '愛工大名電': 'aikodai-meiden',
-        '至学館': 'shigakukan',
-        '静岡': 'shizuoka',
-        '岐阜商': 'gifu-sho',
-        '三重': 'mie',
-        '京都国際': 'kyoto-kokusai',
-        '履正社': 'riseisha',
-        '関西創価': 'kansai-soka',
-        '大阪桐蔭': 'osaka-toin',
-        '神戸国際大附': 'kobe-kokusai-daifu',
-        '天理': 'tenri',
-        '智弁和歌山': 'chiben-wakayama',
-        '近江': 'omi',
-        '創志学園': 'soshi-gakuen',
-        '広陵': 'koryo',
-        '宇部鴻城': 'ube-kojyo',
-        '鳥取商': 'tottori-sho',
-        '石見智翠館': 'iwami-chisui-kan',
-        '高松商': 'takamatsu-sho',
-        '帝京第五': 'teikyo-daiichi',
-        '明徳義塾': 'meitoku-gijuku',
-        '鳴門': 'naruto',
-        '九産大九州': 'kyushu-kokusai-daifu',
-        '九州国際大付': 'kyushu-kokusai-daifu',
-        '有田工': 'arita-ko',
-        '創成館': 'soseikan',
-        '九州学院': 'kyushu-gakuin',
-        '明豊': 'meiho',
-        '延岡学園': 'nobeoka-gakuen',
-        '神村学園': 'kamimura-gakuen',
-        '沖縄尚学': 'okinawa-shogaku',
-      };
+    <!-- データなしモーダル -->
+    <div id="noDataModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>📋 在籍年表データなし</h3>
+        <p><span id="schoolNameInModal"></span>の在籍年表データは現在準備中です。</p>
+        <p>データが追加され次第、ご利用いただけるようになります。</p>
+      </div>
+    </div>
+
+    <script define:vars={{ koushienSchools2024, koushienSchools2023 }}>
+      // timelineデータが存在する学校のリスト
+      const schoolsWithTimelineData = new Set([
+        'yokohama', 'osaka-toin', 'chiben-wakayama', 'sakushin-gakuin', 'keio',
+        'seiryo', 'koryo', 'riseisha', 'kendai-takasaki', 'hanasaki-tokuharu',
+        'meitoku-gijuku', 'tenri', 'aikodai-meiden', 'kyushu-kokusai-daifu',
+        'aomori-yamada', 'kanto-daiichi', 'kobe-kokusai-daifu', 'okinawa-shogaku',
+        'hokkai', 'tohoku-gakuin', 'nihon-bunri', 'shizuoka', 'ichinoseki-gakuin',
+        'meio', 'haguro', 'gakuho-ishikawa', 'kisarazu-sogo', 'nishogakusha-daifu',
+        'hokuriku', 'takaoka-sho', 'saku-chosei', 'shigakukan', 'gifu-sho',
+        'mie', 'kyoto-kokusai', 'kansai-soka', 'omi', 'soshi-gakuen',
+        'ube-kojyo', 'tottori-sho', 'iwami-chisui-kan', 'takamatsu-sho',
+        'teikyo-daiichi', 'naruto', 'arita-ko', 'soseikan', 'kyushu-gakuin',
+        'meiho', 'nobeoka-gakuen', 'kamimura-gakuen',
+        // 2023年追加分
+        'hachinohe-gakuin-kosei', 'morioka-dafu', 'sendai-ikuei', 'noshiro-shoyo',
+        'tsuruoka-higashi', 'seiko-gakuin', 'maebashi-sho', 'shohei',
+        'sendai-matsudo', 'chuetsu', 'tsuruga-kehi', 'ueda-nishi', 'kyoei',
+        'hamamatsu-kaiseikan', 'toki-sho', 'kyoto-gaidai-nishi', 'okayama-sanyo',
+        'chiben-gakuen', 'shimonoseki-kokusai', 'saibi', 'anan-hikari',
+        'fukuoka-dai-ohori', 'karatsu-sho', 'nagasaki-nichidai', 'kumamoto-kokufu',
+        'kitsuki', 'shonan'
+      ]);
+
+      // timelineデータの存在チェック
+      function checkTimelineDataExists(romajiName) {
+        return schoolsWithTimelineData.has(romajiName);
+      }
+
+      // URLパラメータ処理関数
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      function setUrlParameter(name, value) {
+        const url = new URL(window.location);
+        url.searchParams.set(name, value);
+        window.history.replaceState({}, '', url);
+      }
 
       // テーブルにデータを表示
       function displaySchools(schools) {
         const tableBody = document.getElementById('schoolTableBody');
         tableBody.innerHTML = '';
 
-        schools.forEach(school => {
+        for (const school of schools) {
           const row = document.createElement('tr');
           const schoolNameCell = document.createElement('td');
-          schoolNameCell.className = 'school-name';
+          const hasTimelineData = checkTimelineDataExists(school.romaji);
+          
           schoolNameCell.textContent = school.name;
-          schoolNameCell.style.cursor = 'pointer'; // カーソルをポインターに
-          schoolNameCell.style.textDecoration = 'underline'; // 下線を追加
-          schoolNameCell.addEventListener('click', () => {
-            const romajiName = schoolNameToRomaji[school.name];
-            if (romajiName) {
-              window.location.href = `/highschool/timeline/?school=${romajiName}`;
-            } else {
-              console.warn(`Romaji name not found for ${school.name}`);
-            }
-          });
+          
+          if (hasTimelineData) {
+            schoolNameCell.className = 'school-name has-timeline';
+            schoolNameCell.addEventListener('click', () => {
+              window.location.href = `/highschool/timeline/?school=${school.romaji}&year=${currentYear}`;
+            });
+          } else {
+            schoolNameCell.className = 'school-name no-timeline';
+            schoolNameCell.addEventListener('click', () => {
+              showNoDataModal(school.name);
+            });
+          }
 
           const prefectureCell = document.createElement('td');
           prefectureCell.className = 'prefecture';
@@ -143,7 +132,7 @@ import { koushienSchools } from './2024_koushienSchools.js';
           row.appendChild(prefectureCell);
           row.appendChild(descriptionCell);
           tableBody.appendChild(row);
-        });
+        }
       }
 
       // ボタンのアクティブ状態を更新 (この関数は現在使用されていませんが、残しておきます)
@@ -166,9 +155,79 @@ import { koushienSchools } from './2024_koushienSchools.js';
       // グローバルに関数を公開 (現在使用されていませんが、残しておきます)
       window.showAllSchools = showAllSchools;
 
+      // モーダル表示・非表示機能
+      function showNoDataModal(schoolName) {
+        const modal = document.getElementById('noDataModal');
+        const schoolNameSpan = document.getElementById('schoolNameInModal');
+        schoolNameSpan.textContent = schoolName;
+        modal.style.display = 'block';
+        // アニメーション用のクラスを少し遅れて追加
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      }
+
+      function hideNoDataModal() {
+        const modal = document.getElementById('noDataModal');
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
+
+      // 年度データ管理
+      const yearData = {
+        2024: koushienSchools2024,
+        2023: koushienSchools2023
+      };
+      
+      // URLパラメータから年度を取得、なければデフォルト値
+      let currentYear = getUrlParameter('year') || '2024';
+      
+      // 年度選択時の処理
+      function handleYearChange() {
+        const yearSelect = document.getElementById('yearSelect');
+        currentYear = yearSelect.value;
+        const schools = yearData[currentYear];
+        const description = document.getElementById('description');
+        description.textContent = `${currentYear}年夏の甲子園大会出場校（49校）`;
+        // URLパラメータも更新
+        setUrlParameter('year', currentYear);
+        displaySchools(schools);
+      }
+      
       // 初期表示
       document.addEventListener('DOMContentLoaded', function () {
-        displaySchools(koushienSchools);
+        const yearSelect = document.getElementById('yearSelect');
+        // URLパラメータから取得した年度でドロップダウンを設定
+        yearSelect.value = currentYear;
+        // 説明文も更新
+        const description = document.getElementById('description');
+        description.textContent = `${currentYear}年夏の甲子園大会出場校（49校）`;
+        
+        yearSelect.addEventListener('change', handleYearChange);
+        displaySchools(yearData[currentYear]);
+
+        // モーダルイベントリスナー
+        const modal = document.getElementById('noDataModal');
+        const closeBtn = document.querySelector('.close');
+
+        // × ボタンクリックで閉じる
+        closeBtn.addEventListener('click', hideNoDataModal);
+
+        // モーダル外クリックで閉じる
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            hideNoDataModal();
+          }
+        });
+
+        // ESCキーで閉じる
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && modal.style.display === 'block') {
+            hideNoDataModal();
+          }
+        });
       });
     </script>
   </body>

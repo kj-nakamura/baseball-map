@@ -2,7 +2,7 @@ export const hokkaiPlayers = [
   {
     name: '鍵谷陽平',
     graduationYear: 2009,
-    currentTeam: '読売ジャイアンツ',
+    currentTeam: '元プロ野球選手',
   },
   {
     name: '大西健斗',
@@ -17,6 +17,6 @@ export const hokkaiPlayers = [
   {
     name: '木村大成',
     graduationYear: 2022,
-    currentTeam: '北海道日本ハムファイターズ',
+    currentTeam: '福岡ソフトバンクホークス',
   },
 ];
